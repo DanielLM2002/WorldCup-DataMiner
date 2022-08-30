@@ -2,4 +2,4 @@ bin/
 build/
 doc/
 .vscode/
-.DStore/
+.DS_Store/
