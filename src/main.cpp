@@ -1,5 +1,8 @@
 /// @copyright 2022 ECCI, Universidad de Costa Rica. All rights reserved
 /// @author Esteban Castañeda Blanco <esteban.castaneda@ucr.ac.cr>
+/// @author Daniel Lizano Morales <daniel.lizanomorales@ucr.ac.cr>
+/// @author Michelle Fonseca Carrillo <michelle.fonseca@ucr.ac.cr>
+/// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
 #define IPV4
@@ -24,7 +27,6 @@ int main(int argc, char * argv[]) {
     printf("%s\n", a);
     memset(a, 0, 512);
   }
-
 
   //char * os = (char *) "http://os.ecci.ucr.ac.cr/";
   //char * reqOS = (char *) "GET /futbol/2018/world-cup-2018.json HTTP/1.1\r\nhost: redes.ecci\r\n\r\n";

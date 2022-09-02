@@ -1,5 +1,8 @@
 /// @copyright 2022 ECCI, Universidad de Costa Rica. All rights reserved
 /// @author Esteban Castañeda Blanco <esteban.castaneda@ucr.ac.cr>
+/// @author Daniel Lizano Morales <daniel.lizanomorales@ucr.ac.cr>
+/// @author Michelle Fonseca Carrillo <michelle.fonseca@ucr.ac.cr>
+/// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
 #ifndef SOCKET_HPP
@@ -46,10 +49,10 @@ class Socket {
   // SSL Methods
   void InitSSLContext();
 	void InitSSL();
-	int SSLConnect(const char *, int);
-	int SSLConnect(const char *, char *);
-	int SSLRead(void *, int);
-	int SSLWrite(void *, int);
+	int SSLConnect(const char*, int);
+	int SSLConnect(const char*, char*);
+	int SSLRead(void*, int);
+	int SSLWrite(void*, int);
 };
 
 #endif  // !SOCKET_HPP
