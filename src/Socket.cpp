@@ -22,7 +22,7 @@ Socket::Socket(char type, bool ipv6) {
 }
 
 Socket::Socket( int id ) {
-  id = this->id;
+  this->id = id;
 }
 
 
@@ -39,12 +39,24 @@ Socket::~Socket() {
 
 }
 
-
 void Socket::Close(){
   close( this->id );
 }
 
-
+int Socket::Connect(const char* hostip, int port) {
+  struct sockaddr_in host4;
+  memset(reinterpret_cast<char *>(&host4), 0, sizeof(host4));
+  host4.sin_family = AF_INET;
+  inet_pton(AF_INET, hostip, &host4.sin_addr);
+  host4.sin_port = htons(port);
+  int st = connect(this->id, reinterpret_cast<sockaddr *>(&host4),
+    sizeof(host4));
+  if (st == -1) {
+    perror("Socket::Connect");
+    exit(2);
+  }
+  return st;
+}
 
 // SSL methods
 
@@ -84,7 +96,7 @@ void Socket::InitSSL() {
 /*
  *
  */
-void Socket::SSLConnect( char * host, int port ) {
+int Socket::SSLConnect( const char * host, int port ) {
    int resultado;
 
    this->Connect( host, port );	// Establish a non ssl connection first
@@ -94,14 +106,14 @@ void Socket::SSLConnect( char * host, int port ) {
       perror( "Socket::SSLConnect" );
       exit( 23 );
    }
-
+  return resultado;
 }
 
 
 /*
  *
  */
-void Socket::SSLConnect( char * host, char * service ) {
+int Socket::SSLConnect( const char * host, char * service ) {
    int resultado;
 
    this->Connect( host, service );
@@ -111,7 +123,7 @@ void Socket::SSLConnect( char * host, char * service ) {
       perror( "Socket::SSLConnect" );
       exit( 23 );
    }
-
+  return resultado;
 
 }
 
@@ -136,7 +148,7 @@ int Socket::SSLRead( void * buffer, int size ) {
 /*
  *
  */
-int Socket::SSLWrite( const void *buffer, int size ) {
+int Socket::SSLWrite( void* buffer, int size ) {
    int resultado;
 
    resultado = SSL_write( (SSL *) this->SSLStruct, buffer, size );

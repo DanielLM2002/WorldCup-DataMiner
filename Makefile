@@ -7,10 +7,10 @@ DEFS=
 CSTD=-std=gnu17
 XSTD=-std=gnu++17
 FLAG=
-FLAGS=$(strip -Wall -Wextra -lssl -lcrypto $(FLAG) $(DEFS))
+FLAGS=$(strip -Wall -Wextra $(FLAG) $(DEFS))
 FLAGC=$(FLAGS) $(CSTD)
 FLAGX=$(FLAGS) $(XSTD)
-LIBS=
+LIBS= -lssl -lcrypto
 LINTF=-build/header_guard,-build/include_subdir
 LINTC=$(LINTF),-readability/casting
 LINTX=$(LINTF),-build/c++17,-runtime/references

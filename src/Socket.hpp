@@ -45,8 +45,8 @@ class Socket {
    void SetId(int);
   void InitSSLContext();
 	void InitSSL();
-	int SSLConnect(char *, int);
-	int SSLConnect(char *, char *);
+	int SSLConnect(const char *, int);
+	int SSLConnect(const char *, char *);
 	int SSLRead(void *, int);
 	int SSLWrite(void *, int);
 };
