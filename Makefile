@@ -7,7 +7,7 @@ DEFS=
 CSTD=-std=gnu17
 XSTD=-std=gnu++17
 FLAG=
-FLAGS=$(strip -Wall -Wextra $(FLAG) $(DEFS))
+FLAGS=$(strip -Wall -Wextra -lssl -lcrypto $(FLAG) $(DEFS))
 FLAGC=$(FLAGS) $(CSTD)
 FLAGX=$(FLAGS) $(XSTD)
 LIBS=
