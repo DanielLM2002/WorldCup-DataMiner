@@ -57,6 +57,20 @@ int Socket::Connect(const char* hostip, int port) {
   }
   return st;
 }
+int Socket::Connect(const char* hostip, const char* port) {
+  struct sockaddr_in host4;
+  memset(reinterpret_cast<char *>(&host4), 0, sizeof(host4));
+  host4.sin_family = AF_INET;
+  inet_pton(AF_INET, hostip, &host4.sin_addr);
+  host4.sin_port = htons(atoi(port));
+  int st = connect(this->id, reinterpret_cast<sockaddr *>(&host4),
+    sizeof(host4));
+  if (st == -1) {
+    perror("Socket::Connect");
+    exit(2);
+  }
+  return st;
+}
 
 // SSL methods
 
