@@ -35,16 +35,16 @@ class Socket {
   int Write(const char*, int);
   int Write(const char*);
   int Listen(int);
-  int Bind(int);
+  //int Bind(int);
   Socket* Accept();
   int Shutdown(int);
-  void SetId(int);
+  //void SetId(int);
   void InitSSLContext();
 	void InitSSL();
-	int SSLConnect( char *, int );
-	int SSLConnect( char *, char * );
-	int SSLRead( void *, int );
-	int SSLWrite( void *, int );
+	int SSLConnect(char *, int);
+	int SSLConnect(char *, char *);
+	int SSLRead(void *, int);
+	int SSLWrite(void *, int);
 };
 
 #endif  // !SOCKET_HPP
