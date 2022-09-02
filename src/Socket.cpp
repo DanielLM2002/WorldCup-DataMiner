@@ -22,7 +22,7 @@ Socket::Socket(char type, bool ipv6) {
 }
 
 Socket::Socket( int id ) {
-  idSocket = id;
+  id = this->id;
 }
 
 
@@ -41,7 +41,7 @@ Socket::~Socket() {
 
 
 void Socket::Close(){
-  close( this->idSocket );
+  close( this->id );
 }
 
 
@@ -88,7 +88,7 @@ void Socket::SSLConnect( char * host, int port ) {
    int resultado;
 
    this->Connect( host, port );	// Establish a non ssl connection first
-   SSL_set_fd( (SSL *) this->SSLStruct, this->idSocket );
+   SSL_set_fd( (SSL *) this->SSLStruct, this->id );
    resultado = SSL_connect( (SSL *) this->SSLStruct );
    if ( -1 == resultado ) {
       perror( "Socket::SSLConnect" );
@@ -105,7 +105,7 @@ void Socket::SSLConnect( char * host, char * service ) {
    int resultado;
 
    this->Connect( host, service );
-   SSL_set_fd( (SSL *) this->SSLStruct, this->idSocket );
+   SSL_set_fd( (SSL *) this->SSLStruct, this->id );
    resultado = SSL_connect( (SSL *) this->SSLStruct );
    if ( -1 == resultado ) {
       perror( "Socket::SSLConnect" );

@@ -3,6 +3,7 @@
 /// This code is released under the GNU Public License version 3
 
 #define IPV4
+#define SIZE 1024
 
 #include <stdio.h>
 #include <string.h>
