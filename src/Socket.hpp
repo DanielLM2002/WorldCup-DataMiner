@@ -37,6 +37,8 @@ class Socket {
   ~Socket();
   int Connect(const char*, int);
   int Connect(const char*, const char*);
+  int ConnectIPV6(const char*, int);
+  int ConnectIPV6(const char*, const char*);
   void Close();
   int Read(char*, int);
   int Write(const char*, int);

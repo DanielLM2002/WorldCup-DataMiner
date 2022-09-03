@@ -89,6 +89,50 @@ int Socket::Connect(const char* hostip, const char* port) {
 }
 
 /**
+ * @brief Method that connects with a port and an ip address
+ * in IPV6
+ * @param hostip Ip address
+ * @param port Port address
+ * @return int 
+ */
+int Socket::ConnectIPV6(const char* hostip, int port) {
+  struct sockaddr_in6 host6;
+  memset(reinterpret_cast<char *>(&host6), 0, sizeof(host6));
+  host6.sin6_family = AF_INET6;
+  inet_pton(AF_INET6, hostip, &host6.sin6_addr);
+  host6.sin6_port = htons(port);
+  int st = connect(this->id, reinterpret_cast<sockaddr *>(&host6),
+           sizeof(host6));
+  if (st == -1) {
+    perror("Socket::Connect");
+    exit(2);
+  }
+  return st;
+}
+
+/**
+ * @brief Method that connects with a port and an ip address
+ * in IPV6
+ * @param hostip Ip address
+ * @param port Port address
+ * @return int 
+ */
+int Socket::ConnectIPV6(const char* hostip, const char* port) {
+  struct sockaddr_in6 host6;
+  memset(reinterpret_cast<char *>(&host6), 0, sizeof(host6));
+  host6.sin6_family = AF_INET6;
+  inet_pton(AF_INET6, hostip, &host6.sin6_addr);
+  host6.sin6_port = htons(atoi(port));
+  int st = connect(this->id, reinterpret_cast<sockaddr *>(&host6),
+           sizeof(host6));
+  if (st == -1) {
+    perror("Socket::Connect");
+    exit(2);
+  }
+  return st;
+}
+
+/**
  * @brief Method that reads from a socket
  * @param info Information to read
  * @param length Size of the information vector
