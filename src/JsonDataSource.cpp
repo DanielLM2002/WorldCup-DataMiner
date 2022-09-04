@@ -18,8 +18,7 @@ using namespace std;
 JsonDataSource::JsonDataSource() {
     int result = this->fetchData();
     std::cout << this->data << " \n";
-    if(result == 1) {
-        std::cout << "dta fetched" << "\n";
+    if(result == 0) {
         this->parseDataToRounds();
     } else {
         perror("Cannot get data");
@@ -48,28 +47,24 @@ int JsonDataSource::fetchData() {
         perror("JsonDataSource Cannot connect to source");
     }
 
-    char a[256];
+    char responseRead[8];
+    int responseReadSize = 8;
     s.Write(  request );
-    int read = s.Read( a, 256 );
+    int read = s.Read( responseRead, responseReadSize );
     std::stringstream ss;
     while(read > 0) {
-        ss << a;
-        memset(a, 0, 256);
-        read = s.Read( a, 256 );
+        ss << responseRead;
+        memset(responseRead, '\0', responseReadSize);
+        read = s.Read( responseRead, responseReadSize );
     }    
     s.Close();
-
-    std::cout << " after reading all the connection data \n";
 
     this->data = ss.str();
     // remove http headers
     int firstChar = this->data.find("{",0);
     this->data = this->data.erase(0, firstChar);
 
-    std::cout << " after replacing headers \n";
-    // std::cout << this->data;
-
-    return 1;
+    return result;
 }
 
 void JsonDataSource::parseDataToRounds() {
