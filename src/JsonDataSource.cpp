@@ -16,8 +16,10 @@ using json = nlohmann::json;
 using namespace std;
 
 JsonDataSource::JsonDataSource() {
-    int result = this->fetchData();;
-    if(result == 0) {
+    int result = this->fetchData();
+    std::cout << this->data << " \n";
+    if(result == 1) {
+        std::cout << "dta fetched" << "\n";
         this->parseDataToRounds();
     } else {
         perror("Cannot get data");
@@ -34,8 +36,8 @@ Round JsonDataSource::getRound(string roundName){
 
 int JsonDataSource::fetchData() {
 
-    const char* osn = "10.1.104.187";  // Public ip
-    //const char* osn = "163.178.104.187";  // Private ip 
+    // const char* osn = "10.1.104.187";  // Public ip
+    const char* osn = "163.178.104.187";  // Private ip 
     const char* request = "GET /futbol/2018/world-cup-2018.json HTTP/1.1\r\nhost: redes.ecci\r\n\r\n";
     
     
@@ -46,24 +48,39 @@ int JsonDataSource::fetchData() {
         perror("JsonDataSource Cannot connect to source");
     }
 
-    char a[512];
+    char a[256];
     s.Write(  request );
-    int read = s.Read( a, 512 );
+    int read = s.Read( a, 256 );
     std::stringstream ss;
     while(read > 0) {
         ss << a;
-        memset(a, 0, 512);
-        read = s.Read( a, 512 );
-    }
-    this->data = ss.str();
+        memset(a, 0, 256);
+        read = s.Read( a, 256 );
+    }    
     s.Close();
+
+    std::cout << " after reading all the connection data \n";
+
+    this->data = ss.str();
+    // remove http headers
+    int firstChar = this->data.find("{",0);
+    this->data = this->data.erase(0, firstChar);
+
+    std::cout << " after replacing headers \n";
+    // std::cout << this->data;
 
     return 1;
 }
 
 void JsonDataSource::parseDataToRounds() {
 
-    json jsonValue = json::parse(this->data);
+    std::cout << "in parse data";
+
+    json jsonData = json::parse(this->data);
+
+    std::cout << "after parsing data";
+
+    std::cout << jsonData["matches"];
 
     std::cout << "to implement \n";
 }

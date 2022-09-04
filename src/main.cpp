@@ -69,16 +69,16 @@ int main( int argc, char * argv[] ) {
 
   JsonDataSource dataSrc;
 
-  Round groupA = dataSrc.getRound("group_a");
+  // Round groupA = dataSrc.getRound("group_a");
 
-  vector<Match> groupAMatches = groupA.getMatches();
+  // vector<Match> groupAMatches = groupA.getMatches();
 
-  std::cout << "Group A matches: " << "\n";
-  int size = groupAMatches.size();
-  for (int i = 0; i < size; ++i) {
-    std::cout << groupAMatches[i].getHomeTeam() << " vs " 
-              << groupAMatches[i].getAwayTeam() << "\n";
-  }
+  // std::cout << "Group A matches: " << "\n";
+  // int size = groupAMatches.size();
+  // for (int i = 0; i < size; ++i) {
+  //   std::cout << groupAMatches[i].getHomeTeam() << " vs " 
+  //             << groupAMatches[i].getAwayTeam() << "\n";
+  // }
   
 }
 
