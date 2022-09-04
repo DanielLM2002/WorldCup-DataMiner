@@ -49,12 +49,12 @@ class Socket {
   int Shutdown(int);
   void SetId(int);
   // SSL Methods
+  void InitSSL();
   void InitSSLContext();
-	void InitSSL();
-	int SSLConnect(const char*, int);
-	int SSLConnect(const char*, char*);
-	int SSLRead(void*, int);
-	int SSLWrite(void*, int);
+  int SSLConnect(const char*, int);
+  int SSLConnect(const char*, const char*);
+  int SSLRead(const void*, int);
+  int SSLWrite(const void*, int);
 };
 
 #endif  // !SOCKET_HPP
