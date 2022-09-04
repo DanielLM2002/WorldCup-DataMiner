@@ -38,7 +38,7 @@ int main(int argc, char * argv[]) {
 
   memset( a, 0, SIZE );
   s.InitSSL();
-  s.SSLConnect( os, (char *) "https" );
+  s.SSLConnect( os, 80 );
   s.SSLWrite(  (void *) reqOS, strlen( reqOS ) );
   while ( (s.SSLRead( a, SIZE )) > 0 ) {   // Waits until conection close
     printf( "%s\n", a );
