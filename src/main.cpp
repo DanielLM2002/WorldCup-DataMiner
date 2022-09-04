@@ -20,7 +20,7 @@
 int main(int argc, char * argv[]) {
   //const char* os = "http://os.ecci.ucr.ac.cr/";
   //const char* osn = "10.1.104.187";  // Public ip
-  //const char* osn = "163.178.104.187";  // Private ip  
+  const char* osn = "163.178.104.187";  // Private ip  
   //const char* request = "GET /futbol/2018/world-cup-2018.json HTTP/1.1\r\nhost: redes.ecci\r\n\r\n";
   //Socket s('s');
   //char a[512];
@@ -38,7 +38,7 @@ int main(int argc, char * argv[]) {
 
   memset( a, 0, SIZE );
   s.InitSSL();
-  s.SSLConnect( os, 80 );
+  s.SSLConnect( osn, 80 );
   s.SSLWrite(  (void *) reqOS, strlen( reqOS ) );
   while ( (s.SSLRead( a, SIZE )) > 0 ) {   // Waits until conection close
     printf( "%s\n", a );
