@@ -17,7 +17,7 @@ using namespace std;
 
 JsonDataSource::JsonDataSource() {
     int result = this->fetchData();
-    std::cout << this->data << " \n";
+    // std::cout << this->data << " \n"; // TODO remove this part, is for debug
     if(result == 0) {
         this->parseDataToRounds();
     } else {
@@ -69,13 +69,80 @@ int JsonDataSource::fetchData() {
 
 void JsonDataSource::parseDataToRounds() {
 
-    std::cout << "in parse data";
-
+    // std::cout << "in parse data";
     json jsonData = json::parse(this->data);
 
-    std::cout << "after parsing data";
+    // this->parseGroups(jsonData);
+    this->parseRounds(jsonData, "groups", "group_", "group ");
+    this->parseRounds(jsonData, "knockout", "", "");
+}
 
-    std::cout << jsonData["matches"];
+void JsonDataSource::parseGroups(json jsonData) {
+    // TODO remove this method
+    // json groups = jsonData["groups"];
+    // for (json::iterator it = groups.begin(); it != groups.end(); ++it) {
+    //     string group = it.key();
+    //     string groupCode = "group_" + group;
+    //     string groupName = "Group " + group;
+    //     Round round(groupCode, groupName);
+        
+    //     json matches = it.value()["matches"];
+    //     round.setMatches( this->parseMatches(matches) );
 
-    std::cout << "to implement \n";
+    //     this->rounds.insert({groupCode, round});
+    // }
+}
+
+void JsonDataSource::parseRounds(json jsonData, string roundsKey, string roundCodePref, string namePref) {
+    // json groups = jsonData["groups"];
+    json rounds = jsonData[roundsKey];
+    for (json::iterator it = rounds.begin(); it != rounds.end(); ++it) {
+        // string group = it.key();
+        string roundKey = it.key();
+        string roundCode = roundCodePref + roundKey;
+        string roundName = namePref + roundKey;
+        Round round(roundCode, roundName);
+        
+        json matches = it.value()["matches"];
+        round.setMatches( this->parseMatches(matches) );
+
+        this->rounds.insert({roundCode, round});
+    }
+}
+
+vector<Match> JsonDataSource::parseMatches(json matches) {
+    vector<Match> matchesArray;
+    for(json::iterator matchIt = matches.begin(); 
+                            matchIt != matches.end(); ++matchIt) {
+            json info = matchIt.value();
+            string homeScoreString = info["home_score"];
+            string awayScoreString = info["away_score"];
+            int homeScore = atoi(&homeScoreString[0]);
+            int awayScore = atoi(&awayScoreString[0]);
+
+
+            // if winner/loser field is null/not-set then calculate it
+            string winner = info["home_team"];
+            string loser = info["away_team"];
+            if ( !info.contains("winner") ) {
+                if (homeScore < awayScore) {
+                    winner = info["away_team"];
+                    loser = info["home_team"];
+                } else {
+                    winner = "none";
+                    loser = "none";
+                }
+            }
+
+            Match tempMatch( homeScore,
+                             awayScore,
+                             info["date"],
+                             loser,
+                             winner,
+                             info["home_team"],
+                             info["away_team"]
+                            );
+            matchesArray.push_back(tempMatch);
+        }
+        return matchesArray;
 }

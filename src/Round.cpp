@@ -7,7 +7,7 @@
 
 #include "Round.hpp"
 
-Round::Round(int code, std::string name) {
+Round::Round(std::string code, std::string name) {
   this->code = code;
   this->name = name;
 }
@@ -20,7 +20,7 @@ void Round::addMatch(Match match) {
   this->matches.push_back(match);
 }
 
-int Round::getCode() {
+std::string Round::getCode() {
   return this->code;
 }
 
@@ -32,7 +32,7 @@ std::vector<Match> Round::getMatches() {
   return this->matches;
 }
 
-void Round::setCode(int code) {
+void Round::setCode(std::string code) {
   this->code = code;
 }
 

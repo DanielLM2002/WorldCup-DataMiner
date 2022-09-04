@@ -69,17 +69,34 @@ int main( int argc, char * argv[] ) {
 
   JsonDataSource dataSrc;
 
-  // Round groupA = dataSrc.getRound("group_a");
+  Round round = dataSrc.getRound("group_c");
 
-  // vector<Match> groupAMatches = groupA.getMatches();
+  vector<Match> roundMatches = round.getMatches();
 
-  // std::cout << "Group A matches: " << "\n";
-  // int size = groupAMatches.size();
-  // for (int i = 0; i < size; ++i) {
-  //   std::cout << groupAMatches[i].getHomeTeam() << " vs " 
-  //             << groupAMatches[i].getAwayTeam() << "\n";
-  // }
+  std::cout << round.getName() << " matches: " << endl;
+  int size = roundMatches.size();
+  for (int i = 0; i < size; ++i) {
+    Match match = roundMatches[i];
+    std::cout << match.getHomeTeam() <<" vs " 
+              << match.getAwayTeam() << " => "
+              << match.getHomeScore() << " - "
+              << match.getAwayScore() << endl;
+  }
   
+  round = dataSrc.getRound("round_16");
+  roundMatches = round.getMatches();
+
+  std::cout << endl << endl;
+  std::cout << round.getName() << " matches: " << endl;
+  size = roundMatches.size();
+  for (int i = 0; i < size; ++i) {
+    Match match = roundMatches[i];
+    std::cout << match.getHomeTeam() <<" vs " 
+              << match.getAwayTeam() << " => "
+              << match.getHomeScore() << " - "
+              << match.getAwayScore() << endl;
+  }
+
 }
 
 #endif

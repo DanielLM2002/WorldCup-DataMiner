@@ -10,8 +10,11 @@
 
 #include "Socket.hpp"
 #include "Round.hpp"
+#include <vector>
 #include <map>
 using namespace std;
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 class JsonDataSource {
  public:
@@ -48,6 +51,22 @@ class JsonDataSource {
     */
    void parseDataToRounds();
 
+   /**
+    * @brief extract groups(a,b,c,d...) from json
+    * 
+    */
+   void parseGroups(json);
+
+   void parseRounds(json, string, string, string);
+
+   /**
+    * @brief extract information about matches,
+    *        and returns a list of the matches
+    * @json object with array of matches, like jsonObject["matches"]
+    * 
+    * @return vector<Match> 
+    */
+   vector<Match> parseMatches(json);
 };
 
 #endif //  _JSON_DATA_SOURCE_

@@ -14,18 +14,18 @@
 
 class Round {
  private:
-  int code;
+  std::string code;
   std::string name;
   std::vector<Match> matches;
 
  public:
-  explicit Round(int, std::string);
+  explicit Round(std::string, std::string);
   ~Round();
   void addMatch(Match);
-  int getCode();
+  std::string getCode();
   std::string getName();
   std::vector<Match> getMatches();
-  void setCode(int);
+  void setCode(std::string);
   void setName(std::string);
   void setMatches(std::vector<Match>);
 };
