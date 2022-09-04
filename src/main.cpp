@@ -5,15 +5,15 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#define Json
+#define JSON
 #define SIZE 1024
 
 #include <stdio.h>
 #include <string.h>
 
-#include "Socket.hpp"
 // #include "DataSource.hpp"
 #include "Round.hpp"
+#include "Socket.hpp"
 #include "JsonDataSource.hpp"
 
 #ifdef DEFAULT
@@ -64,39 +64,35 @@ int main( int argc, char * argv[] ) {
 }
 #endif
 
-#ifdef Json
+#ifdef JSON
 int main( int argc, char * argv[] ) { 
-
   JsonDataSource dataSrc;
-
   Round round = dataSrc.getRound("group_c");
+  std::vector<Match> roundMatches = round.getMatches();
 
-  vector<Match> roundMatches = round.getMatches();
-
-  std::cout << round.getName() << " matches: " << endl;
+  std::cout << round.getName() << " matches: " << std::endl;
   int size = roundMatches.size();
-  for (int i = 0; i < size; ++i) {
-    Match match = roundMatches[i];
+  for (int index = 0; index < size; ++index) {
+    Match match = roundMatches[index];
     std::cout << match.getHomeTeam() <<" vs " 
               << match.getAwayTeam() << " => "
               << match.getHomeScore() << " - "
-              << match.getAwayScore() << endl;
+              << match.getAwayScore() << std::endl;
   }
   
   round = dataSrc.getRound("round_16");
   roundMatches = round.getMatches();
 
-  std::cout << endl << endl;
-  std::cout << round.getName() << " matches: " << endl;
+  std::cout << std::endl << std::endl;
+  std::cout << round.getName() << " matches: " << std::endl;
   size = roundMatches.size();
   for (int i = 0; i < size; ++i) {
     Match match = roundMatches[i];
     std::cout << match.getHomeTeam() <<" vs " 
               << match.getAwayTeam() << " => "
               << match.getHomeScore() << " - "
-              << match.getAwayScore() << endl;
+              << match.getAwayScore() << std::endl;
   }
-
 }
 
 #endif

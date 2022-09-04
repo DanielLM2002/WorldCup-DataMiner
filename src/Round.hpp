@@ -8,9 +8,9 @@
 #ifndef ROUND_HPP
 #define ROUND_HPP
 
-#include "Match.hpp"
-
 #include <vector>
+
+#include "Match.hpp"
 
 class Round {
  private:

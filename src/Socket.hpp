@@ -5,8 +5,8 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#ifndef SOCKET_HPP
-#define SOCKET_HPP
+#ifndef _SOCKET_
+#define _SOCKET_
 
 #include <stdio.h>
 #include <stdlib.h>

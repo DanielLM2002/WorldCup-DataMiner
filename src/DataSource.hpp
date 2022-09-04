@@ -8,27 +8,23 @@
 #ifndef _DATA_SOURCE_
 #define _DATA_SOURCE_
 
-#include "Match.hpp"
-#include "Round.hpp"
 #include <map>
-using namespace std;
+
+#include "Round.hpp"
 
 class DataSource {
-
- public:
-   //DataSource() {}
-   virtual ~DataSource() {}
-
-   /**
-    * @brief Get the Round object
-    * 
-    * @return Round
-    */
-   virtual Round getRound(string);
-
  protected:
-   map <string, Round> rounds;   
+  std::map<std::string, Round> rounds;  
+ public:
+  //DataSource() {}
+  virtual ~DataSource() {}
 
+  /**
+   * @brief Get the Round object
+   * 
+   * @return Round
+   */
+  virtual Round getRound(std::string); 
 };
 
-#endif  // _DATA_SOURCE_
+#endif  // !_DATA_SOURCE_

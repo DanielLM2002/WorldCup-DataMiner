@@ -5,8 +5,8 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#ifndef MATCH_HPP
-#define MATCH_HPP
+#ifndef _MATCH_
+#define _MATCH_
 
 #include <iostream>
 
