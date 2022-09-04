@@ -201,7 +201,7 @@ int Socket::SSLConnect(const char* host, int port) {
  * @param service 
  * @return int 
  */
-int Socket::SSLConnect(const char* host, char* service) {
+int Socket::SSLConnect(const char* host, const char* service) {
   int result;
   this->Connect(host, service);
   SSL_set_fd((SSL *) this->SSLStruct, this->id);
@@ -219,9 +219,9 @@ int Socket::SSLConnect(const char* host, char* service) {
  * @param size 
  * @return int 
  */
-int Socket::SSLRead(void* buffer, int size) {
+int Socket::SSLRead(const void* buffer, int size) {
   int result;
-  result = SSL_read((SSL *) this->SSLStruct, buffer, size);
+  result = SSL_read((SSL *) this->SSLStruct, (void *) buffer, size);
   if (result == -1) {
     perror( "Socket::SSLRead" );
     exit( 23 );
@@ -235,7 +235,7 @@ int Socket::SSLRead(void* buffer, int size) {
  * @param size 
  * @return int 
  */
-int Socket::SSLWrite(void* buffer, int size) {
+int Socket::SSLWrite(const void* buffer, int size) {
   int result;
   result = SSL_write((SSL *) this->SSLStruct, buffer, size);
   if ( result == -1) {
