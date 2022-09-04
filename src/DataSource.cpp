@@ -5,29 +5,30 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#ifndef ROUND_HPP
-#define ROUND_HPP
+#ifndef _DATA_SOURCE_
+#define _DATA_SOURCE_
 
 #include "Match.hpp"
+#include "Round.hpp"
+#include <map>
+using namespace std;
 
-#include <vector>
-
-class Round {
- private:
-  int code;
-  std::string name;
-  std::vector<Match> matches;
+class DataSource {
 
  public:
-  explicit Round(int, std::string);
-  ~Round();
-  void addMatch(Match);
-  int getCode();
-  std::string getName();
-  std::vector<Match> getMatches();
-  void setCode(int);
-  void setName(std::string);
-  void setMatches(std::vector<Match>);
+   //DataSource() {}
+   virtual ~DataSource() {}
+
+   /**
+    * @brief Get the Round object
+    * 
+    * @return Round
+    */
+   virtual Round getRound(string);
+
+ protected:
+   map <string, Round> rounds;   
+
 };
 
-#endif  // !ROUND_HPP
+#endif  // _DATA_SOURCE_

@@ -5,13 +5,16 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#define IPV4
+#define DEFAULT
 #define SIZE 1024
 
 #include <stdio.h>
 #include <string.h>
 
 #include "Socket.hpp"
+// #include "DataSource.hpp"
+#include "Round.hpp"
+#include "JsonDataSource.hpp"
 
 #ifdef IPV4
 int main(int argc, char * argv[]) {
@@ -59,4 +62,24 @@ int main( int argc, char * argv[] ) {
   s.Read(a, 512);
   printf("%s\n", a);
 }
+#endif
+
+#ifdef DEFAULT
+int main( int argc, char * argv[] ) { 
+
+  JsonDataSource dataSrc;
+
+  Round groupA = dataSrc.getRound("group_a");
+
+  vector<Match> groupAMatches = groupA.getMatches();
+
+  std::cout << "Group A matches: " << "\n";
+  int size = groupAMatches.size();
+  for (int i = 0; i < size; ++i) {
+    std::cout << groupAMatches[i].getHomeTeam() << " vs " 
+              << groupAMatches[i].getAwayTeam() << "\n";
+  }
+  
+}
+
 #endif

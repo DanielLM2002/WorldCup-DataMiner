@@ -16,7 +16,7 @@ Round::~Round() {
 
 }
 
-void Round::addMatch(Match* match) {
+void Round::addMatch(Match match) {
   this->matches.push_back(match);
 }
 
@@ -28,7 +28,7 @@ std::string Round::getName() {
   return this->name;
 }
 
-std::vector<Match*> Round::getMatches() {
+std::vector<Match> Round::getMatches() {
   return this->matches;
 }
 
@@ -40,6 +40,6 @@ void Round::setName(std::string name) {
   this->name = name;
 }
 
-void Round::setMatches(std::vector<Match*> matches) {
+void Round::setMatches(std::vector<Match> matches) {
   this->matches = matches;
 }

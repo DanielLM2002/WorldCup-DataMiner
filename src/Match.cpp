@@ -13,8 +13,8 @@ Match::Match(int homeScore, int awayScore, std::string date, std::string loser, 
   this->date = date;
   this->loser = loser;
   this->winner = winner;
-  this->homeTeam = homeScore;
-  this->awayTeam = awayScore;
+  this->homeTeam = homeTeam;
+  this->awayTeam = awayTeam;
 }
 
 Match::~Match() {
