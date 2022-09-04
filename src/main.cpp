@@ -5,7 +5,7 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#define DEFAULT
+#define Json
 #define SIZE 1024
 
 #include <stdio.h>
@@ -16,7 +16,7 @@
 #include "Round.hpp"
 #include "JsonDataSource.hpp"
 
-
+#ifdef DEFAULT
 int main(int argc, char * argv[]) {
   //const char* os = "http://os.ecci.ucr.ac.cr/";
   //const char* osn = "10.1.104.187";  // Public ip
@@ -46,7 +46,7 @@ int main(int argc, char * argv[]) {
   }
   printf( "%s\n", a );
 }
-
+#endif
 
 #ifdef IPV6
 int main( int argc, char * argv[] ) {
@@ -67,7 +67,7 @@ int main( int argc, char * argv[] ) {
 #ifdef Json
 int main( int argc, char * argv[] ) { 
 
-  //JsonDataSource dataSrc;
+  JsonDataSource dataSrc;
 
   // Round groupA = dataSrc.getRound("group_a");
 
