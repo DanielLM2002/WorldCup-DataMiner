@@ -13,6 +13,12 @@ Para la compilacion del prgrama contamos con un makefile, por lo que para compil
 make
 
 ```
+Seguido de eso deberiamos de realizar la introduccion por consola de cual pais queremos ver.
+```
+crc
+```
+En caso de que no se introduzca un equipo en la competicion, se mostrara un mensaje de error.
+Igualmente si no se introduce ningun equipo.
 
 ## Créditos
 
