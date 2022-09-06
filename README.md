@@ -1,6 +1,6 @@
 # **World cup data miner**
 
-## Descripición del problema
+## Descripción del problema
 El problema a resolver en el proyecto es que debemos de poder conseguir de una pagina web los datos
 necesarios para poder mostrar la ruta de un equipo en un mundial de futbol. Para ello debemos de
 generar los protocolos de red necesarios para poder obtener los datos de la pagina web y poder
@@ -8,17 +8,17 @@ mostrarlos en una interfaz de consola. Esta interfaz de consola debe de ser capa
 resultados de los equipos que se le indiquen.
 
 ## Manual de uso
-Para la compilacion del prgrama contamos con un makefile, por lo que para compilar solo ocupamos dar el comando
+Para la compilación del programa contamos con un makefile, por lo que para compilar solo ocupamos dar el comando
 ```
 make
 
 ```
-Seguido de eso deberiamos de realizar la introduccion por consola de cual pais queremos ver.
+Seguido de eso deberíamos de realizar la introducción por consola de cual país queremos ver.
 ```
 crc
 ```
-En caso de que no se introduzca un equipo en la competicion, se mostrara un mensaje de error.
-Igualmente si no se introduce ningun equipo.
+En caso de que no se introduzca un equipo en la competición, se mostrara un mensaje de error.
+Igualmente si no se introduce ningún equipo.
 
 ## Créditos
 
