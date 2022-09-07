@@ -5,15 +5,19 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#ifndef COUNTRYCODES_HPP
-#define COUNTRYCODES_HPP
+#ifndef _COUNTRY_CODES_
+#define _COUNTRY_CODES_
 
 #include <map>
 #include <iostream>
 
 class CountryCodes {
+  /// Array with tha countries
   std::map<std::string, std::string> countries;
 
+  /**
+   * @brief Constructor
+   */
   CountryCodes::CountryCodes() {
     this->countries.insert({"AFG", "Afghanistan"});
     this->countries.insert({"ALB", "Albania"});
@@ -229,4 +233,4 @@ class CountryCodes {
   };
 };
 
-#endif // !COUNTRYCODES_HPP
+#endif // !_COUNTRY_CODES_

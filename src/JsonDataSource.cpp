@@ -9,7 +9,6 @@
 
 JsonDataSource::JsonDataSource() {
   int result = this->fetchData();
-  // std::cout << this->data << " \n"; // TODO remove this part, is for debug
   if(result == 0)
     this->parseDataToRounds();
   else
@@ -56,35 +55,14 @@ int JsonDataSource::fetchData() {
 }
 
 void JsonDataSource::parseDataToRounds() {
-  // std::cout << "in parse data";
   json jsonData = json::parse(this->data);
-
-  // this->parseGroups(jsonData);
   this->parseRounds(jsonData, "groups", "group_", "group ");
   this->parseRounds(jsonData, "knockout", "", "");
 }
 
-void JsonDataSource::parseGroups(json jsonData) {
-  // TODO remove this method
-  // json groups = jsonData["groups"];
-  // for (json::iterator it = groups.begin(); it != groups.end(); ++it) {
-  //     string group = it.key();
-  //     string groupCode = "group_" + group;
-  //     string groupName = "Group " + group;
-  //     Round round(groupCode, groupName);
-        
-  //     json matches = it.value()["matches"];
-  //     round.setMatches( this->parseMatches(matches) );
-
-  //     this->rounds.insert({groupCode, round});
-  // }
-}
-
 void JsonDataSource::parseRounds(json jsonData, std::string roundsKey, std::string roundCodePref, std::string namePref) {
-  // json groups = jsonData["groups"];
   json rounds = jsonData[roundsKey];
   for (json::iterator it = rounds.begin(); it != rounds.end(); ++it) {
-    // string group = it.key();
     std::string roundKey = it.key();
     std::string roundCode = roundCodePref + roundKey;
     std::string roundName = namePref + roundKey;

@@ -11,61 +11,67 @@
 #include <map>
 #include <vector>
 #include <sstream>
+#include <nlohmann/json.hpp>
 
 #include "Round.hpp"
 #include "Socket.hpp"
-#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 
 class JsonDataSource {
  private:
+  /// Data extracted from JSON
   std::string data;
 
  public:
+  /**
+   * @brief Constructor
+   */
   explicit JsonDataSource();
+
+  /**
+   * @brief Destroyer
+   */
   ~JsonDataSource();
 
   /**
-   * @brief Get the Round object
-   * 
-   * @return Round 
+   * @brief Method that gets the Round
+   * @return Round
    */
   Round getRound(std::string roundName);
  
  private:
   /**
-   * @brief fetchs the data from the server
-   * 
+   * @brief Method that fetchs the data from the server
    */
   int fetchData();
 
   /**
-   * @brief storing rounds associated to each round type
+   * @brief  Method that storing rounds associated to each round type
    *        like "group_a" associated to Round with type "group_a"
-   * 
    */
   std::map <std::string, Round> rounds;
 
   /**
-   * @brief Parse the data obtained from the server
-   *        and parses it to Rounds;
+   * @brief Method that parses the data obtained from the server
+   *        and parses it to Rounds
    */
   void parseDataToRounds();
 
   /**
-   * @brief extract groups(a,b,c,d...) from json
-   * 
+   * @brief Method that parses the data obtained from the server according 
+   *        to a key, it associates the data with a key
+   * @param jsonData Data extracted from JSON
+   * @param roundKey Key
+   * @param roundCodePref Round prefix
+   * @param namePref name prefix
    */
-   void parseGroups(json);
-
-   void parseRounds(json, std::string, std::string, std::string);
+  void parseRounds(json, std::string, std::string, std::string);
 
   /**
-   * @brief extract information about matches,
-   *        and returns a list of the matches
-   * @json object with array of matches, like jsonObject["matches"]
-   * 
+   * @brief Method that extracts information about matches, and returns a 
+   *        list of the matches
+   * @param matches JSON object with array of matches, like jsonObject["matches"]
    * @return vector<Match> 
    */
   std::vector<Match> parseMatches(json);
