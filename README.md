@@ -1,25 +1,46 @@
-# **World cup data miner**
+# **World cup dataminer**
 
 ## Descripción del problema
-El problema a resolver en el proyecto es que debemos de poder conseguir de una pagina web los datos
-necesarios para poder mostrar la ruta de un equipo en un mundial de futbol. Para ello debemos de
-generar los protocolos de red necesarios para poder obtener los datos de la pagina web y poder
-mostrarlos en una interfaz de consola. Esta interfaz de consola debe de ser capaz de mostrar los
-resultados de los equipos que se le indiquen.
+Este programa es un software cliente que obtiene información de un servidor de datos seleccionado, para este fin se estará empleando el protocolo HTTP. Los datos obtenidos del servidor servirán para mostrar la ruta de una selección determinada en el mundial de fútbol, empezando por sus resultados en fase de grupos y mostrando además, los resultados de sus juegos en etapas más avanzadas como octavos, cuartos, semifinal y final en el caso que dicha selección las alla disputado. La visualización de los datos se hará mediante la interfaz de consola, la cual será capaz de mostrar los resultados de los equipos que el usuario indique. Los datos a utilizar están basados en las estadísticas que dejó el mundial de fútbol de Rusia 2018.
+
+<center>
+
+  ![Grupos](design/worldcup-groups.jpg)
+
+</center>
 
 ## Manual de uso
-Para la compilación del programa contamos con un makefile, por lo que para compilar solo ocupamos dar el comando
+
+El usuario podrá introducir el nombre del país del que desea saber sus estadísticas, el programa desplegará en la consola el recorrido de la selección en el mundial abarcando todas sus participaciones en fase de grupos y en instancias eliminatorias si aplicara. En el caso de que el equipo introducido no contara con particiáciones en el mundial, se desplegará un mensaje de error.
+
+### Librerías
+
+Para la realización de este proyecto fue necesario el uso de librerías de C++ externas, es necesario tenerlas instaladas para poder compilar exitosamente el código, las librerías utilizadas son las siguientes:
+
+* OpenSSL
+* nlohmann-json3-dev
+
+Para instalar estas librerías utilice los siguientes comandos respectivamente:
+
+```
+sudo apt-get install openssl
+sudo apt-get install nlohmann-json3-dev
+```
+
+### Compilación
+
+Para compilar el código se utiliza el siguiente comando:
 ```
 make
+```
+Este comando generará una carpeta ```bin``` en la cual se guardará el archivo ```WorldCup-DataMiner.o```
+### Ejecución
+
+Posterior a la compilación del código, para ejecutar el programa debe emplearse el siguiente comando:
 
 ```
-Seguido de eso deberíamos de realizar la introducción por consola de cual país queremos ver.
+bin/WorldCup-DataMiner
 ```
-crc
-```
-En caso de que no se introduzca un equipo en la competición, se mostrara un mensaje de error.
-Igualmente si no se introduce ningún equipo.
-
 ## Créditos
 
 Proyecto desarrollado por:

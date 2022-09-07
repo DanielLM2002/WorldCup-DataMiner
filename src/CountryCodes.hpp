@@ -9,13 +9,12 @@
 #define COUNTRYCODES_HPP
 
 #include <map>
+#include <iostream>
 
-class CountryCodes
-{
+class CountryCodes {
   std::map<std::string, std::string> countries;
 
-  CountryCodes::CountryCodes()
-  {
+  CountryCodes::CountryCodes() {
     this->countries.insert({"AFG", "Afghanistan"});
     this->countries.insert({"ALB", "Albania"});
     this->countries.insert({"ALG", "Algeria"});
