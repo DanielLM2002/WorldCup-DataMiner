@@ -1,7 +1,7 @@
 # **World cup dataminer**
 
 ## Descripción del problema
-Este programa es un software cliente que obtiene información de un servidor de datos seleccionado, para este fin se estará empleando el protocolo HTTP. Los datos obtenidos del servidor servirán para mostrar la ruta de una selección determinada en el mundial de fútbol, empezando por sus resultados en fase de grupos y mostrando además, los resultados de sus juegos en etapas más avanzadas como octavos, cuartos, semifinal y final en el caso que dicha selección las alla disputado. La visualización de los datos se hará mediante la interfaz de consola, la cual será capaz de mostrar los resultados de los equipos que el usuario indique. Los datos a utilizar están basados en las estadísticas que dejó el mundial de fútbol de Rusia 2018.
+Este programa es un software cliente que obtiene información de un servidor de datos seleccionado, para este fin se estará empleando el protocolo HTTP. Los datos obtenidos del servidor servirán para mostrar la ruta de una selección determinada en el mundial de fútbol, empezando por sus resultados en fase de grupos y mostrando además, los resultados de sus juegos en etapas más avanzadas como octavos, cuartos, semifinal y final en el caso que dicha selección las halla disputado. La visualización de los datos se hará mediante la interfaz de consola, la cual será capaz de mostrar los resultados de los equipos que el usuario indique. Los datos a utilizar están basados en las estadísticas que dejó el mundial de fútbol de Rusia 2018.
 
 <center>
 
