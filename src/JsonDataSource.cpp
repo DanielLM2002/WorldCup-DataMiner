@@ -65,7 +65,10 @@ void JsonDataSource::parseRounds(json jsonData, std::string roundsKey, std::stri
   for (json::iterator it = rounds.begin(); it != rounds.end(); ++it) {
     std::string roundKey = it.key();
     std::string roundCode = roundCodePref + roundKey;
-    std::string roundName = namePref + roundKey;
+    std::string roundName = (namePref + roundKey);
+    if(roundsKey.compare("knockout") == 0) {
+      roundName = it.value()["name"];
+    }
     Round round(roundCode, roundName);    
     json matches = it.value()["matches"];
     round.setMatches( this->parseMatches(matches) );
