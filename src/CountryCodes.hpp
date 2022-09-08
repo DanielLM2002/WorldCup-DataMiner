@@ -11,14 +11,14 @@
 #include <map>
 #include <iostream>
 
-class CountryCodes {
-  /// Array with tha countries
+struct CountryCodes {
+  /// Array with the countries and their codes
   std::map<std::string, std::string> countries;
 
   /**
    * @brief Constructor
    */
-  CountryCodes::CountryCodes() {
+  explicit CountryCodes() {
     this->countries.insert({"AFG", "Afghanistan"});
     this->countries.insert({"ALB", "Albania"});
     this->countries.insert({"ALG", "Algeria"});
