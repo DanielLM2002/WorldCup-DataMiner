@@ -5,15 +5,17 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#ifndef OUTPUT_HPP
-#define OUTPUT_HPP
+#ifndef _OUTPUT_
+#define _OUTPUT_
 
 #include <stdio.h>
 #include <string.h>
+
 #include <vector>
 
 #include "Round.hpp"
 #include "Socket.hpp"
+#include "CountryCodes.hpp"
 #include "JsonDataSource.hpp"
 
 typedef struct {
@@ -29,25 +31,24 @@ typedef struct {
 } PointsByCountry;
 
 class Output {
-  private: 
-    JsonDataSource json;
-    std::string country;
+ private: 
+  JsonDataSource json;
+  std::string country;
 
-  public:
-    explicit Output();
-    ~Output();
-    void getInput();
-    void buildTable(std::vector<Match>, std::vector<PointsByCountry>);
-    void askAgain();
-    void handleCountry();
-    void printGroup(std::string);
-    void printTable(std::vector<PointsByCountry>);
-    void printCountryCodes();
-    void printMatches();
-    void printMatch(Match);
-    std::string getGroup();
-    std::string toUpperCase(std::string);
-
+ public:
+  explicit Output();
+  ~Output();
+  void getInput();
+  void buildTable(std::vector<Match>, std::vector<PointsByCountry>);
+  void askAgain();
+  void handleCountry();
+  void printGroup(std::string);
+  void printTable(std::vector<PointsByCountry>);
+  void printCountryCodes();
+  void printMatches();
+  void printMatch(Match);
+  std::string getGroup();
+  std::string toUpperCase(std::string);
 };
 
-#endif  // !OUTPUT_HPP
+#endif  // !_OUTPUT_
