@@ -54,6 +54,38 @@ int JsonDataSource::fetchData() {
   return result;
 }
 
+int JsonDataSource::fetchDataSSL() {
+  // const char* osn = "10.1.104.187";  // Public ip
+  const char* osn = "163.178.104.187";  // Private ip 
+  const char* request = "GET /futbol/2018/world-cup-2018.json HTTP/1.1\r\nhost: redes.ecci\r\n\r\n";  
+  Socket s('s');	// Create a new stream socket for IPv4
+  char responseRead[8];
+  int read;
+  int firstChar;
+  s.InitSSL();
+  int result = s.SSLConnect(osn, 443);
+  int responseReadSize = 8;
+
+  if(result == -1)
+    perror("JsonDataSource Cannot connect to source");
+
+  s.SSLWrite(request, strlen(request));
+  read = s.SSLRead(responseRead, responseReadSize);
+  std::stringstream ss;
+  while(read > 0) {
+    ss << responseRead;
+    memset(responseRead, '\0', responseReadSize);
+    read = s.SSLRead(responseRead, responseReadSize);
+  }    
+  s.Close();
+  
+  this->data = ss.str();
+  // remove http headers
+  firstChar = this->data.find("{",0);
+  this->data = this->data.erase(0, firstChar);
+  return result;
+}
+
 void JsonDataSource::parseDataToRounds() {
   json jsonData = json::parse(this->data);
   this->parseRounds(jsonData, "groups", "group_", "group ");

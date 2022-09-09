@@ -47,6 +47,11 @@ class JsonDataSource {
   int fetchData();
 
   /**
+   * @brief Method that fetchs the data from the server using SSL
+   */
+  int fetchDataSSL();
+
+  /**
    * @brief  Method that storing rounds associated to each round type
    *        like "group_a" associated to Round with type "group_a"
    */
