@@ -16,6 +16,18 @@
 #include "Socket.hpp"
 #include "JsonDataSource.hpp"
 
+typedef struct {
+  int PJ = 0;
+  int PG = 0;
+  int PE = 0;
+  int PP = 0;
+  int GF = 0;
+  int GC = 0;
+  int GD = 0;
+  int Pts = 0;
+  std::string country = "";
+} PointsByCountry;
+
 class Output {
   private: 
     JsonDataSource json;
@@ -25,16 +37,16 @@ class Output {
     explicit Output();
     ~Output();
     void getInput();
-    void buildTable();
+    void buildTable(std::vector<Match>, std::vector<PointsByCountry>);
     void askAgain();
     void handleCountry();
     void printGroup(std::string);
+    void printTable(std::vector<PointsByCountry>);
     void printCountryCodes();
     void printMatches();
     void printMatch(Match);
     std::string getGroup();
     std::string toUpperCase(std::string);
-    std::string print();
 
 };
 

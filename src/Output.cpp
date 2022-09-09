@@ -86,13 +86,6 @@ std::string Output::getGroup() {
   return index;
 }
 
-void Output::buildTable() {
-}
-
-std::string Output::print() {
-  return 0;
-}
-
 void Output::askAgain() {
   std::string answer;
   std::cout << "Would you like to check another country (yes/no): ";
@@ -108,19 +101,93 @@ void Output::askAgain() {
 }
 
 void Output::printGroup(std::string group) { 
+  std::vector<PointsByCountry> countriesByGroup;
   Round round = json.getRound(group);
   std::vector<Match> roundMatches = round.getMatches();
   std::cout << round.getName() << std::endl << std::endl;
-  std::cout << "Country" << "\t\t" << "PJ" << '\t' << "PG" << '\t' << "PE" << '\t' << "PP" << '\t' << "GF" << '\t' << "GC" << '\t' << "GD" << '\t' << "Pts" << std::endl;
-  for (size_t index = 0; index < roundMatches.size(); ++index) {
-    Match match = roundMatches[index];
-    // print group
+  int index = 0;
+  for (size_t i = 0; i < roundMatches.size(); i++) {
+    Match match = roundMatches[i];
+    bool foundCountry = false;
+    for (size_t j = 0; j < countriesByGroup.size(); j++){
+      if (countriesByGroup[j].country == match.getHomeTeam()) {
+        foundCountry = true;
+      }
+    }
+    if (!foundCountry) {
+      PointsByCountry pts;
+      countriesByGroup.push_back(pts);
+      countriesByGroup[index].country = match.getHomeTeam();
+      index++;
+    }
   }
+  buildTable(roundMatches, countriesByGroup);
   printMatches();
 }
 
-void Output::printCountryCodes() {
+void Output::buildTable(std::vector<Match> roundMatches, std::vector<PointsByCountry> countriesByGroup) {
+  std::cout << "Country" << "\t\t" << "PJ" << '\t' << "PG" << '\t' << "PE" << '\t' << "PP" << '\t' << "GF" << '\t' << "GC" << '\t' << "GD" << '\t' << "Pts" << std::endl;
+  for (size_t i = 0; i < roundMatches.size(); ++i) {
+    Match match = roundMatches[i];
+    for (size_t j = 0; j < countriesByGroup.size(); j++) {
+      if (match.getAwayTeam() == countriesByGroup[j].country) {
+        countriesByGroup[j].PJ++;
+        countriesByGroup[j].GF += match.getAwayScore();
+        countriesByGroup[j].GC += match.getHomeScore();
+        if (match.getHomeScore() < match.getAwayScore()) {
+          countriesByGroup[j].PG++;
+        }
+        if (match.getHomeScore() > match.getAwayScore()) {
+          countriesByGroup[j].PP++;
+        }
+        if (match.getHomeScore() == match.getAwayScore()) {
+          countriesByGroup[j].PE++;
+        }
+      }
+      if (match.getHomeTeam() == countriesByGroup[j].country) {
+        countriesByGroup[j].PJ++;
+        countriesByGroup[j].GF += match.getHomeScore();
+        countriesByGroup[j].GC += match.getAwayScore();
+        if (match.getHomeScore() > match.getAwayScore()) {
+          countriesByGroup[j].PG++;
+        }
+        if (match.getHomeScore() < match.getAwayScore()) {
+          countriesByGroup[j].PP++;
+        }
+        if (match.getHomeScore() == match.getAwayScore()) {
+          countriesByGroup[j].PE++;
+        }
+      }
+    }
+  }
+  for (size_t i = 0; i < countriesByGroup.size(); ++i) {
+    countriesByGroup[i].GD = countriesByGroup[i].GF - countriesByGroup[i].GC;
+    countriesByGroup[i].Pts = (3*countriesByGroup[i].PG) + countriesByGroup[i].PE;
+  }
+  printTable(countriesByGroup);
+}
 
+void Output::printTable(std::vector<PointsByCountry> countriesByGroup) { 
+  while (countriesByGroup.size() != 0) {
+    int highestScore = 0;
+    for (size_t i = 0; i < countriesByGroup.size(); ++i) {
+      if (countriesByGroup[i].Pts > countriesByGroup[highestScore].Pts) {
+        highestScore = i;
+      }
+    }
+    std::cout << countriesByGroup[highestScore].country << "\t\t" << countriesByGroup[highestScore].PJ << '\t' << countriesByGroup[highestScore].PG << '\t' << countriesByGroup[highestScore].PE << '\t' << countriesByGroup[highestScore].PP << '\t' << countriesByGroup[highestScore].GF << '\t' << countriesByGroup[highestScore].GC << '\t' << countriesByGroup[highestScore].GD << '\t' << countriesByGroup[highestScore].Pts << std::endl;
+    countriesByGroup.erase(countriesByGroup.begin() + highestScore);
+  }
+  std::cout << std::endl;
+}
+
+void Output::printCountryCodes() {
+  CountryCodes codes;
+  for (auto& x: codes.countries) {
+    std::cout << x.first << ": " << x.second << '\n';
+  }
+  std::cout << std::endl;
+  getInput();
 }
 
 void Output::printMatches() {
@@ -136,6 +203,7 @@ void Output::printMatches() {
     std::vector<Match> roundMatches = tempRound.getMatches();
     for (size_t j = 0; j < roundMatches.size() ; j++) {
       if (roundMatches[j].getHomeTeam() == this->country || roundMatches[j].getAwayTeam() == this->country) {
+        std::cout << tempRound.getName() << std::endl;
         printMatch(roundMatches[j]);
       }
     }
@@ -143,7 +211,6 @@ void Output::printMatches() {
 }
 
 void Output::printMatch(Match match) {
-  // std::cout << round[i] << std::endl;
   std::cout << "Country" << '\t' << "Country" << "\t\t" << "Score" << std::endl;
   std::string score = "";
   score += std::to_string(match.getHomeScore());
