@@ -71,7 +71,7 @@ class JsonDataSource {
    * @param roundCodePref Round prefix
    * @param namePref name prefix
    */
-  void parseRounds(json, std::string, std::string, std::string);
+  void parseRounds(json, std::string, std::string);
 
   /**
    * @brief Method that extracts information about matches, and returns a 
