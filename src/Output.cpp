@@ -116,8 +116,8 @@ void Output::printGroup(std::string group) {
       index++;
     }
   }
-  buildTable(roundMatches, countriesByGroup);
-  printMatches();
+  this->buildTable(roundMatches, countriesByGroup);
+  this->printMatches();
 }
 
 void Output::buildTable(std::vector<Match> roundMatches, std::vector<PointsByCountry> countriesByGroup) {
