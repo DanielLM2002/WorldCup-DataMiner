@@ -57,6 +57,10 @@ class Util {
   /// Splits a text string into array of subtexts
   static std::vector<std::string> split(const std::string& text,
     const std::string& delim = " ", bool trimEmpty = false);
+
+  static std::string ltrim(const std::string &s);
+  static std::string rtrim(const std::string &s);
+  static std::string trim(const std::string &s);
 };
 
 #endif  // UTIL_HPP
