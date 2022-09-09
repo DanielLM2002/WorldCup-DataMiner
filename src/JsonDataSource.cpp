@@ -91,19 +91,16 @@ int JsonDataSource::fetchDataSSL() {
 
 void JsonDataSource::parseDataToRounds() {
   json jsonData = json::parse(this->data);
-  this->parseRounds(jsonData, "groups", "group_", "group ");
-  this->parseRounds(jsonData, "knockout", "", "");
+  this->parseRounds(jsonData, "groups", "group_");
+  this->parseRounds(jsonData, "knockout", "");
 }
 
-void JsonDataSource::parseRounds(json jsonData, std::string roundsKey, std::string roundCodePref, std::string namePref) {
+void JsonDataSource::parseRounds(json jsonData, std::string roundsKey, std::string roundCodePref) {
   json rounds = jsonData[roundsKey];
   for (json::iterator it = rounds.begin(); it != rounds.end(); ++it) {
     std::string roundKey = it.key();
     std::string roundCode = roundCodePref + roundKey;
-    std::string roundName = (namePref + roundKey);
-    if(roundsKey.compare("knockout") == 0) {
-      roundName = it.value()["name"];
-    }
+    std::string roundName = it.value()["name"];
     Round round(roundCode, roundName);    
     json matches = it.value()["matches"];
     round.setMatches( this->parseMatches(matches) );
