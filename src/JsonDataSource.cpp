@@ -7,9 +7,11 @@
 
 #include "JsonDataSource.hpp"
 
+#include "Util.hpp"
+
 JsonDataSource::JsonDataSource() {
-  int result = this->fetchData();
-  if(result == 0)
+  int result = this->fetchDataSSL();
+  if(result == 1)
     this->parseDataToRounds();
   else
     perror("Cannot get data");
@@ -56,9 +58,9 @@ int JsonDataSource::fetchData() {
 
 int JsonDataSource::fetchDataSSL() {
   // const char* osn = "10.1.104.187";  // Public ip
-  const char* osn = "163.178.104.187";  // Private ip 
-  const char* request = "GET /futbol/2018/world-cup-2018.json HTTP/1.1\r\nhost: redes.ecci\r\n\r\n";  
-  Socket s('s');	// Create a new stream socket for IPv4
+  const char* osn = (char *) "163.178.104.187";  // Private ip 
+  const char* request = (char *) "GET /futbol/2018/world-cup-2018.json HTTP/1.1\r\nhost: redes.ecci\r\n\r\n";  
+  Socket s('s', false);	// Create a new stream socket for IPv4
   char responseRead[8];
   int read;
   int firstChar;
@@ -66,8 +68,9 @@ int JsonDataSource::fetchDataSSL() {
   int result = s.SSLConnect(osn, 443);
   int responseReadSize = 8;
 
-  if(result == -1)
+  if(result == -1) {
     perror("JsonDataSource Cannot connect to source");
+  }
 
   s.SSLWrite(request, strlen(request));
   read = s.SSLRead(responseRead, responseReadSize);
@@ -139,10 +142,10 @@ std::vector<Match> JsonDataSource::parseMatches(json matches) {
       homeScore,
       awayScore,
       info["date"],
-      loser,
-      winner,
-      info["home_team"],
-      info["away_team"]
+      Util::trim(loser),
+      Util::trim(winner),
+      Util::trim( info["home_team"] ),
+      Util::trim( info["away_team"] )
     );
     matchesArray.push_back(tempMatch);
   }

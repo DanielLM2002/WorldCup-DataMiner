@@ -7,6 +7,8 @@
 
 #include "Output.hpp"
 
+#include "Util.hpp"
+
 Output::Output() {
 
 }
@@ -171,9 +173,8 @@ void Output::printTable(std::vector<PointsByCountry> countriesByGroup) {
       if (countriesByGroup[index].Pts > countriesByGroup[highestScore].Pts)
         highestScore = index;
     }
-    std::cout << countriesByGroup[highestScore].country 
-              << "\t\t" 
-              << countriesByGroup[highestScore].PJ 
+    printf("%-16s", Util::trim(countriesByGroup[highestScore].country).c_str());
+    std::cout << countriesByGroup[highestScore].PJ 
               << '\t' << countriesByGroup[highestScore].PG 
               << '\t' << countriesByGroup[highestScore].PE 
               << '\t' << countriesByGroup[highestScore].PP 
