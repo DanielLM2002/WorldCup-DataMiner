@@ -222,16 +222,12 @@ Socket * Socket::Accept(){
  *  El parametro "mode" indica el tipo de cierre que se quiere efectuar
  */
 int Socket::Shutdown( int mode ) {
-
-    return -1;
-
+  return shutdown(this->id, mode);
 }
 
 /*
  *  Cambia la variable de instancia
  */
 void Socket::SetIDSocket(int id){
-
-    this->id = id;
-
+  this->id = id;
 }
