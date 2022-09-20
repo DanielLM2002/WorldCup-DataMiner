@@ -174,22 +174,21 @@ int Socket::SSLWrite(const void* buffer, int size) {
  *  Indica al sistema operativo que el socket va a actuar de manera pasiva
  *  Utilizara conexiones establecidas por medio de Accept
  */
-int Socket::Listen( int queue ) {
-   return listen(this->id, queue);
+int Socket::Listen(int queue) {
+  return listen(this->id, queue);
 }
 
 /*
  *  Asocia al socket con el puerto indicado como parametro
  */
-int Socket::Bind( int port ) {
-   struct sockaddr_in server_addr;
-   server_addr.sin_family = AF_INET;
-   server_addr.sin_addr.s_addr = htonl( INADDR_ANY );
-   server_addr.sin_port = htons( port );
-   size_t len = sizeof( server_addr );
+int Socket::Bind(int port) {
+  struct sockaddr_in server_addr;
+  server_addr.sin_family = AF_INET;
+  server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+  server_addr.sin_port = htons(port);
+  size_t len = sizeof(server_addr);
    
-   return bind( this->id, (const sockaddr *) & server_addr, len );
-
+  return bind(this->id, (const sockaddr *) & server_addr, len);
 }
 
 /*
@@ -197,24 +196,21 @@ int Socket::Bind( int port ) {
  *  Devuelve una nueva instancia de la clase Socket para manejar la conexion de un cliente
  */
 Socket * Socket::Accept(){
-   //  return -1;
+  int peer_sockfd = -1;
+  // define socket peer structs
+  struct sockaddr_in peer_addr;
+  socklen_t peer_addrlen = sizeof(peer_addr);
 
-   // define socket peer structs
-   struct sockaddr_in peer_addr;
-   socklen_t peer_addrlen = sizeof(peer_addr);
-
-   memset(&peer_addr, '\0', peer_addrlen);
+  memset(&peer_addr, '\0', peer_addrlen);
    
-   int peer_sockfd = -1;
-   peer_sockfd = accept(this->id,
-                             (struct sockaddr *)&peer_addr, &peer_addrlen);
+  peer_sockfd = accept(this->id,
+                      (struct sockaddr *)&peer_addr, &peer_addrlen);
    
-   Socket *pointer = nullptr;
-   if(peer_sockfd){
-      pointer = new Socket(peer_sockfd);
-   }
+  Socket *pointer = nullptr;
+  if (peer_sockfd)
+    pointer = new Socket(peer_sockfd);
 
-   return pointer;// todo change it to -1 when failing
+  return pointer;// todo change it to -1 when failing
 }
 
 /*
