@@ -106,6 +106,45 @@ int Socket::Write(const char* data) {
   return write(this->id, data, strlen(data));
 }
 
+int Socket::Listen(int queue) {
+  return listen(this->id, queue);
+}
+int Socket::Bind(int port) {
+  struct sockaddr_in server_addr;
+  server_addr.sin_family = AF_INET;
+  server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+  server_addr.sin_port = htons(port);
+  size_t len = sizeof(server_addr);
+   
+  return bind(this->id, (const sockaddr *) & server_addr, len);
+}
+
+Socket * Socket::Accept(){
+  int peer_sockfd = -1;
+  // define socket peer structs
+  struct sockaddr_in peer_addr;
+  socklen_t peer_addrlen = sizeof(peer_addr);
+
+  memset(&peer_addr, '\0', peer_addrlen);
+   
+  peer_sockfd = accept(this->id,
+                      (struct sockaddr *)&peer_addr, &peer_addrlen);
+   
+  Socket *pointer = nullptr;
+  if (peer_sockfd)
+    pointer = new Socket(peer_sockfd);
+
+  return pointer;// todo change it to -1 when failing
+}
+
+int Socket::Shutdown(int mode) {
+  return shutdown(this->id, mode);
+}
+
+void Socket::SetId(int id){
+  this->id = id;
+}
+
 void Socket::InitSSLContext() {
   const SSL_METHOD* method = TLS_client_method();
   SSL_CTX* context = SSL_CTX_new(method);
@@ -168,62 +207,4 @@ int Socket::SSLWrite(const void* buffer, int size) {
     exit(23);
   }
   return result;
-}
-
-/*
- *  Indica al sistema operativo que el socket va a actuar de manera pasiva
- *  Utilizara conexiones establecidas por medio de Accept
- */
-int Socket::Listen(int queue) {
-  return listen(this->id, queue);
-}
-
-/*
- *  Asocia al socket con el puerto indicado como parametro
- */
-int Socket::Bind(int port) {
-  struct sockaddr_in server_addr;
-  server_addr.sin_family = AF_INET;
-  server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-  server_addr.sin_port = htons(port);
-  size_t len = sizeof(server_addr);
-   
-  return bind(this->id, (const sockaddr *) & server_addr, len);
-}
-
-/*
- *  Acepta conexiones desde los clientes
- *  Devuelve una nueva instancia de la clase Socket para manejar la conexion de un cliente
- */
-Socket * Socket::Accept(){
-  int peer_sockfd = -1;
-  // define socket peer structs
-  struct sockaddr_in peer_addr;
-  socklen_t peer_addrlen = sizeof(peer_addr);
-
-  memset(&peer_addr, '\0', peer_addrlen);
-   
-  peer_sockfd = accept(this->id,
-                      (struct sockaddr *)&peer_addr, &peer_addrlen);
-   
-  Socket *pointer = nullptr;
-  if (peer_sockfd)
-    pointer = new Socket(peer_sockfd);
-
-  return pointer;// todo change it to -1 when failing
-}
-
-/*
- *  Cierra parcialmente la conectividad de un socket, puede ser por escrituras o lecturas
- *  El parametro "mode" indica el tipo de cierre que se quiere efectuar
- */
-int Socket::Shutdown( int mode ) {
-  return shutdown(this->id, mode);
-}
-
-/*
- *  Cambia la variable de instancia
- */
-void Socket::SetIDSocket(int id){
-  this->id = id;
 }
