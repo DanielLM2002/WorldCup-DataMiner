@@ -45,8 +45,8 @@ class Socket {
   explicit Socket(char, bool = false);
 
   /**
-   * @brief Construct a new Socket object
-   * @param id Socket id
+   * @brief Constructor
+   * @param id Number of id
    */
   explicit Socket(int);
 
