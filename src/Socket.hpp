@@ -150,6 +150,13 @@ class Socket {
    * @return int 
    */
   int SSLWrite(const void*, int);
+
+  int Listen( int );
+  int Bind( int );
+  Socket * Accept();
+  int Shutdown( int );
+  void SetIDSocket( int );
+
 };
 
 #endif  // !_SOCKET_
