@@ -229,6 +229,6 @@ int Socket::Shutdown( int mode ) {
 /*
  *  Cambia la variable de instancia
  */
-void Socket::SetIDSocket(int id){
+void Socket::SetId(int id){
     this->id = id;
 }

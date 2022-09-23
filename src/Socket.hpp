@@ -45,8 +45,8 @@ class Socket {
   explicit Socket(char, bool = false);
 
   /**
-   * @brief Construct a new Socket object
-   * @param id Socket id
+   * @brief Constructor
+   * @param id Number of id
    */
   explicit Socket(int);
 
@@ -108,6 +108,41 @@ class Socket {
   int Write(const char*);
 
   /**
+   * @brief Method that indicates to the operating system that the
+   *        socket is going to act passively
+   * @param queue Number of queue
+   * @return int 
+   */
+  int Listen(int);
+
+  /**
+   * @brief Method that associates the socket with a port
+   * @param port Number of the port
+   * @return int 
+   */
+  int Bind(int);
+
+  /**
+   * @brief Method that accepts conections send by clients
+   * @return Socket* 
+   */
+  Socket* Accept();
+
+  /**
+   * @brief Method that partially closes the connectivity of a 
+   *        socket
+   * @param mode Type of closure to do
+   * @return int 
+   */
+  int Shutdown(int);
+
+  /**
+   * @brief Method that sets a new ID
+   * @param id Number of new id
+   */
+  void SetId(int);
+
+  /**
    * @brief Method that inits the SSL properties of the socket
    */
   void InitSSL();
@@ -150,13 +185,6 @@ class Socket {
    * @return int 
    */
   int SSLWrite(const void*, int);
-
-  int Listen( int );
-  int Bind( int );
-  Socket * Accept();
-  int Shutdown( int );
-  void SetIDSocket( int );
-
 };
 
 #endif  // !_SOCKET_
