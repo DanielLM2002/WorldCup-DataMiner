@@ -197,7 +197,6 @@ int Socket::Bind( int port ) {
  *  Devuelve una nueva instancia de la clase Socket para manejar la conexion de un cliente
  */
 Socket * Socket::Accept(){
-   //  return -1;
 
    // define socket peer structs
    struct sockaddr_in peer_addr;
@@ -231,7 +230,5 @@ int Socket::Shutdown( int mode ) {
  *  Cambia la variable de instancia
  */
 void Socket::SetIDSocket(int id){
-
     this->id = id;
-
 }
