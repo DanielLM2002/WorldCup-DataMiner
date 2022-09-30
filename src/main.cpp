@@ -7,7 +7,6 @@
 
 // #define JSON
 #define SIZE 1024
-#define SERVER_CODE
 
 #include <stdio.h>
 #include <string.h>
@@ -15,15 +14,7 @@
 #include "Output.hpp"
 #include "Util.hpp"
 
-#ifdef JSON
-int main() { 
-  Output output;
-  output.getInput();
-}
-#endif
-
-#ifdef SERVER_CODE
-int main(int argc, char ** argv) {
+int mainOfServer(int argc, char ** argv) {
   int childpid;
   char a[512];
   Socket s1('s'), *s2;
@@ -62,11 +53,8 @@ int main(int argc, char ** argv) {
     s2->Close();		// Close socket in parent
   }
 }
-#endif // !SERVER_CODE
 
-
-#ifdef CLIENT_CODE
-int main(int argc, char** argv) {
+int mainOfClient(int argc, char** argv) {
   std::string input;
   std::cout << "Please enter the code of the country you wish to check (or type h to check country codes): ";
   getline(std::cin, input);
@@ -89,4 +77,15 @@ int main(int argc, char** argv) {
   s.Read( buffer, 512 );	// Read the answer sent back from server
   printf( "Response from get:\n%s.\n", buffer );
 }
-#endif // !CLIENT_CODE
+
+int main(int argc, char ** argv) {
+  std::string type = argv[1];
+
+  if (type.compare("server") == 0) {
+    mainOfServer(argc, argv);
+  } else if (type.compare("client") == 0) {
+    mainOfClient(argc, argv);
+  } else {
+    std::cout << "Invalid argument" << std::endl;
+  }
+}
