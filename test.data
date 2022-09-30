@@ -1,0 +1,20 @@
+result: 1
+entering before parse data to rounds
+group c matches: 
+France vs Australia => 2 - 1
+Peru vs Denmark => 0 - 1
+France vs Peru => 1 - 0
+Denmark vs Australia => 1 - 1
+Denmark vs France => 0 - 0
+Australia vs Peru => 0 - 2
+
+
+Round of 16 matches: 
+Uruguay vs Portugal => 2 - 1
+France vs Argentina => 4 - 3
+Spain vs Russia => 1 - 1
+Croatia vs Denmark => 1 - 1
+Brazil vs Mexico => 2 - 0
+Belgium vs Japan => 3 - 2
+Sweden vs Switzerland => 1 - 0
+Colombia vs England => 1 - 1

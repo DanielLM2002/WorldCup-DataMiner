@@ -5,11 +5,13 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#ifndef _OUTPUT_
-#define _OUTPUT_
+#ifndef _OUTPUT_STRING_
+#define _OUTPUT_STRING_
 
 #include <stdio.h>
 #include <string.h>
+#include <sstream>
+using namespace std;
 
 #include <vector>
 
@@ -45,7 +47,7 @@ typedef struct {
 } PointsByCountry;
 #endif
 
-class Output {
+class OutputString {
  private: 
   /// Data source
   JsonDataSource json;
@@ -53,15 +55,18 @@ class Output {
   std::string country;
 
  public:
+
+  stringstream stringBuffer;
+
   /**
    * @brief Constructor
    */
-  explicit Output();
+  explicit OutputString(std::string country);
 
   /**
    * @brief Destroyer
    */
-  ~Output();
+  ~OutputString();
 
   /**
    * @brief Method that reads the data entered by the user
