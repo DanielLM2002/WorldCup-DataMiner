@@ -5,16 +5,13 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-// #define JSON
-#define SIZE 1024
-
 #include <stdio.h>
 #include <string.h>
 
-#include "Output.hpp"
 #include "Util.hpp"
+#include "Output.hpp"
 
-int mainOfServer(int argc, char ** argv) {
+int server() {
   int childpid;
   char a[512];
   Socket s1('s'), *s2;
@@ -52,9 +49,10 @@ int mainOfServer(int argc, char ** argv) {
     }
     s2->Close();		// Close socket in parent
   }
+  return EXIT_SUCCESS;
 }
 
-int mainOfClient(int argc, char** argv) {
+int client() {
   std::string input;
   std::cout << "Please enter the code of the country you wish to check (or type h to check country codes): ";
   getline(std::cin, input);
@@ -76,16 +74,18 @@ int mainOfClient(int argc, char** argv) {
   memset(buffer,0, 512);
   s.Read( buffer, 512 );	// Read the answer sent back from server
   printf( "Response from get:\n%s.\n", buffer );
+  return EXIT_SUCCESS;
 }
 
-int main(int argc, char ** argv) {
+int main(int argc, char** argv) {
   std::string type = argv[1];
 
   if (type.compare("server") == 0) {
-    mainOfServer(argc, argv);
+    server();
   } else if (type.compare("client") == 0) {
-    mainOfClient(argc, argv);
+    client();
   } else {
     std::cout << "Invalid argument" << std::endl;
   }
+  return EXIT_SUCCESS;
 }
