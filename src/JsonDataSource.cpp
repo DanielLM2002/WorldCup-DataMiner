@@ -59,7 +59,7 @@ int JsonDataSource::fetchData() {
 int JsonDataSource::fetchDataSSL() {
   // const char* osn = "10.1.104.187";  // Public ip
   const char* osn = (char *) "163.178.104.187";  // Private ip 
-  const char* request = (char *) "GET /futbol/2018/world-cup-2018.json HTTP/1.1\r\nhost: redes.ecci\r\n\r\n";  
+  const char* request = (char *) "GET /fifa/2018/world-cup-2018.json HTTP/1.1\r\nhost: redes.ecci\r\n\r\n";
   Socket s('s', false);	// Create a new stream socket for IPv4
   char responseRead[8];
   int read;
