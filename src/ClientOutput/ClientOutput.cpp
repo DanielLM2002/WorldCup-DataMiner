@@ -5,19 +5,19 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#include "Output.hpp"
+#include "ClientOutput.hpp"
 
 #include "../common/Util.hpp"
 
-Output::Output() {
+ClientOutput::ClientOutput() {
 
 }
 
-Output::~Output() {
+ClientOutput::~ClientOutput() {
 
 }
 
-void Output::getInput() {
+void ClientOutput::getInput() {
   std::string input;
   std::cout << "Please enter the code of the country you wish to check (or type h to check country codes): ";
   getline(std::cin, input);
@@ -32,7 +32,7 @@ void Output::getInput() {
   }
 }
 
-void Output::handleCountry() {
+void ClientOutput::handleCountry() {
   std::string group = ""; 
   if (this->country.length() == 3) {
     CountryCodes codes;
@@ -51,14 +51,14 @@ void Output::handleCountry() {
   }
 }
 
-std::string Output::toUpperCase(std::string str){
+std::string ClientOutput::toUpperCase(std::string str){
   std::string temp = "";
    for (size_t index = 0; index < str.length(); index++)
     temp += std::toupper(str[index]);
   return temp;
 }
 
-std::string Output::getGroup() {
+std::string ClientOutput::getGroup() {
   bool foundGroup = false;
   std::string index = "";
   std::vector<std::string> group = {
@@ -84,7 +84,7 @@ std::string Output::getGroup() {
   return index;
 }
 
-void Output::askAgain() {
+void ClientOutput::askAgain() {
   std::string answer;
   std::cout << "Would you like to check another country (yes/no): ";
   getline (std::cin, answer);
@@ -98,7 +98,7 @@ void Output::askAgain() {
   }
 }
 
-void Output::printGroup(std::string group) { 
+void ClientOutput::printGroup(std::string group) { 
   std::vector<PointsByCountry> countriesByGroup;
   Round round = json.getRound(group);
   std::vector<Match> roundMatches = round.getMatches();
@@ -122,7 +122,7 @@ void Output::printGroup(std::string group) {
   this->printMatches();
 }
 
-void Output::buildTable(std::vector<Match> roundMatches, std::vector<PointsByCountry> countriesByGroup) {
+void ClientOutput::buildTable(std::vector<Match> roundMatches, std::vector<PointsByCountry> countriesByGroup) {
   std::cout << "Country" << "\t\t" 
             << "PJ" << '\t' 
             << "PG" << '\t' 
@@ -166,7 +166,7 @@ void Output::buildTable(std::vector<Match> roundMatches, std::vector<PointsByCou
   this->printTable(countriesByGroup);
 }
 
-void Output::printTable(std::vector<PointsByCountry> countriesByGroup) { 
+void ClientOutput::printTable(std::vector<PointsByCountry> countriesByGroup) { 
   while (countriesByGroup.size() != 0) {
     int highestScore = 0;
     for (size_t index = 0; index < countriesByGroup.size(); ++index) {
@@ -188,7 +188,7 @@ void Output::printTable(std::vector<PointsByCountry> countriesByGroup) {
   std::cout << std::endl;
 }
 
-void Output::printCountryCodes() {
+void ClientOutput::printCountryCodes() {
   CountryCodes codes;
   for (auto& x: codes.countries)
     std::cout << x.first << ": " << x.second << '\n';
@@ -196,7 +196,7 @@ void Output::printCountryCodes() {
   this->getInput();
 }
 
-void Output::printMatches() {
+void ClientOutput::printMatches() {
   std::vector<std::string> round = {
     "round_16",
     "round_8",
@@ -216,7 +216,7 @@ void Output::printMatches() {
   }
 }
 
-void Output::printMatch(Match match) {
+void ClientOutput::printMatch(Match match) {
   std::cout << "Country" << '\t' 
             << "Country" << "\t\t" 
             << "Score" << std::endl;

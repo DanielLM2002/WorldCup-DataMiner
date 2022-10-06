@@ -47,7 +47,7 @@ typedef struct {
 } PointsByCountry;
 #endif
 
-class OutputString {
+class ServerResponse {
  private: 
   /// Data source
   JsonDataSource json;
@@ -62,12 +62,12 @@ class OutputString {
   /**
    * @brief Constructor
    */
-  explicit OutputString(std::string country);
+  explicit ServerResponse(std::string country);
 
   /**
    * @brief Destroyer
    */
-  ~OutputString();
+  ~ServerResponse();
 
   /**
    * @brief Method that reads the data entered by the user

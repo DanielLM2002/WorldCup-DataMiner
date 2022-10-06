@@ -9,15 +9,15 @@
 
 #include "common/Util.hpp"
 
-OutputString::OutputString(std::string country) {
+ServerResponse::ServerResponse(std::string country) {
   this->country = toUpperCase( Util::trim( country ) );
 }
 
-OutputString::~OutputString() {
+ServerResponse::~ServerResponse() {
 
 }
 
-void OutputString::handleCountry() {
+void ServerResponse::handleCountry() {
   std::string group = "";
   if (this->country.length() == 3) {
     CountryCodes codes;
@@ -35,14 +35,14 @@ void OutputString::handleCountry() {
   }
 }
 
-std::string OutputString::toUpperCase(std::string str){
+std::string ServerResponse::toUpperCase(std::string str){
   std::string temp = "";
    for (size_t index = 0; index < str.length(); index++)
     temp += std::toupper(str[index]);
   return temp;
 }
 
-std::string OutputString::getGroup() {
+std::string ServerResponse::getGroup() {
   bool foundGroup = false;
   std::string index = "";
   std::vector<std::string> group = {
@@ -68,7 +68,7 @@ std::string OutputString::getGroup() {
   return index;
 }
 
-void OutputString::printGroup(std::string group) { 
+void ServerResponse::printGroup(std::string group) { 
   std::vector<PointsByCountry> countriesByGroup;
   Round round = json.getRound(group);
   std::vector<Match> roundMatches = round.getMatches();
@@ -92,7 +92,7 @@ void OutputString::printGroup(std::string group) {
   this->printMatches();
 }
 
-void OutputString::buildTable(std::vector<Match> roundMatches, std::vector<PointsByCountry> countriesByGroup) {
+void ServerResponse::buildTable(std::vector<Match> roundMatches, std::vector<PointsByCountry> countriesByGroup) {
   for (size_t index = 0; index < roundMatches.size(); ++index) {
     Match match = roundMatches[index];
     for (size_t jindex = 0; jindex < countriesByGroup.size(); jindex++) {
@@ -127,7 +127,7 @@ void OutputString::buildTable(std::vector<Match> roundMatches, std::vector<Point
   this->printTable(countriesByGroup);
 }
 
-void OutputString::printTable(std::vector<PointsByCountry> countriesByGroup) {
+void ServerResponse::printTable(std::vector<PointsByCountry> countriesByGroup) {
   CountryCodes codes; 
   int position = 1;
   while (countriesByGroup.size() != 0) {
@@ -149,7 +149,7 @@ void OutputString::printTable(std::vector<PointsByCountry> countriesByGroup) {
   }
 }
 
-void OutputString::printMatches() {
+void ServerResponse::printMatches() {
   std::vector<std::string> round = {
     "round_16",
     "round_8",
@@ -169,7 +169,7 @@ void OutputString::printMatches() {
   }
 }
 
-void OutputString::printMatch(Match match) {
+void ServerResponse::printMatch(Match match) {
   CountryCodes codes;
   std::string score = "";
   score += std::to_string(match.getHomeScore());

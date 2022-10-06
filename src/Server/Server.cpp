@@ -45,7 +45,7 @@ void Server::serve(){
                  std::cout << "information get from client" << info[1] << "." << std::endl;
  
                  //todo get country data
-                 OutputString os(info[1]);
+                 ServerResponse os(info[1]);
                  os.handleCountry();
                  std::string result = os.stringBuffer.str();
                  //std::cout << result << std::endl;

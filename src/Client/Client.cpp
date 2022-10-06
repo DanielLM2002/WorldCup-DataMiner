@@ -2,7 +2,6 @@
 
 Client::Client(string nHost, int nPort):
                 host(nHost), port(nPort)
-
 {
 }
 
@@ -32,5 +31,6 @@ void Client::start() {
    s.Write(&req[0]);
    memset(buffer,0, 512);
    s.Read( buffer, 512 );	// Read the answer sent back from server
+   // llamar a la clase output
    printf( "Response from get:\n%s.\n", buffer );
 }

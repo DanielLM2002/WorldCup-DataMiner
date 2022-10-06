@@ -5,8 +5,8 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#ifndef _OUTPUT_
-#define _OUTPUT_
+#ifndef _CLIENT_OUTPUT_
+#define _CLIENT_OUTPUT_
 
 #include <stdio.h>
 #include <string.h>
@@ -45,7 +45,7 @@ typedef struct {
 } PointsByCountry;
 #endif
 
-class Output {
+class ClientOutput {
  private: 
   /// Data source
   JsonDataSource json;
@@ -56,12 +56,12 @@ class Output {
   /**
    * @brief Constructor
    */
-  explicit Output();
+  explicit ClientOutput();
 
   /**
    * @brief Destroyer
    */
-  ~Output();
+  ~ClientOutput();
 
   /**
    * @brief Method that reads the data entered by the user
@@ -132,4 +132,4 @@ class Output {
   std::string toUpperCase(std::string);
 };
 
-#endif  // !_OUTPUT_
+#endif  // !_CLIENT_OUTPUT_
