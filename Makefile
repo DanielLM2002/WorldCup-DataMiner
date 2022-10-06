@@ -111,8 +111,11 @@ ifneq ($(INPUTFX),)
 	cpplint --filter=$(LINTX) $(INPUTFX)
 endif
 
-run: $(EXEFILE)
-	$(EXEARGS)
+server: $(EXEFILE)
+	$(EXEARGS) server
+
+client: $(EXEFILE)
+	$(EXEARGS) client
 
 memcheck: $(EXEFILE)
 	valgrind --tool=memcheck $(EXEARGS)
