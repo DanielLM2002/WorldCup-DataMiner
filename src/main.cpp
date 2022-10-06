@@ -78,7 +78,13 @@ int client() {
 }
 
 int main(int argc, char** argv) {
-  std::string type = argv[1];
+  std::string type = "";
+
+  if (argc == 2) {
+    type = argv[1];
+  } else {
+    std::cout << "Invalid argument" << std::endl;
+  }
 
   if (type.compare("server") == 0) {
     server();
