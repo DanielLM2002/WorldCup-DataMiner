@@ -13,8 +13,8 @@
 #include <sstream>
 #include <nlohmann/json.hpp>
 
-#include "Round.hpp"
-#include "Socket.hpp"
+#include "../Round/Round.hpp"
+#include "../Socket/Socket.hpp"
 
 using json = nlohmann::json;
 

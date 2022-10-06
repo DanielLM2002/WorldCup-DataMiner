@@ -13,10 +13,10 @@
 
 #include <vector>
 
-#include "Round.hpp"
-#include "Socket.hpp"
-#include "CountryCodes.hpp"
-#include "JsonDataSource.hpp"
+#include "../Round/Round.hpp"
+#include "../Socket/Socket.hpp"
+#include "../CountryCodes.hpp"
+#include "../JSON/JsonDataSource.hpp"
 
 /**
  * @brief Structure that saves the statistics of a selection in a group

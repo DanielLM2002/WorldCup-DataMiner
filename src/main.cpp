@@ -9,7 +9,7 @@
 #include <string.h>
 
 #include "Util.hpp"
-#include "Output.hpp"
+#include "Output/Output.hpp"
 
 int server() {
   int childpid;
