@@ -13,10 +13,10 @@
 
 #include <vector>
 
-#include "Round.hpp"
-#include "Socket.hpp"
+#include "../Round/Round.hpp"
+#include "../Socket/Socket.hpp"
 #include "../../data/CountryCodes.hpp"
-#include "JsonDataSource.hpp"
+#include "../JSON/JsonDataSource.hpp"
 
 #ifndef _STRUCT_POINTS_BY_COUNTRY
 #define _STRUCT_POINTS_BY_COUNTRY

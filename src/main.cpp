@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "Output.hpp"
+#include "Output/Output.hpp"
 #include "Util.hpp"
 #include "Server.hpp"
 #include "Client.hpp"
