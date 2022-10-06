@@ -1,9 +1,9 @@
 #ifndef _SERVER_HPP_
 #define _SERVER_HPP_
 
-#include "Socket.hpp"
+#include "../Socket/Socket.hpp"
 #include "common/Util.hpp"
-#include "OutputString.hpp"
+#include "../ServerResponse/ServerResponse.hpp"
 
 #include <string>
 #include <vector>

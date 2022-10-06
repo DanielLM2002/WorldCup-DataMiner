@@ -10,8 +10,8 @@
 
 #include "Output/Output.hpp"
 #include "Util.hpp"
-#include "Server.hpp"
-#include "Client.hpp"
+#include "Server/Server.hpp"
+#include "Client/Client.hpp"
 
 int server() {
   

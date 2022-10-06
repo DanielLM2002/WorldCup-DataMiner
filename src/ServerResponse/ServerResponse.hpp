@@ -5,8 +5,8 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#ifndef _OUTPUT_STRING_
-#define _OUTPUT_STRING_
+#ifndef _SERVER_RESPONSE_
+#define _SERVER_RESPONSE_
 
 #include <stdio.h>
 #include <string.h>
@@ -15,10 +15,10 @@ using namespace std;
 
 #include <vector>
 
-#include "Round.hpp"
-#include "Socket.hpp"
+#include "../Round/Round.hpp"
+#include "../Socket/Socket.hpp"
 #include "../data/CountryCodes.hpp"
-#include "JsonDataSource.hpp"
+#include "../JSON/JsonDataSource.hpp"
 
 #ifndef _STRUCT_POINTS_BY_COUNTRY
 #define _STRUCT_POINTS_BY_COUNTRY
@@ -138,4 +138,4 @@ class OutputString {
   std::string toUpperCase(std::string);
 };
 
-#endif  // !_OUTPUT_
+#endif  // !_SERVER_RESPONSE_

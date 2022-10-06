@@ -7,7 +7,7 @@
 
 #include "Output.hpp"
 
-#include "Util.hpp"
+#include "../common/Util.hpp"
 
 Output::Output() {
 
