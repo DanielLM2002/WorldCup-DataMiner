@@ -11,32 +11,15 @@
 
 OutputString::OutputString(std::string country) {
   this->country = toUpperCase( Util::trim( country ) );
-  // this->stringBuffer << "hello world" << std::endl;
 }
 
 OutputString::~OutputString() {
 
 }
 
-// void OutputString::getInput() {
-//   std::string input;
-//   std::cout << "Please enter the code of the country you wish to check (or type h to check country codes): ";
-//   getline(std::cin, input);
-//   input = toUpperCase(input);
-//   std::cout << std::endl;
-//   if (input == "H") {
-//     this->printCountryCodes();
-//   }
-//   else {
-//     this->country = input;
-//     this->handleCountry();
-//   }
-// }
-
 void OutputString::handleCountry() {
   std::string group = "";
   if (this->country.length() == 3) {
-    // std::cout << this->country << std::endl;
     CountryCodes codes;
     if (codes.countries.count(this->country) == 1) {
       this->country = codes.countries.find(this->country)->second;
@@ -85,25 +68,11 @@ std::string OutputString::getGroup() {
   return index;
 }
 
-// void OutputString::askAgain() {
-//   std::string answer;
-//   std::cout << "Would you like to check another country (yes/no): ";
-//   getline (std::cin, answer);
-//   answer = toUpperCase(answer);
-//   if (answer == "YES") {
-//     std::cout << std::endl;
-//     this->getInput();
-//   }
-//   else {
-//     std::cout << std::endl << "Goodbye! :C" << std::endl;
-//   }
-// }
-
 void OutputString::printGroup(std::string group) { 
   std::vector<PointsByCountry> countriesByGroup;
   Round round = json.getRound(group);
   std::vector<Match> roundMatches = round.getMatches();
-  // this->stringBuffer << round.getName() << std::endl << std::endl;
+  this->group = round.getName();
   int index = 0;
   for (size_t i = 0; i < roundMatches.size(); i++) {
     Match match = roundMatches[i];
@@ -124,15 +93,6 @@ void OutputString::printGroup(std::string group) {
 }
 
 void OutputString::buildTable(std::vector<Match> roundMatches, std::vector<PointsByCountry> countriesByGroup) {
-  // this->stringBuffer << "Country" << "\t\t" 
-  //           << "PJ" << '\t' 
-  //           << "PG" << '\t' 
-  //           << "PE" << '\t' 
-  //           << "PP" << '\t' 
-  //           << "GF" << '\t' 
-  //           << "GC" << '\t' 
-  //           << "GD" << '\t' 
-  //           << "Pts" << std::endl;
   for (size_t index = 0; index < roundMatches.size(); ++index) {
     Match match = roundMatches[index];
     for (size_t jindex = 0; jindex < countriesByGroup.size(); jindex++) {
@@ -176,7 +136,6 @@ void OutputString::printTable(std::vector<PointsByCountry> countriesByGroup) {
       if (countriesByGroup[index].Pts > countriesByGroup[highestScore].Pts)
         highestScore = index;
     }
-    // printf("%-16s", Util::trim(countriesByGroup[highestScore].country).c_str());
     this->stringBuffer << Util::trim(codes.countries.find(countriesByGroup[highestScore].country)->second).c_str() << '\t' << position++
               << '\t' << countriesByGroup[highestScore].PG 
               << '\t' << countriesByGroup[highestScore].PE 
@@ -189,13 +148,6 @@ void OutputString::printTable(std::vector<PointsByCountry> countriesByGroup) {
     countriesByGroup.erase(countriesByGroup.begin() + highestScore);
   }
 }
-
-// void OutputString::printCountryCodes() {
-//   CountryCodes codes;
-//   for (auto& x: codes.countries)
-//     this->stringBuffer << x.first << ": " << x.second << '\n';
-//   this->stringBuffer << std::endl;
-// }
 
 void OutputString::printMatches() {
   std::vector<std::string> round = {
@@ -219,9 +171,6 @@ void OutputString::printMatches() {
 
 void OutputString::printMatch(Match match) {
   CountryCodes codes;
-  // this->stringBuffer << "Country" << '\t' 
-  //           << "Country" << "\t\t" 
-  //           << "Score" << std::endl;
   std::string score = "";
   score += std::to_string(match.getHomeScore());
   score += "-";
