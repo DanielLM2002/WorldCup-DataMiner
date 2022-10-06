@@ -47,7 +47,7 @@ void Server::serve(){
         memset(a, 0, 512);
         s2->Read(a, 512);
         std::cout << "Received back from client:\n" << a << std::endl;
-        std::vector<std::string> OutputStringplit(a,"\r\n");
+        std::vector<std::string> info = Util::split(a,"\r\n");
         std::cout << "information get from client" << info[1] << "." << std::endl;
  
         //todo get country data
