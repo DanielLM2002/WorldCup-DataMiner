@@ -57,35 +57,15 @@ int JsonDataSource::fetchData() {
 }
 
 int JsonDataSource::fetchDataSSL() {
-  // const char* osn = "10.1.104.187";  // Public ip
-  const char* osn = (char *) "163.178.104.187";  // Private ip 
-  const char* request = (char *) "GET /fifa/2018/world-cup-2018.json HTTP/1.1\r\nhost: redes.ecci\r\n\r\n";
-  Socket s('s', false);	// Create a new stream socket for IPv4
-  char responseRead[8];
-  int read;
-  int firstChar;
-  s.InitSSL();
-  int result = s.SSLConnect(osn, 443);
-  int responseReadSize = 8;
-
-  if(result == -1) {
-    perror("JsonDataSource Cannot connect to source");
+  // todo pass this filename by parameter
+  ifstream fileStream("data/world-cup-2018.json"); //taking file as inputstream
+  int result = 0;
+  if(fileStream) {
+    ostringstream ss;
+    ss << fileStream.rdbuf(); // reading data
+    this->data = ss.str();
+    result = 1;
   }
-
-  s.SSLWrite(request, strlen(request));
-  read = s.SSLRead(responseRead, responseReadSize);
-  std::stringstream ss;
-  while(read > 0) {
-    ss << responseRead;
-    memset(responseRead, '\0', responseReadSize);
-    read = s.SSLRead(responseRead, responseReadSize);
-  }    
-  s.Close();
-  
-  this->data = ss.str();
-  // remove http headers
-  firstChar = this->data.find("{",0);
-  this->data = this->data.erase(0, firstChar);
   return result;
 }
 

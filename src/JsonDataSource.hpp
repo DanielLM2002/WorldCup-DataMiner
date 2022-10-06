@@ -10,7 +10,10 @@
 
 #include <map>
 #include <vector>
+#include <iostream>
+#include <fstream>
 #include <sstream>
+using namespace std;
 #include <nlohmann/json.hpp>
 
 #include "Round.hpp"

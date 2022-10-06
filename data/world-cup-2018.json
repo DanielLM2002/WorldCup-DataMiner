@@ -1,0 +1,1972 @@
+{
+    "stadiums": [
+        {
+            "id": 1,
+            "name": "Luzhniki Stadium",
+            "city": "Moscow",
+            "latitude": 55.715765,
+            "longitude": 37.5515217,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Luzhniki_Stadium%2C_Moscow.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Otkrytiye Arena",
+            "city": "Moscow",
+            "latitude": 55.817765,
+            "longitude": 37.440363,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/5/50/Stadium_Spartak_in_Moscow.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Krestovsky Stadium",
+            "city": "Saint Petersburg",
+            "latitude": 59.97274,
+            "longitude": 30.221408,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Spb_06-2017_img40_Krestovsky_Stadium.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Kaliningrad Stadium",
+            "city": "Kaliningrad",
+            "latitude": 54.698157,
+            "longitude": 20.533859,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Kaliningrad_stadium_-_2018-04-07.jpg"
+        },
+        {
+            "id": 5,
+            "name": "Kazan Arena",
+            "city": "Kazan",
+            "latitude": 55.820983,
+            "longitude": 49.160966,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Kazan_Arena_08-2016.jpg"
+        },
+        {
+            "id": 6,
+            "name": "Nizhny Novgorod Stadium",
+            "city": "Nizhny Novgorod",
+            "latitude": 56.337287,
+            "longitude": 43.963251,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/9/90/Nizhny_Novgorod_Stadium_%28March_2018%29.jpg"
+        },
+        {
+            "id": 7,
+            "name": "Cosmos Arena",
+            "city": "Samara",
+            "latitude": 53.278146,
+            "longitude": 50.238854,
+            "image": "http://img.fifa.com/image/upload/t_l4/d0mymt1ubl2pypmu3gn3.jpg"
+        },
+        {
+            "id": 8,
+            "name": "Volgograd Arena",
+            "city": "Volgograd",
+            "latitude": 48.734195,
+            "longitude": 44.548345,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/6/61/Construction_of_Volgograd_Arena_inside_04.jpg"
+        },
+        {
+            "id": 9,
+            "name": "Mordovia Arena",
+            "city": "Saransk",
+            "latitude": 54.181795,
+            "longitude": 45.203851,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/c/c9/%D0%A1%D1%82%D0%B0%D0%B4%D0%B8%D0%BE%D0%BD_Mordovia_arena.jpg"
+        },
+        {
+            "id": 10,
+            "name": "Rostov Arena",
+            "city": "Rostov-on-Don",
+            "latitude": 47.209581,
+            "longitude": 39.738424,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/9/94/Rostov-Arens_%28april_2018%29_01.jpg"
+        },
+        {
+            "id": 11,
+            "name": "Fisht Olympic Stadium",
+            "city": "Sochi",
+            "latitude": 43.402011,
+            "longitude": 39.955709,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/5/55/Fisht_Stadium_in_January_2018.jpg"
+        },
+        {
+            "id": 12,
+            "name": "Central Stadium",
+            "city": "Yekaterinburg",
+            "latitude": 56.83249,
+            "longitude": 60.573585,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Estadio_Central_%28Ekaterinburg-arena%29.jpg"
+        }
+    ],
+    "teams": [
+        {
+            "id": 1,
+            "name": "Russia",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_8",
+            "fifa_code": "RUS",
+            "iso2": "ru",
+            "flag": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/Flag_of_Russia.svg/900px-Flag_of_Russia.png",
+            "emoji": "flag-ru",
+            "emoji_string": "🇷🇺"
+        },
+        {
+            "id": 2,
+            "name": "Saudi Arabia",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "KSA",
+            "iso2": "sa",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/750px-Flag_of_Saudi_Arabia.png",
+            "emoji": "flag-sa",
+            "emoji_string": "🇸🇦"
+        },
+        {
+            "id": 3,
+            "name": "Egypt",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "EGY",
+            "iso2": "eg",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/900px-Flag_of_Egypt.png",
+            "emoji": "flag-eg",
+            "emoji_string": "🇪🇬"
+        },
+        {
+            "id": 4,
+            "name": "Uruguay",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_8",
+            "fifa_code": "URU",
+            "iso2": "uy",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Uruguay.svg/900px-Flag_of_Uruguay.png",
+            "emoji": "flag-uy",
+            "emoji_string": "🇺🇾"
+        },
+        {
+            "id": 5,
+            "name": "Portugal",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_16",
+            "fifa_code": "POR",
+            "iso2": "pt",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Portugal.svg/600px-Flag_of_Portugal.png",
+            "emoji": "flag-pt",
+            "emoji_string": "🇵🇹"
+        },
+        {
+            "id": 6,
+            "name": "Spain",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_16",
+            "fifa_code": "ESP",
+            "iso2": "es",
+            "flag": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Flag_of_Spain.svg/750px-Flag_of_Spain.png",
+            "emoji": "flag-es",
+            "emoji_string": "🇪🇸"
+        },
+        {
+            "id": 7,
+            "name": "Morocco",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "MAR",
+            "iso2": "ma",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flag_of_Morocco.svg/900px-Flag_of_Morocco.png",
+            "emoji": "flag-ma",
+            "emoji_string": "🇲🇦"
+        },
+        {
+            "id": 8,
+            "name": "Iran",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "IRN",
+            "iso2": "ir",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Flag_of_Iran.svg/630px-Flag_of_Iran.png",
+            "emoji": "flag-ir",
+            "emoji_string": "🇮🇷"
+        },
+        {
+            "id": 9,
+            "name": "France",
+            "eliminated": false,
+            "eliminated_at_which_stage": null,
+            "fifa_code": "FRA",
+            "iso2": "fr",
+            "flag": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/900px-Flag_of_France.png",
+            "emoji": "flag-fr",
+            "emoji_string": "🇫🇷"
+        },
+        {
+            "id": 10,
+            "name": "Australia",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "AUS",
+            "iso2": "au",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Flag_of_Australia_%28converted%29.svg/1280px-Flag_of_Australia_%28converted%29.png",
+            "emoji": "flag-au",
+            "emoji_string": "🇦🇺"
+        },
+        {
+            "id": 11,
+            "name": "Peru",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "PER",
+            "iso2": "pe",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Flag_of_Peru_%28state%29.svg/900px-Flag_of_Peru_%28state%29.png",
+            "emoji": "flag-pe",
+            "emoji_string": "🇵🇪"
+        },
+        {
+            "id": 12,
+            "name": "Denmark",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_16",
+            "fifa_code": "DEN",
+            "iso2": "dk",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Flag_of_Denmark.svg/740px-Flag_of_Denmark.png",
+            "emoji": "flag-dk",
+            "emoji_string": "🇩🇰"
+        },
+        {
+            "id": 13,
+            "name": "Argentina",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_16",
+            "fifa_code": "ARG",
+            "iso2": "ar",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/800px-Flag_of_Argentina.png",
+            "emoji": "flag-ar",
+            "emoji_string": "🇦🇷"
+        },
+        {
+            "id": 14,
+            "name": "Iceland",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "ISL",
+            "iso2": "is",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Iceland.svg/800px-Flag_of_Iceland.png",
+            "emoji": "flag-is",
+            "emoji_string": "🇮🇸"
+        },
+        {
+            "id": 15,
+            "name": "Croatia",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_2",
+            "fifa_code": "CRO",
+            "iso2": "hr",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Flag_of_Croatia.svg/800px-Flag_of_Croatia.png",
+            "emoji": "flag-hr",
+            "emoji_string": "🇭🇷"
+        },
+        {
+            "id": 16,
+            "name": "Nigeria",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "NGA",
+            "iso2": "ng",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Flag_of_Nigeria.svg/800px-Flag_of_Nigeria.png",
+            "emoji": "flag-ng",
+            "emoji_string": "🇳🇬"
+        },
+        {
+            "id": 17,
+            "name": "Brazil",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_8",
+            "fifa_code": "BRA",
+            "iso2": "br",
+            "flag": "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Flag_of_Brazil.svg/720px-Flag_of_Brazil.png",
+            "emoji": "flag-br",
+            "emoji_string": "🇧🇷"
+        },
+        {
+            "id": 18,
+            "name": "Switzerland",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_16",
+            "fifa_code": "SUI",
+            "iso2": "ch",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Flag_of_Switzerland_%28Pantone%29.svg/320px-Flag_of_Switzerland_%28Pantone%29.png",
+            "emoji": "flag-ch",
+            "emoji_string": "🇨🇭"
+        },
+        {
+            "id": 19,
+            "name": "Costa Rica",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "CRC",
+            "iso2": "cr",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Costa_Rica_%28state%29.svg/833px-Flag_of_Costa_Rica_%28state%29.png",
+            "emoji": "flag-cr",
+            "emoji_string": "🇨🇷"
+        },
+        {
+            "id": 20,
+            "name": "Serbia",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "SRB",
+            "iso2": "rs",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Flag_of_Serbia.svg/1350px-Flag_of_Serbia.png",
+            "emoji": "flag-rs",
+            "emoji_string": "🇷🇸"
+        },
+        {
+            "id": 21,
+            "name": "Germany",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "GER",
+            "iso2": "de",
+            "flag": "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Flag_of_Germany.svg/800px-Flag_of_Germany.png",
+            "emoji": "flag-de",
+            "emoji_string": "🇩🇪"
+        },
+        {
+            "id": 22,
+            "name": "Mexico",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_16",
+            "fifa_code": "MEX",
+            "iso2": "mx",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Flag_of_Mexico.svg/800px-Flag_of_Mexico.png",
+            "emoji": "flag-mx",
+            "emoji_string": "🇲🇽"
+        },
+        {
+            "id": 23,
+            "name": "Sweden",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_8",
+            "fifa_code": "SWE",
+            "iso2": "se",
+            "flag": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Flag_of_Sweden.svg/1600px-Flag_of_Sweden.png",
+            "emoji": "flag-se",
+            "emoji_string": "🇸🇪"
+        },
+        {
+            "id": 24,
+            "name": "South Korea",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "KOR",
+            "iso2": "kr",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_South_Korea.svg/900px-Flag_of_South_Korea.png",
+            "emoji": "flag-kr",
+            "emoji_string": "🇰🇷"
+        },
+        {
+            "id": 25,
+            "name": "Belgium",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_4",
+            "fifa_code": "BEL",
+            "iso2": "be",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Belgium.svg/450px-Flag_of_Belgium.png",
+            "emoji": "flag-be",
+            "emoji_string": "🇧🇪"
+        },
+        {
+            "id": 26,
+            "name": "Panama",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "PAN",
+            "iso2": "pa",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Flag_of_Panama.svg/450px-Flag_of_Panama.png",
+            "emoji": "flag-pa",
+            "emoji_string": "🇵🇦"
+        },
+        {
+            "id": 27,
+            "name": "Tunisia",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "TUN",
+            "iso2": "tn",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Tunisia.svg/1200px-Flag_of_Tunisia.png",
+            "emoji": "flag-tn",
+            "emoji_string": "🇹🇳"
+        },
+        {
+            "id": 28,
+            "name": "England",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_2_loser",
+            "fifa_code": "ENG",
+            "iso2": "gb-eng",
+            "flag": "https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Flag_of_England.svg/800px-Flag_of_England.png",
+            "emoji": "flag-england",
+            "emoji_string": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+        },
+        {
+            "id": 29,
+            "name": "Poland",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "POL",
+            "iso2": "pl",
+            "flag": "https://upload.wikimedia.org/wikipedia/en/thumb/1/12/Flag_of_Poland.svg/1280px-Flag_of_Poland.png",
+            "emoji": "flag-pl",
+            "emoji_string": "🇵🇱"
+        },
+        {
+            "id": 30,
+            "name": "Senegal",
+            "eliminated": true,
+            "eliminated_at_which_stage": "groups",
+            "fifa_code": "SEN",
+            "iso2": "sn",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Flag_of_Senegal.svg/900px-Flag_of_Senegal.svg.png",
+            "emoji": "flag-sn",
+            "emoji_string": "🇸🇳"
+        },
+        {
+            "id": 31,
+            "name": "Colombia",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_16",
+            "fifa_code": "COL",
+            "iso2": "co",
+            "flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Colombia.svg/450px-Flag_of_Colombia.png",
+            "emoji": "flag-co",
+            "emoji_string": "🇨🇴"
+        },
+        {
+            "id": 32,
+            "name": "Japan",
+            "eliminated": true,
+            "eliminated_at_which_stage": "round_16",
+            "fifa_code": "JPN",
+            "iso2": "jp",
+            "flag": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/900px-Flag_of_Japan.png",
+            "emoji": "flag-jp",
+            "emoji_string": "🇯🇵"
+        }
+    ],
+    "groups": {
+        "a": {
+            "name": "Group A",
+            "winner": null,
+            "runnerup": null,
+            "matches": [
+                {
+                    "id": 1,
+                    "type": "group",
+                    "home_team_id": 1,
+                    "away_team_id": 2,
+                    "home_team": "Russia",
+                    "away_team": "Saudi Arabia",
+                    "home_score": "5",
+                    "away_score": "0",
+                    "home_scorers": "A. Golovin 90'+4' D. Cheryshev 90'+1' A. Dzyuba 71' D. Cheryshev 43' Y. Gazinskiy 12' ",
+                    "away_scorers": null,
+                    "date": "2018-06-14T15:00:00+00:00",
+                    "stadium_id": 1,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 2,
+                    "type": "group",
+                    "home_team_id": 3,
+                    "away_team_id": 4,
+                    "home_team": "Egypt",
+                    "away_team": "Uruguay",
+                    "home_score": "0",
+                    "away_score": "1",
+                    "home_scorers": null,
+                    "away_scorers": "Giménez 89' ",
+                    "date": "2018-06-15T12:00:00+00:00",
+                    "stadium_id": 12,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 17,
+                    "type": "group",
+                    "home_team_id": 1,
+                    "away_team_id": 3,
+                    "home_team": "Russia",
+                    "away_team": "Egypt",
+                    "home_score": "3",
+                    "away_score": "1",
+                    "home_scorers": "A. Dzyuba 62' D. Cheryshev 59' Ahmed Fathy 47' ",
+                    "away_scorers": "Mohamed Salah 73' ",
+                    "date": "2018-06-19T18:00:00+00:00",
+                    "stadium_id": 3,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 18,
+                    "type": "group",
+                    "home_team_id": 4,
+                    "away_team_id": 2,
+                    "home_team": "Uruguay",
+                    "away_team": "Saudi Arabia",
+                    "home_score": "1",
+                    "away_score": "0",
+                    "home_scorers": "Luis Suárez 23' ",
+                    "away_scorers": null,
+                    "date": "2018-06-20T15:00:00+00:00",
+                    "stadium_id": 10,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 33,
+                    "type": "group",
+                    "home_team_id": 4,
+                    "away_team_id": 1,
+                    "home_team": "Uruguay",
+                    "away_team": "Russia",
+                    "home_score": "3",
+                    "away_score": "0",
+                    "home_scorers": "E. Cavani 90' D. Cheryshev 23' Luis Suárez 10' ",
+                    "away_scorers": null,
+                    "date": "2018-06-25T14:00:00+00:00",
+                    "stadium_id": 7,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                },
+                {
+                    "id": 34,
+                    "type": "group",
+                    "home_team_id": 2,
+                    "away_team_id": 3,
+                    "home_team": "Saudi Arabia",
+                    "away_team": "Egypt",
+                    "home_score": "2",
+                    "away_score": "1",
+                    "home_scorers": "Salem Al Dawsari 90'+5' Salman Al Faraj 45'+6' ",
+                    "away_scorers": "Mohamed Salah 22' ",
+                    "date": "2018-06-25T14:00:00+00:00",
+                    "stadium_id": 8,
+                    "channels": [
+                        5,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                }
+            ]
+        },
+        "b": {
+            "name": "Group B",
+            "winner": null,
+            "runnerup": null,
+            "matches": [
+                {
+                    "id": 3,
+                    "type": "group",
+                    "home_team_id": 5,
+                    "away_team_id": 6,
+                    "home_team": "Portugal",
+                    "away_team": "Spain",
+                    "home_score": "3",
+                    "away_score": "3",
+                    "home_scorers": "Cristiano Ronaldo 88' Cristiano Ronaldo 44' Cristiano Ronaldo 4' ",
+                    "away_scorers": "Nacho 58' Diego Costa 55' Diego Costa 24' ",
+                    "date": "2018-06-15T18:00:00+00:00",
+                    "stadium_id": 11,
+                    "channels": [
+                        3,
+                        7,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 4,
+                    "type": "group",
+                    "home_team_id": 7,
+                    "away_team_id": 8,
+                    "home_team": "Morocco",
+                    "away_team": "Iran",
+                    "home_score": "0",
+                    "away_score": "1",
+                    "home_scorers": null,
+                    "away_scorers": "A. Bouhaddouz 90'+5' ",
+                    "date": "2018-06-15T15:00:00+00:00",
+                    "stadium_id": 3,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 19,
+                    "type": "group",
+                    "home_team_id": 5,
+                    "away_team_id": 7,
+                    "home_team": "Portugal",
+                    "away_team": "Morocco",
+                    "home_score": "1",
+                    "away_score": "0",
+                    "home_scorers": "Cristiano Ronaldo 4' ",
+                    "away_scorers": null,
+                    "date": "2018-06-20T12:00:00+00:00",
+                    "stadium_id": 1,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 20,
+                    "type": "group",
+                    "home_team_id": 8,
+                    "away_team_id": 6,
+                    "home_team": "Iran",
+                    "away_team": "Spain",
+                    "home_score": "0",
+                    "away_score": "1",
+                    "home_scorers": null,
+                    "away_scorers": "Diego Costa 54' ",
+                    "date": "2018-06-20T18:00:00+00:00",
+                    "stadium_id": 5,
+                    "channels": [
+                        4,
+                        7,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 35,
+                    "type": "group",
+                    "home_team_id": 8,
+                    "away_team_id": 5,
+                    "home_team": "Iran",
+                    "away_team": "Portugal",
+                    "home_score": "1",
+                    "away_score": "1",
+                    "home_scorers": "K. Ansarifard 90'+3' ",
+                    "away_scorers": "Ricardo Quaresma 45' ",
+                    "date": "2018-06-25T18:00:00+00:00",
+                    "stadium_id": 9,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                },
+                {
+                    "id": 36,
+                    "type": "group",
+                    "home_team_id": 6,
+                    "away_team_id": 7,
+                    "home_team": "Spain",
+                    "away_team": "Morocco",
+                    "home_score": "2",
+                    "away_score": "2",
+                    "home_scorers": "Iago Aspas 90'+1' Isco 19' ",
+                    "away_scorers": "Y. En-Nesyri 81' K. Boutaïb 14' ",
+                    "date": "2018-06-25T18:00:00+00:00",
+                    "stadium_id": 4,
+                    "channels": [
+                        3,
+                        7,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                }
+            ]
+        },
+        "c": {
+            "name": "Group C",
+            "winner": null,
+            "runnerup": null,
+            "matches": [
+                {
+                    "id": 5,
+                    "type": "group",
+                    "home_team_id": 9,
+                    "away_team_id": 10,
+                    "home_team": "France",
+                    "away_team": "Australia",
+                    "home_score": "2",
+                    "away_score": "1",
+                    "home_scorers": "A. Behich 80' A. Griezmann 58' ",
+                    "away_scorers": "Mile Jedinak 62' ",
+                    "date": "2018-06-16T10:00:00+00:00",
+                    "stadium_id": 5,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 6,
+                    "type": "group",
+                    "home_team_id": 11,
+                    "away_team_id": 12,
+                    "home_team": "Peru",
+                    "away_team": "Denmark",
+                    "home_score": "0",
+                    "away_score": "1",
+                    "home_scorers": null,
+                    "away_scorers": "Y. Poulsen 59' ",
+                    "date": "2018-06-16T16:00:00+00:00",
+                    "stadium_id": 9,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 21,
+                    "type": "group",
+                    "home_team_id": 9,
+                    "away_team_id": 11,
+                    "home_team": "France",
+                    "away_team": "Peru",
+                    "home_score": "1",
+                    "away_score": "0",
+                    "home_scorers": "K. Mbappé 34' ",
+                    "away_scorers": null,
+                    "date": "2018-06-21T15:00:00+00:00",
+                    "stadium_id": 12,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 22,
+                    "type": "group",
+                    "home_team_id": 12,
+                    "away_team_id": 10,
+                    "home_team": "Denmark",
+                    "away_team": "Australia",
+                    "home_score": "1",
+                    "away_score": "1",
+                    "home_scorers": "C. Eriksen 7' ",
+                    "away_scorers": "Mile Jedinak 38' ",
+                    "date": "2018-06-21T12:00:00+00:00",
+                    "stadium_id": 7,
+                    "channels": [
+                        4,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 37,
+                    "type": "group",
+                    "home_team_id": 12,
+                    "away_team_id": 9,
+                    "home_team": "Denmark",
+                    "away_team": "France",
+                    "home_score": "0",
+                    "away_score": "0",
+                    "home_scorers": null,
+                    "away_scorers": null,
+                    "date": "2018-06-26T14:00:00+00:00",
+                    "stadium_id": 1,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                },
+                {
+                    "id": 38,
+                    "type": "group",
+                    "home_team_id": 10,
+                    "away_team_id": 11,
+                    "home_team": "Australia",
+                    "away_team": "Peru",
+                    "home_score": "0",
+                    "away_score": "2",
+                    "home_scorers": null,
+                    "away_scorers": "Paolo Guerrero 50' A. Carrillo 18' ",
+                    "date": "2018-06-26T14:00:00+00:00",
+                    "stadium_id": 11,
+                    "channels": [
+                        5,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                }
+            ]
+        },
+        "d": {
+            "name": "Group D",
+            "winner": null,
+            "runnerup": null,
+            "matches": [
+                {
+                    "id": 7,
+                    "type": "group",
+                    "home_team_id": 13,
+                    "away_team_id": 14,
+                    "home_team": "Argentina",
+                    "away_team": "Iceland",
+                    "home_score": "1",
+                    "away_score": "1",
+                    "home_scorers": "S. Agüero 19' ",
+                    "away_scorers": "Alfred Finnbogason 23' ",
+                    "date": "2018-06-16T13:00:00+00:00",
+                    "stadium_id": 2,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 8,
+                    "type": "group",
+                    "home_team_id": 15,
+                    "away_team_id": 16,
+                    "home_team": "Croatia",
+                    "away_team": "Nigeria",
+                    "home_score": "2",
+                    "away_score": "0",
+                    "home_scorers": "L. Modric 71' O. Etebo 32' ",
+                    "away_scorers": null,
+                    "date": "2018-06-16T19:00:00+00:00",
+                    "stadium_id": 4,
+                    "channels": [
+                        4,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 23,
+                    "type": "group",
+                    "home_team_id": 13,
+                    "away_team_id": 15,
+                    "home_team": "Argentina",
+                    "away_team": "Croatia",
+                    "home_score": "0",
+                    "away_score": "3",
+                    "home_scorers": null,
+                    "away_scorers": "I. Rakitic 90'+1' L. Modric 80' A. Rebic 53' ",
+                    "date": "2018-06-21T18:00:00+00:00",
+                    "stadium_id": 6,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 24,
+                    "type": "group",
+                    "home_team_id": 16,
+                    "away_team_id": 14,
+                    "home_team": "Nigeria",
+                    "away_team": "Iceland",
+                    "home_score": "2",
+                    "away_score": "0",
+                    "home_scorers": "A. Musa 75' A. Musa 49' ",
+                    "away_scorers": null,
+                    "date": "2018-06-22T15:00:00+00:00",
+                    "stadium_id": 8,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 39,
+                    "type": "group",
+                    "home_team_id": 16,
+                    "away_team_id": 13,
+                    "home_team": "Nigeria",
+                    "away_team": "Argentina",
+                    "home_score": "1",
+                    "away_score": "2",
+                    "home_scorers": "V. Moses 51' ",
+                    "away_scorers": "M. Rojo 86' L. Messi 14' ",
+                    "date": "2018-06-26T18:00:00+00:00",
+                    "stadium_id": 3,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                },
+                {
+                    "id": 40,
+                    "type": "group",
+                    "home_team_id": 14,
+                    "away_team_id": 15,
+                    "home_team": "Iceland",
+                    "away_team": "Croatia",
+                    "home_score": "1",
+                    "away_score": "2",
+                    "home_scorers": "Gylfi Sigurdsson 76' ",
+                    "away_scorers": "I. Perisic 90' M. Badelj 53' ",
+                    "date": "2018-06-26T18:00:00+00:00",
+                    "stadium_id": 10,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                }
+            ]
+        },
+        "e": {
+            "name": "Group E",
+            "winner": null,
+            "runnerup": null,
+            "matches": [
+                {
+                    "id": 9,
+                    "type": "group",
+                    "home_team_id": 17,
+                    "away_team_id": 18,
+                    "home_team": "Brazil",
+                    "away_team": "Switzerland",
+                    "home_score": "1",
+                    "away_score": "1",
+                    "home_scorers": "Coutinho 20' ",
+                    "away_scorers": "S. Zuber 50' ",
+                    "date": "2018-06-17T18:00:00+00:00",
+                    "stadium_id": 10,
+                    "channels": [
+                        4,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 10,
+                    "type": "group",
+                    "home_team_id": 19,
+                    "away_team_id": 20,
+                    "home_team": "Costa Rica",
+                    "away_team": "Serbia",
+                    "home_score": "0",
+                    "away_score": "1",
+                    "home_scorers": null,
+                    "away_scorers": "A. Kolarov 56' ",
+                    "date": "2018-06-17T12:00:00+00:00",
+                    "stadium_id": 7,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 25,
+                    "type": "group",
+                    "home_team_id": 17,
+                    "away_team_id": 19,
+                    "home_team": "Brazil",
+                    "away_team": "Costa Rica",
+                    "home_score": "2",
+                    "away_score": "0",
+                    "home_scorers": "Neymar 90'+7' Coutinho 90'+1' ",
+                    "away_scorers": null,
+                    "date": "2018-06-22T12:00:00+00:00",
+                    "stadium_id": 3,
+                    "channels": [
+                        4,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 26,
+                    "type": "group",
+                    "home_team_id": 20,
+                    "away_team_id": 18,
+                    "home_team": "Serbia",
+                    "away_team": "Switzerland",
+                    "home_score": "1",
+                    "away_score": "2",
+                    "home_scorers": "A. Mitrovic 5' ",
+                    "away_scorers": "X. Shaqiri 90' G. Xhaka 52' ",
+                    "date": "2018-06-22T18:00:00+00:00",
+                    "stadium_id": 4,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 41,
+                    "type": "group",
+                    "home_team_id": 20,
+                    "away_team_id": 17,
+                    "home_team": "Serbia",
+                    "away_team": "Brazil",
+                    "home_score": "0",
+                    "away_score": "2",
+                    "home_scorers": null,
+                    "away_scorers": "Thiago Silva 68' Paulinho 36' ",
+                    "date": "2018-06-27T18:00:00+00:00",
+                    "stadium_id": 2,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                },
+                {
+                    "id": 42,
+                    "type": "group",
+                    "home_team_id": 18,
+                    "away_team_id": 19,
+                    "home_team": "Switzerland",
+                    "away_team": "Costa Rica",
+                    "home_score": "2",
+                    "away_score": "2",
+                    "home_scorers": "J. Drmic 88' B. Dzemaili 31' ",
+                    "away_scorers": "Y. Sommer 90'+3' K. Waston 56' ",
+                    "date": "2018-06-27T18:00:00+00:00",
+                    "stadium_id": 6,
+                    "channels": [
+                        5,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                }
+            ]
+        },
+        "f": {
+            "name": "Group F",
+            "winner": null,
+            "runnerup": null,
+            "matches": [
+                {
+                    "id": 11,
+                    "type": "group",
+                    "home_team_id": 21,
+                    "away_team_id": 22,
+                    "home_team": "Germany",
+                    "away_team": "Mexico",
+                    "home_score": "0",
+                    "away_score": "1",
+                    "home_scorers": null,
+                    "away_scorers": "H. Lozano 35' ",
+                    "date": "2018-06-17T15:00:00+00:00",
+                    "stadium_id": 1,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 12,
+                    "type": "group",
+                    "home_team_id": 23,
+                    "away_team_id": 24,
+                    "home_team": "Sweden",
+                    "away_team": "South Korea",
+                    "home_score": "1",
+                    "away_score": "0",
+                    "home_scorers": "A. Granqvist 65' ",
+                    "away_scorers": null,
+                    "date": "2018-06-18T12:00:00+00:00",
+                    "stadium_id": 6,
+                    "channels": [
+                        4,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 27,
+                    "type": "group",
+                    "home_team_id": 21,
+                    "away_team_id": 23,
+                    "home_team": "Germany",
+                    "away_team": "Sweden",
+                    "home_score": "2",
+                    "away_score": "1",
+                    "home_scorers": "T. Kroos 90'+5' M. Reus 48' ",
+                    "away_scorers": "O. Toivonen 32' ",
+                    "date": "2018-06-23T18:00:00+00:00",
+                    "stadium_id": 11,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 28,
+                    "type": "group",
+                    "home_team_id": 24,
+                    "away_team_id": 22,
+                    "home_team": "South Korea",
+                    "away_team": "Mexico",
+                    "home_score": "1",
+                    "away_score": "2",
+                    "home_scorers": "Son Heung-Min 90'+3' ",
+                    "away_scorers": "Chicharito 66' C. Vela 26' ",
+                    "date": "2018-06-23T15:00:00+00:00",
+                    "stadium_id": 10,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 43,
+                    "type": "group",
+                    "home_team_id": 24,
+                    "away_team_id": 21,
+                    "home_team": "South Korea",
+                    "away_team": "Germany",
+                    "home_score": "2",
+                    "away_score": "0",
+                    "home_scorers": "Son Heung-Min 90'+6' Kim Young-Gwon 90'+2' ",
+                    "away_scorers": null,
+                    "date": "2018-06-27T14:00:00+00:00",
+                    "stadium_id": 5,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                },
+                {
+                    "id": 44,
+                    "type": "group",
+                    "home_team_id": 22,
+                    "away_team_id": 23,
+                    "home_team": "Mexico",
+                    "away_team": "Sweden",
+                    "home_score": "0",
+                    "away_score": "3",
+                    "home_scorers": null,
+                    "away_scorers": "E. Álvarez 74' A. Granqvist 62' L. Augustinsson 50' ",
+                    "date": "2018-06-27T14:00:00+00:00",
+                    "stadium_id": 12,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                }
+            ]
+        },
+        "g": {
+            "name": "Group G",
+            "winner": null,
+            "runnerup": null,
+            "matches": [
+                {
+                    "id": 13,
+                    "type": "group",
+                    "home_team_id": 25,
+                    "away_team_id": 26,
+                    "home_team": "Belgium",
+                    "away_team": "Panama",
+                    "home_score": "3",
+                    "away_score": "0",
+                    "home_scorers": "R. Lukaku 75' R. Lukaku 69' D. Mertens 47' ",
+                    "away_scorers": null,
+                    "date": "2018-06-18T15:00:00+00:00",
+                    "stadium_id": 11,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 14,
+                    "type": "group",
+                    "home_team_id": 27,
+                    "away_team_id": 28,
+                    "home_team": "Tunisia",
+                    "away_team": "England",
+                    "home_score": "1",
+                    "away_score": "2",
+                    "home_scorers": "F. Sassi 35' ",
+                    "away_scorers": "H. Kane 90'+1' H. Kane 11' ",
+                    "date": "2018-06-18T18:00:00+00:00",
+                    "stadium_id": 8,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 29,
+                    "type": "group",
+                    "home_team_id": 25,
+                    "away_team_id": 27,
+                    "home_team": "Belgium",
+                    "away_team": "Tunisia",
+                    "home_score": "5",
+                    "away_score": "2",
+                    "home_scorers": "Michy 90' E. Hazard 51' R. Lukaku 45'+3' R. Lukaku 16' E. Hazard 6' ",
+                    "away_scorers": "W. Khazri 90'+3' D. Bronn 18' ",
+                    "date": "2018-06-23T12:00:00+00:00",
+                    "stadium_id": 2,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 30,
+                    "type": "group",
+                    "home_team_id": 28,
+                    "away_team_id": 26,
+                    "home_team": "England",
+                    "away_team": "Panama",
+                    "home_score": "6",
+                    "away_score": "1",
+                    "home_scorers": "H. Kane 62' H. Kane 45'+1' J. Stones 40' J. Lingard 36' H. Kane 22' J. Stones 8' ",
+                    "away_scorers": "F. Baloy 78' ",
+                    "date": "2018-06-24T12:00:00+00:00",
+                    "stadium_id": 6,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 45,
+                    "type": "group",
+                    "home_team_id": 28,
+                    "away_team_id": 25,
+                    "home_team": "England",
+                    "away_team": "Belgium",
+                    "home_score": "0",
+                    "away_score": "1",
+                    "home_scorers": null,
+                    "away_scorers": "A. Januzaj 51' ",
+                    "date": "2018-06-28T18:00:00+00:00",
+                    "stadium_id": 4,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                },
+                {
+                    "id": 46,
+                    "type": "group",
+                    "home_team_id": 26,
+                    "away_team_id": 27,
+                    "home_team": "Panama",
+                    "away_team": "Tunisia",
+                    "home_score": "1",
+                    "away_score": "2",
+                    "home_scorers": "Y. Meriah 33' (OG) ",
+                    "away_scorers": "W. Khazri 66' Fakhreddine Ben Yous 51' ",
+                    "date": "2018-06-28T18:00:00+00:00",
+                    "stadium_id": 9,
+                    "channels": [
+                        5,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                }
+            ]
+        },
+        "h": {
+            "name": "Group H",
+            "winner": null,
+            "runnerup": null,
+            "matches": [
+                {
+                    "id": 15,
+                    "type": "group",
+                    "home_team_id": 29,
+                    "away_team_id": 30,
+                    "home_team": "Poland",
+                    "away_team": "Senegal",
+                    "home_score": "1",
+                    "away_score": "2",
+                    "home_scorers": "G. Krychowiak 86' ",
+                    "away_scorers": "M. Niang 60' Thiago Cionek 37' ",
+                    "date": "2018-06-19T15:00:00+00:00",
+                    "stadium_id": 2,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 16,
+                    "type": "group",
+                    "home_team_id": 31,
+                    "away_team_id": 32,
+                    "home_team": "Colombia",
+                    "away_team": "Japan",
+                    "home_score": "1",
+                    "away_score": "2",
+                    "home_scorers": "J. Quintero 39' ",
+                    "away_scorers": "Y. Osako 73' S. Kagawa 6' ",
+                    "date": "2018-06-19T12:00:00+00:00",
+                    "stadium_id": 9,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 1
+                },
+                {
+                    "id": 31,
+                    "type": "group",
+                    "home_team_id": 29,
+                    "away_team_id": 31,
+                    "home_team": "Poland",
+                    "away_team": "Colombia",
+                    "home_score": "0",
+                    "away_score": "3",
+                    "home_scorers": null,
+                    "away_scorers": "J. Cuadrado 75' Falcao 70' Y. Mina 40' ",
+                    "date": "2018-06-24T18:00:00+00:00",
+                    "stadium_id": 5,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 32,
+                    "type": "group",
+                    "home_team_id": 32,
+                    "away_team_id": 30,
+                    "home_team": "Japan",
+                    "away_team": "Senegal",
+                    "home_score": "2",
+                    "away_score": "2",
+                    "home_scorers": "K. Honda 78' T. Inui 34' ",
+                    "away_scorers": "M. Wagué 71' S. Mané 11' ",
+                    "date": "2018-06-24T15:00:00+00:00",
+                    "stadium_id": 12,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 2
+                },
+                {
+                    "id": 47,
+                    "type": "group",
+                    "home_team_id": 32,
+                    "away_team_id": 29,
+                    "home_team": "Japan",
+                    "away_team": "Poland",
+                    "home_score": "0",
+                    "away_score": "1",
+                    "home_scorers": null,
+                    "away_scorers": "J. Bednarek 59' ",
+                    "date": "2018-06-28T14:00:00+00:00",
+                    "stadium_id": 8,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                },
+                {
+                    "id": 48,
+                    "type": "group",
+                    "home_team_id": 30,
+                    "away_team_id": 31,
+                    "home_team": "Senegal",
+                    "away_team": "Colombia",
+                    "home_score": "0",
+                    "away_score": "1",
+                    "home_scorers": null,
+                    "away_scorers": "Y. Mina 74' ",
+                    "date": "2018-06-28T14:00:00+00:00",
+                    "stadium_id": 7,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 3
+                }
+            ]
+        }
+    },
+    "knockout": {
+        "round_16": {
+            "name": "Round of 16",
+            "matches": [
+                {
+                    "id": 49,
+                    "type": "qualified",
+                    "home_team": "Uruguay",
+                    "away_team": "Portugal",
+                    "home_score": "2",
+                    "away_score": "1",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "Uruguay",
+                    "loser": "Portugal",
+                    "home_scorers": "E. Cavani 62' E. Cavani 7' ",
+                    "away_scorers": "Pepe 55' ",
+                    "date": "2018-06-30T18:00:00+00:00",
+                    "stadium_id": 11,
+                    "channels": [
+                        4,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 4
+                },
+                {
+                    "id": 50,
+                    "type": "qualified",
+                    "home_team": "France",
+                    "away_team": "Argentina",
+                    "home_score": "4",
+                    "away_score": "3",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "France",
+                    "loser": "Argentina",
+                    "home_scorers": "K. Mbappé 68' K. Mbappé 64' B. Pavard 57' A. Griezmann 13' (P) ",
+                    "away_scorers": "S. Agüero 90'+3' G. Mercado 48' Á. Di María 41' ",
+                    "date": "2018-06-30T14:00:00+00:00",
+                    "stadium_id": 5,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 4
+                },
+                {
+                    "id": 51,
+                    "type": "qualified",
+                    "home_team": "Spain",
+                    "away_team": "Russia",
+                    "home_score": "1",
+                    "away_score": "1",
+                    "home_penalty": "3",
+                    "away_penalty": "4",
+                    "winner": "Russia",
+                    "loser": "Spain",
+                    "home_scorers": "S. Ignashevich 12' (OG) ",
+                    "away_scorers": "A. Dzyuba 41' (P) ",
+                    "date": "2018-07-01T14:00:00+00:00",
+                    "stadium_id": 1,
+                    "channels": [
+                        3,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 4
+                },
+                {
+                    "id": 52,
+                    "type": "qualified",
+                    "home_team": "Croatia",
+                    "away_team": "Denmark",
+                    "home_score": "1",
+                    "away_score": "1",
+                    "home_penalty": "3",
+                    "away_penalty": "2",
+                    "winner": "Croatia",
+                    "loser": "Denmark",
+                    "home_scorers": "M. Mandzukic 4' ",
+                    "away_scorers": "Zanka 1' ",
+                    "date": "2018-07-01T18:00:00+00:00",
+                    "stadium_id": 6,
+                    "channels": [
+                        4,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 4
+                },
+                {
+                    "id": 53,
+                    "type": "qualified",
+                    "home_team": "Brazil",
+                    "away_team": "Mexico",
+                    "home_score": "2",
+                    "away_score": "0",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "Brazil",
+                    "loser": "Mexico",
+                    "home_scorers": "Roberto Firmino 88' Neymar 51' ",
+                    "away_scorers": null,
+                    "date": "2018-07-02T14:00:00+00:00",
+                    "stadium_id": 7,
+                    "channels": [
+                        3,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 4
+                },
+                {
+                    "id": 54,
+                    "type": "qualified",
+                    "home_team": "Belgium",
+                    "away_team": "Japan",
+                    "home_score": "3",
+                    "away_score": "2",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "Belgium",
+                    "loser": "Japan",
+                    "home_scorers": "N. Chadli 90'+4' M. Fellaini 74' J. Vertonghen 69' ",
+                    "away_scorers": "T. Inui 52' G. Haraguchi 48' ",
+                    "date": "2018-07-02T18:00:00+00:00",
+                    "stadium_id": 10,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 4
+                },
+                {
+                    "id": 55,
+                    "type": "qualified",
+                    "home_team": "Sweden",
+                    "away_team": "Switzerland",
+                    "home_score": "1",
+                    "away_score": "0",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "Sweden",
+                    "loser": "Switzerland",
+                    "home_scorers": "E. Forsberg 66' ",
+                    "away_scorers": null,
+                    "date": "2018-07-03T14:00:00+00:00",
+                    "stadium_id": 3,
+                    "channels": [
+                        4,
+                        6,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 4
+                },
+                {
+                    "id": 56,
+                    "type": "qualified",
+                    "home_team": "Colombia",
+                    "away_team": "England",
+                    "home_score": "1",
+                    "away_score": "1",
+                    "home_penalty": "3",
+                    "away_penalty": "4",
+                    "winner": "England",
+                    "loser": "Colombia",
+                    "home_scorers": "Y. Mina 90'+3' ",
+                    "away_scorers": "H. Kane 57' (P) ",
+                    "date": "2018-07-03T18:00:00+00:00",
+                    "stadium_id": 2,
+                    "channels": [
+                        3,
+                        6,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 4
+                }
+            ]
+        },
+        "round_8": {
+            "name": "Quarter-finals",
+            "matches": [
+                {
+                    "id": 57,
+                    "type": "winner",
+                    "home_team": "Uruguay",
+                    "away_team": "France",
+                    "home_score": "0",
+                    "away_score": "2",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "France",
+                    "loser": "Uruguay",
+                    "home_scorers": null,
+                    "away_scorers": "A. Griezmann 61' R. Varane 40' ",
+                    "date": "2018-07-06T14:00:00+00:00",
+                    "stadium_id": 6,
+                    "channels": [
+                        3,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 5
+                },
+                {
+                    "id": 58,
+                    "type": "winner",
+                    "home_team": "Brazil",
+                    "away_team": "Belgium",
+                    "home_score": "1",
+                    "away_score": "2",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "Belgium",
+                    "loser": "Brazil",
+                    "home_scorers": "Renato Augusto 76' ",
+                    "away_scorers": "K. De Bruyne 31' Fernandinho 13' (OG) ",
+                    "date": "2018-07-06T18:00:00+00:00",
+                    "stadium_id": 5,
+                    "channels": [
+                        3,
+                        14
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 5
+                },
+                {
+                    "id": 59,
+                    "type": "winner",
+                    "home_team": "Russia",
+                    "away_team": "Croatia",
+                    "home_score": "2",
+                    "away_score": "2",
+                    "home_penalty": "3",
+                    "away_penalty": "4",
+                    "winner": "Croatia",
+                    "loser": "Russia",
+                    "home_scorers": "Mario Fernandes 115' D. Cheryshev 31' ",
+                    "away_scorers": "D. Vida 100' A. Kramaric 39' ",
+                    "date": "2018-07-07T18:00:00+00:00",
+                    "stadium_id": 11,
+                    "channels": [
+                        4,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 5
+                },
+                {
+                    "id": 60,
+                    "type": "winner",
+                    "home_team": "Sweden",
+                    "away_team": "England",
+                    "home_score": "0",
+                    "away_score": "2",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "England",
+                    "loser": "Sweden",
+                    "home_scorers": null,
+                    "away_scorers": "Dele Alli 58' H. Maguire 30' ",
+                    "date": "2018-07-07T14:00:00+00:00",
+                    "stadium_id": 7,
+                    "channels": [
+                        4,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 5
+                }
+            ]
+        },
+        "round_4": {
+            "name": "Semi-finals",
+            "matches": [
+                {
+                    "id": 61,
+                    "type": "winner",
+                    "home_team": "France",
+                    "away_team": "Belgium",
+                    "home_score": "1",
+                    "away_score": "0",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "France",
+                    "loser": "Belgium",
+                    "home_scorers": "S. Umtiti 51' ",
+                    "away_scorers": null,
+                    "date": "2018-07-10T18:00:00+00:00",
+                    "stadium_id": 3,
+                    "channels": [
+                        4,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 6
+                },
+                {
+                    "id": 62,
+                    "type": "winner",
+                    "home_team": "Croatia",
+                    "away_team": "England",
+                    "home_score": "2",
+                    "away_score": "1",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "Croatia",
+                    "loser": "England",
+                    "home_scorers": "M. Mandzukic 109' I. Perisic 68' ",
+                    "away_scorers": "K. Trippier 5' ",
+                    "date": "2018-07-11T18:00:00+00:00",
+                    "stadium_id": 1,
+                    "channels": [
+                        3,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 6
+                }
+            ]
+        },
+        "round_2_loser": {
+            "name": "Third place play-off",
+            "matches": [
+                {
+                    "id": 63,
+                    "type": "loser",
+                    "home_team": "Belgium",
+                    "away_team": "England",
+                    "home_score": "2",
+                    "away_score": "0",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "Belgium",
+                    "loser": "England",
+                    "home_scorers": "E. Hazard 82' T. Meunier 4' ",
+                    "away_scorers": null,
+                    "date": "2018-07-14T14:00:00+00:00",
+                    "stadium_id": 3,
+                    "channels": [
+                        4,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 7
+                }
+            ]
+        },
+        "round_2": {
+            "name": "Final",
+            "matches": [
+                {
+                    "id": 64,
+                    "type": "winner",
+                    "home_team": "France",
+                    "away_team": "Croatia",
+                    "home_score": "4",
+                    "away_score": "2",
+                    "home_penalty": null,
+                    "away_penalty": null,
+                    "winner": "France",
+                    "loser": "Croatia",
+                    "home_scorers": "K. Mbappé 65' P. Pogba 59' A. Griezmann 38' (P) M. Mandzukic 18' (OG) ",
+                    "away_scorers": "M. Mandzukic 69' I. Perisic 28' ",
+    
+                "date": "2018-07-15T15:00:00+00:00",
+                    "stadium_id": 1,
+                    "channels": [
+                        3,
+                        4,
+                        13
+                    ],
+                    "time_elapsed": "Final",
+                    "finished": true,
+                    "matchday": 7
+                }
+            ]
+        }
+    }
+}
+
