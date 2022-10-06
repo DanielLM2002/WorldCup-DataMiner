@@ -10,11 +10,11 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <sstream>
-using namespace std;
 
 #include <vector>
+#include <sstream>
 
+#include "common/Util.hpp"
 #include "../Round/Round.hpp"
 #include "../Socket/Socket.hpp"
 #include "../data/CountryCodes.hpp"
@@ -45,7 +45,7 @@ typedef struct {
   /// Country name
   std::string country = "";
 } PointsByCountry;
-#endif
+#endif // !_STRUCT_POINTS_BY_COUNTRY
 
 class ServerResponse {
  private: 
@@ -53,11 +53,12 @@ class ServerResponse {
   JsonDataSource json;
   /// Selected country
   std::string country;
+  /// Group of selected country
   std::string group;
 
  public:
-
-  stringstream stringBuffer;
+  /// Buffer
+  std::stringstream stringBuffer;
 
   /**
    * @brief Constructor

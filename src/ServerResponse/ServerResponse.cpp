@@ -10,7 +10,7 @@
 #include "common/Util.hpp"
 
 ServerResponse::ServerResponse(std::string country) {
-  this->country = toUpperCase( Util::trim( country ) );
+  this->country = toUpperCase(Util::trim(country));
 }
 
 ServerResponse::~ServerResponse() {

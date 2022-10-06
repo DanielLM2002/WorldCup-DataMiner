@@ -5,30 +5,41 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-
 #ifndef _CLIENT_HPP_
 #define _CLIENT_HPP_
 
 #include <stdio.h>
 #include <string.h>
+
 #include <iostream>
-using namespace std;
 
 #include "../Socket/Socket.hpp"
 
 class Client {
+ private:
+  /// Number of the host
+  std::string host;
+  /// Number of the port
+  int port;
 
-private:
-    /* data */
-    string host;
-    int port;
+ public:
+  /**
+   * @brief Constructor
+   * @param nHost Number of the host
+   * @param nPort Number of the port
+   */
+  explicit Client(std::string nHost, int nPort);
 
-public:
-    Client(string nHost, int nPort);
-    ~Client();
-    void start();
+  /**
+   * @brief Destroyer
+   */
+  ~Client();
+
+  /**
+   * @brief Method that starts the client
+   */
+  void start();
 
 };
 
-
-#endif // _CLIENT_HPP_
+#endif // !_CLIENT_HPP_

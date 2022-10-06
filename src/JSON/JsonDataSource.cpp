@@ -58,10 +58,10 @@ int JsonDataSource::fetchData() {
 
 int JsonDataSource::fetchDataSSL() {
   // todo pass this filename by parameter
-  ifstream fileStream("data/world-cup-2018.json"); //taking file as inputstream
+  std::ifstream fileStream("data/world-cup-2018.json"); //taking file as inputstream
   int result = 0;
   if(fileStream) {
-    ostringstream ss;
+    std::ostringstream ss;
     ss << fileStream.rdbuf(); // reading data
     this->data = ss.str();
     result = 1;
