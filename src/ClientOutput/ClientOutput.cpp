@@ -10,6 +10,7 @@
 #include "../common/Util.hpp"
 #include "../String/StringDataSource.hpp"
 #include "../../data/RoundNames.hpp"
+#include "../../data/CountryCodes.hpp"
 
 ClientOutput::ClientOutput() {}
 
@@ -23,7 +24,8 @@ void ClientOutput::handleBuffer(char* buffer) {
 }
 
 void ClientOutput::printGroup(std::vector<std::vector<std::string>> group) {
-  std::cout << "Country" << '\t' 
+  CountryCodes countryNames;
+  std::cout << "Country         "
             << "PJ" << '\t' 
             << "PG" << '\t' 
             << "PE" << '\t' 
@@ -35,11 +37,13 @@ void ClientOutput::printGroup(std::vector<std::vector<std::string>> group) {
 
   for (size_t i = 0; i < group.size(); i++) {
     for (size_t j = 0; j < group[i].size(); j++) {
-      if (j != 1) {
-        std::cout << group[i][j] << "\t";
-      } else {
+      if (j == 0){
+        printf("%-16s", countryNames.countries[group[i][j]].c_str());
+      } else if (j == 1) {
         int PJ = stoi(group[i][2]) + stoi(group[i][3]) + stoi(group[i][4]);
         std::cout << PJ << "\t";
+      } else {
+        std::cout << group[i][j] << "\t";
       }
     }
     std::cout << std::endl;
@@ -49,6 +53,7 @@ void ClientOutput::printGroup(std::vector<std::vector<std::string>> group) {
 
 void ClientOutput::printMatches(std::vector<std::vector<std::string>> rounds) {
   RoundNames roundNames;
+  CountryCodes countryNames;
   if (rounds.size() > 1){
     for (size_t i = 0; i < rounds.size()-1 ; i++) {
       // std::cout << roundNames.rounds.find(rounds[i][0])->second << std::endl;
@@ -57,7 +62,11 @@ void ClientOutput::printMatches(std::vector<std::vector<std::string>> rounds) {
             << "Country" << '\t' 
             << "Score" << std::endl;
       for (size_t j = 1; j < rounds[i].size() ; j++) {
-        std::cout << rounds[i][j] << "\t";
+        if(j == 1 || j == 2){
+          std::cout << countryNames.countries[rounds[i][j]] << "\t";
+        } else {
+          std::cout << rounds[i][j] << "\t";
+        }
       }
       std::cout << std::endl << std::endl;
     }
