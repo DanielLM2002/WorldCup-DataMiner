@@ -5,8 +5,8 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#ifndef _CLIENT_HPP_
-#define _CLIENT_HPP_
+#ifndef _CLIENT_
+#define _CLIENT_
 
 #include <stdio.h>
 #include <string.h>
@@ -21,8 +21,8 @@ class Client {
   std::string host;
   /// Number of the port
   int port;
-
-  char buffer[ 512 ];
+  /// Buffer
+  char buffer[512];
 
  public:
   /**
@@ -66,4 +66,4 @@ class Client {
   std::string toUpperCase(std::string);
 };
 
-#endif // !_CLIENT_HPP_
+#endif // !_CLIENT_

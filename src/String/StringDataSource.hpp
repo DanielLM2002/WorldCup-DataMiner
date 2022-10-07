@@ -10,24 +10,52 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <iostream>
+
 #include <vector>
-using namespace std;
+#include <iostream>
+
+#include "../common/Util.hpp"
 
 class StringDataSource {
-
-private:
+ private:
+  /// Value of the group
   std::vector<std::vector<std::string>> group;
+  /// Value of the round
   std::vector<std::vector<std::string>> round;
   
-public:
-    StringDataSource();
-    ~StringDataSource();
+ public:
+  /**
+   * @brief Constructor
+   */
+  explicit StringDataSource();
 
-    void parse(char*);
-    void orderGroupByPosition();
-    std::vector<std::vector<std::string>> getGroup();
-    std::vector<std::vector<std::string>> getRounds();
+  /**
+   * @brief Destroyer
+   */
+  ~StringDataSource();
+
+  /**
+   * @brief Method that parses the data in the buffer
+   * @param buffer Buffer
+   */
+  void parse(char*);
+
+  /**
+   * @brief Method that ranks countries according to their score
+   */
+  void orderGroupByPosition();
+
+  /**
+   * @brief Method that gets the group
+   * @return std::vector<std::vector<std::string>> 
+   */
+  std::vector<std::vector<std::string>> getGroup();
+
+  /**
+   * @brief Method that gets the round
+   * @return std::vector<std::vector<std::string>> 
+   */
+  std::vector<std::vector<std::string>> getRounds();
 };
 
-#endif // _STRING_DATA_SOURCE_
+#endif // !_STRING_DATA_SOURCE_

@@ -6,11 +6,14 @@
 /// This code is released under the GNU Public License version 3
 
 #include "StringDataSource.hpp"
-#include "../common/Util.hpp"
 
-StringDataSource::StringDataSource() {}
+StringDataSource::StringDataSource() {
 
-StringDataSource::~StringDataSource() {}
+}
+
+StringDataSource::~StringDataSource() {
+
+}
 
 void StringDataSource::parse(char* buffer) {
   std::vector<std::string> lines = Util::split(buffer,"\n");
