@@ -22,6 +22,8 @@ class Client {
   /// Number of the port
   int port;
 
+  char buffer[ 512 ];
+
  public:
   /**
    * @brief Constructor
@@ -40,6 +42,28 @@ class Client {
    */
   void start();
 
+  /**
+   * @brief Method that reads the data entered by the user
+   */
+  void getInput(Socket*);
+
+  /**
+   * @brief Method that asks the user if he wants to obtain the route of a team 
+   *        in the world cup
+   */
+  void askAgain(Socket*);
+
+  /**
+   * @brief Metod that prints all country codes available
+   */
+  void printCountryCodes(Socket*);
+
+  /**
+   * @brief Method that converts a string to uppercase
+   * @param str String
+   * @return std::string 
+   */
+  std::string toUpperCase(std::string);
 };
 
 #endif // !_CLIENT_HPP_
