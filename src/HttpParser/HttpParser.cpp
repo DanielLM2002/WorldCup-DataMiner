@@ -9,6 +9,7 @@
 
 HttpParser::HttpParser(std::string message) {
     this->httpMessage = message;
+    this->parse();
 }
 
 HttpParser::~HttpParser() {

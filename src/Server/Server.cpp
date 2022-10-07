@@ -6,6 +6,7 @@
 /// This code is released under the GNU Public License version 3
 
 #include "Server.hpp"
+#include "HttpParser.hpp"
 
 Server::Server(int nPort): port(nPort) {
 
@@ -34,9 +35,9 @@ void Server::serve(){
       s2->Read( a, 512 );
       std::cout<< "Received: \n" << a << std::endl; // Read a string from client
       
-      std::vector<std::string> info = Util::split(a," ");
-      std::vector<std::string> info2 = Util::split(info[1],"/");
-      std::string country = info2[3];
+      HttpParser parser(a);
+
+      std::string country = parser.getCountry();
       std::cout << "Country code: " << country << "." << std::endl;
 
       //todo get country data
