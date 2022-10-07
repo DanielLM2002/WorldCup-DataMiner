@@ -23,10 +23,15 @@ std::string HttpParser::getHeaderValues(std::string header, std::string &method,
     return headerParts[0];
 }
 
-
-std::string HttpParser::getParamValue(std::string param, std::string &paramName, std::string &paramValue) {
-    std::vector<std::string> paramParts = Util::split(param, "=");
-    paramName = paramParts[0];
-    paramValue = paramParts[1];
-    return paramParts[0];
+std::string HttpParser::getParamValue(std::string param, std::string url) {
+    std::vector<std::string> urlParts = Util::split(url, "?");
+    std::vector<std::string> params = Util::split(urlParts[1], "&");
+    for (int i = 0; i < params.size(); i++) {
+        std::vector<std::string> paramParts = Util::split(params[i], "=");
+        if (paramParts[0] == param) {
+            return paramParts[1];
+        }
+    }
+    return "";
 }
+
