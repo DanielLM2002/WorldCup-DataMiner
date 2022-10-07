@@ -16,39 +16,36 @@ Client::~Client() {
 }
 
 void Client::start() {
-  Socket s('s'); // Crea un socket de IPv4, tipo "stream"
-  std::cout<<"trying to connect"<<std::endl;
-  s.Connect("127.0.0.1", 9876); // Same port as server
-  std::cout<<"Connected"<<std::endl;
-  const char* b = "hi:connect\r\nfrom:client-ubuntu\r\n\r\n";
-  std::cout << "Sending connection request: \n" << b << std::endl;
-  s.Write(b);		// Send first program argument to server
-  s.Read(this->buffer, 512);	// Read the answer sent back from server
-   printf("Response from server:\n%s->\n", this->buffer);	// Print the received string
-  
-  this->getInput(&s);
+  this->getInput();
 }
 
-void Client::getInput(Socket* s) {
+void Client::getInput() {
   std::string input;
   std::cout << "Please enter the code of the country you wish to check (or type h to check country codes): ";
   getline(std::cin, input);
   input = toUpperCase(input);
   std::cout << std::endl;
   if (input == "H") {
-    this->printCountryCodes(s);
+    this->printCountryCodes();
   } else {
-    std::string req = "get\r\n"+input+"\r\n\r\n";
-    std::cout << "Sending get request: \n" << req << std::endl;
-    s->Write(&req[0]);
+    Socket s('s'); // Crea un socket de IPv4, tipo "stream"
+    s.Connect(&(this->host)[0], this->port); // Same port as server
+  
+    std::string req = "GET /fifa/2018/"+input+" HTTP/1.1\r\nhost: grupoh.ecci \r\n\r\n";
+    //std::cout << "Sending get request: \n" << req << std::endl;
+    s.Write(&req[0]);
     memset(this->buffer,0, 512);
-    s->Read( buffer, 512 );	// Read the answer sent back from server
-    // llamar a la clase output
-    printf( "Response from get:\n");
-    ClientOutput output;
-    output.handleBuffer(this->buffer);
+    s.Read( buffer, 512 );	// Read the answer sent back from server
+    std::string localBuffer(this->buffer);
+    if(localBuffer.find("404 (NOT FOUND)") != std::string::npos) {
+      std::cout << "Input error: 404 (NOT FOUND)" << std::endl;
+    } else {
+      // llamar a la clase output
+      ClientOutput output;
+      output.handleBuffer(this->buffer);
+    }
   }
-  this->askAgain(s);
+  this->askAgain();
 }
 
 std::string Client::toUpperCase(std::string str){
@@ -58,24 +55,24 @@ std::string Client::toUpperCase(std::string str){
   return temp;
 }
 
-void Client::askAgain(Socket* s) {
+void Client::askAgain() {
   std::string answer;
   std::cout << "Would you like to check another country (yes/no): ";
   getline (std::cin, answer);
   answer = toUpperCase(answer);
   if (answer == "YES") {
     std::cout << std::endl;
-    this->getInput(s);
+    this->getInput();
   }
   else {
     std::cout << std::endl << "Goodbye! :C" << std::endl;
   }
 }
 
-void Client::printCountryCodes(Socket* s) {
+void Client::printCountryCodes() {
   CountryCodes codes;
   for (auto& x: codes.countries)
     std::cout << x.first << ": " << x.second << '\n';
   std::cout << std::endl;
-  this->getInput(s);
+  this->getInput();
 }

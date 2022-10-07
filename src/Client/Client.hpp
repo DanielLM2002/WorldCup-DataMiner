@@ -45,18 +45,18 @@ class Client {
   /**
    * @brief Method that reads the data entered by the user
    */
-  void getInput(Socket*);
+  void getInput();
 
   /**
    * @brief Method that asks the user if he wants to obtain the route of a team 
    *        in the world cup
    */
-  void askAgain(Socket*);
+  void askAgain();
 
   /**
    * @brief Metod that prints all country codes available
    */
-  void printCountryCodes(Socket*);
+  void printCountryCodes();
 
   /**
    * @brief Method that converts a string to uppercase
