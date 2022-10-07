@@ -42,7 +42,7 @@ class HttpParser {
    */
   std::string getHeaderValues(std::string header, std::string &method, std::string &path, std::string &version);
 
-  std::string getParamValue(std::string param, std::string &paramName, std::string &paramValue);
+  std::string getParamValue(std::string param, std::string url);
 };
 
 #endif  // !_HTTP_PARSER_
