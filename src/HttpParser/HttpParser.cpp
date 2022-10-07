@@ -4,6 +4,7 @@
 /// @author Daniel Lizano Morales <daniel.lizanomorales@ucr.ac.cr>
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
+
 #include "HttpParser.hpp"
 
 HttpParser::HttpParser(int nPort) {
@@ -11,6 +12,7 @@ HttpParser::HttpParser(int nPort) {
 }
 
 HttpParser::~HttpParser() {
+
 }
 
 std::string HttpParser::getHeaderValues(std::string header, std::string &method, std::string &path, std::string &version) {

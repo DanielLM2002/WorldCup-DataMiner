@@ -4,8 +4,9 @@
 /// @author Daniel Lizano Morales <daniel.lizanomorales@ucr.ac.cr>
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
-#ifndef HTTP_PARSER_HPP
-#define HTTP_PARSER_HPP
+
+#ifndef _HTTP_PARSER_
+#define _HTTP_PARSER_
 
 #include <string>
 #include <vector>
@@ -31,9 +32,24 @@ class HttpParser {
    */
   ~HttpParser();
 
-    std::string getHeaderValues(std::string header, std::string &method, std::string &path, std::string &version);
+  /**
+   * @brief Method that gets the header value of the JSON
+   * @param header Header
+   * @param method Method
+   * @param path Path
+   * @param version Version
+   * @return std::string 
+   */
+  std::string getHeaderValues(std::string header, std::string &method, std::string &path, std::string &version);
 
-    std::string getPathValues(std::string path, std::string &pathName, std::string &pathExtension);
+  /**
+   * @brief Method that gets the path value of the JSON
+   * @param path Path
+   * @param pathName Method
+   * @param pathExtension Extension
+   * @return std::string 
+   */
+  std::string getPathValues(std::string path, std::string &pathName, std::string &pathExtension);
 };
 
-#endif  // !_SERVER_HPP_
+#endif  // !_HTTP_PARSER_
