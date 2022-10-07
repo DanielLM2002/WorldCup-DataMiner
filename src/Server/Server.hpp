@@ -5,8 +5,8 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#ifndef _SERVER_HPP_
-#define _SERVER_HPP_
+#ifndef _SERVER_
+#define _SERVER_
 
 #include <string>
 #include <vector>
@@ -38,4 +38,4 @@ class Server {
   void serve();
 };
 
-#endif  // !_SERVER_HPP_
+#endif  // !_SERVER_
