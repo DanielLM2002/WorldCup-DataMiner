@@ -39,7 +39,7 @@ void Client::getInput() {
     std::string localBuffer(this->buffer);
     if(localBuffer.find("404 (NOT FOUND)") != std::string::npos) {
       std::cout << "Input error: 404 (NOT FOUND)" << std::endl;
-    } else {
+    } else { //todo check for empty message
       // llamar a la clase output
       ClientOutput output;
       output.handleBuffer(this->buffer);

@@ -38,7 +38,7 @@ void ClientOutput::printGroup(std::vector<std::vector<std::string>> group) {
       if (j != 1) {
         std::cout << group[i][j] << "\t";
       } else {
-        int PJ = stoi(group[i][2]) + stoi(group[i][4]);
+        int PJ = stoi(group[i][2]) + stoi(group[i][3]) + stoi(group[i][4]);
         std::cout << PJ << "\t";
       }
     }
