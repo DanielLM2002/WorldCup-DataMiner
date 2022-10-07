@@ -40,7 +40,7 @@ void Server::serve(){
       std::string country = parser.getCountry();
       std::cout << "Country code: " << country << "." << std::endl;
 
-      //todo get country data
+      //get country data
       ServerResponse os(country);
       os.handleCountry();
       std::string result = os.stringBuffer.str();
