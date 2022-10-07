@@ -18,14 +18,17 @@
 class HttpParser {
  private:
   /// Number of the port
-  int port;
+  std::string country;
+  std::string httpMessage;
+
+  void parse();
 
  public:
   /**
    * @brief Constructor
    * @param nPort Number of the port
    */
-  explicit HttpParser(int nPort);
+  explicit HttpParser(std::string message);
 
   /**
    * @brief Destroyer
@@ -41,8 +44,7 @@ class HttpParser {
    * @return std::string 
    */
   std::string getHeaderValues(std::string header, std::string &method, std::string &path, std::string &version);
-
-  std::string getParamValue(std::string param, std::string url);
+  std::string getCountry();
 };
 
 #endif  // !_HTTP_PARSER_
