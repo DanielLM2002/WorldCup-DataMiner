@@ -8,8 +8,8 @@
 #include "HttpParser.hpp"
 
 HttpParser::HttpParser(std::string message) {
-    this->httpMessage = message;
-    this->parse();
+  this->httpMessage = message;
+  this->parse();
 }
 
 HttpParser::~HttpParser() {
@@ -17,19 +17,19 @@ HttpParser::~HttpParser() {
 }
 
 std::string HttpParser::getCountry(){
-    return this->country; 
+  return this->country; 
 }
 
 std::string HttpParser::getHeaderValues(std::string header, std::string &method, std::string &path, std::string &version) {
-    std::vector<std::string> headerParts = Util::split(header, " ");
-    method = headerParts[0];
-    path = headerParts[1];
-    version = headerParts[2];
-    return headerParts[0];
+  std::vector<std::string> headerParts = Util::split(header, " ");
+  method = headerParts[0];
+  path = headerParts[1];
+  version = headerParts[2];
+  return headerParts[0];
 }
 
 void HttpParser::parse() {
-    std::vector<std::string> pathParts = Util::split(this->httpMessage, " ");
-    std::vector<std::string> pathParts1 = Util::split(pathParts[1], "/");
-    this->country = pathParts1[3];
+  std::vector<std::string> pathParts = Util::split(this->httpMessage, " ");
+  std::vector<std::string> pathParts1 = Util::split(pathParts[1], "/");
+  this->country = pathParts1[3];
 }

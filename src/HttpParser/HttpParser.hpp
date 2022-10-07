@@ -19,9 +19,8 @@ class HttpParser {
  private:
   /// Number of the port
   std::string country;
+  /// Message
   std::string httpMessage;
-
-  void parse();
 
  public:
   /**
@@ -44,7 +43,17 @@ class HttpParser {
    * @return std::string 
    */
   std::string getHeaderValues(std::string header, std::string &method, std::string &path, std::string &version);
+
+  /**
+   * @brief Method that gets the country
+   * @return std::string 
+   */
   std::string getCountry();
+
+  /**
+   * @brief Method that parses the message
+   */
+  void parse();
 };
 
 #endif  // !_HTTP_PARSER_
