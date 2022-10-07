@@ -18,7 +18,7 @@ StringDataSource::~StringDataSource() {
 void StringDataSource::parse(char* buffer) {
   std::vector<std::string> lines = Util::split(buffer,"\n");
   std::vector<std::string> temp;
-  for (int i = 0; i < lines.size(); i++){
+  for (int i = 0; i < (int) lines.size(); i++){
     temp = Util::split(lines[i],"\t");
     if (i < 4) {
       this->group.push_back(temp);
