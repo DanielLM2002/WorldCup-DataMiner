@@ -7,12 +7,16 @@
 
 #include "HttpParser.hpp"
 
-HttpParser::HttpParser(int nPort) {
-    port = nPort;
+HttpParser::HttpParser(std::string message) {
+    this->httpMessage = message;
 }
 
 HttpParser::~HttpParser() {
 
+}
+
+std::string HttpParser::getCountry(){
+    return this->country; 
 }
 
 std::string HttpParser::getHeaderValues(std::string header, std::string &method, std::string &path, std::string &version) {
@@ -23,15 +27,8 @@ std::string HttpParser::getHeaderValues(std::string header, std::string &method,
     return headerParts[0];
 }
 
-std::string HttpParser::getParamValue(std::string param, std::string url) {
-    std::vector<std::string> urlParts = Util::split(url, "?");
-    std::vector<std::string> params = Util::split(urlParts[1], "&");
-    for (int i = 0; i < params.size(); i++) {
-        std::vector<std::string> paramParts = Util::split(params[i], "=");
-        if (paramParts[0] == param) {
-            return paramParts[1];
-        }
-    }
-    return "";
+void HttpParser::parse() {
+    std::vector<std::string> pathParts = Util::split(this->httpMessage, " ");
+    std::vector<std::string> pathParts1 = Util::split(pathParts[1], "/");
+    this->country = pathParts1[3];
 }
-
