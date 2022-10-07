@@ -23,9 +23,10 @@ std::string HttpParser::getHeaderValues(std::string header, std::string &method,
     return headerParts[0];
 }
 
-std::string HttpParser::getPathValues(std::string path, std::string &pathName, std::string &pathExtension) {
-    std::vector<std::string> pathParts = Util::split(path, ".");
-    pathName = pathParts[0];
-    pathExtension = pathParts[1];
-    return pathParts[0];
+
+std::string HttpParser::getParamValue(std::string param, std::string &paramName, std::string &paramValue) {
+    std::vector<std::string> paramParts = Util::split(param, "=");
+    paramName = paramParts[0];
+    paramValue = paramParts[1];
+    return paramParts[0];
 }
