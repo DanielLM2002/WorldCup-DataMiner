@@ -1,7 +1,7 @@
 # **World cup dataminer**
 
 ## Descripción del problema
-Este programa es un software cliente que obtiene información de un servidor de datos seleccionado, para este fin se estará empleando el protocolo HTTP. Los datos obtenidos del servidor servirán para mostrar la ruta de una selección determinada en el mundial de fútbol, empezando por sus resultados en fase de grupos y mostrando además, los resultados de sus juegos en etapas más avanzadas como octavos, cuartos, semifinal y final en el caso que dicha selección las halla disputado. La visualización de los datos se hará mediante la interfaz de consola, la cual será capaz de mostrar los resultados de los equipos que el usuario indique. Los datos a utilizar están basados en las estadísticas que dejó el mundial de fútbol de Rusia 2018.
+Este programa es un software tanto servidor como cliente que obtiene información de datos seleccionado, para este fin se estará empleando el protocolo HTTP y un protocolo de comunicación definido por todos los estudiantes del curso en conjunto. Los datos obtenidos servirán para mostrar la ruta de una selección determinada en el mundial de fútbol, empezando por sus resultados en fase de grupos y mostrando además, los resultados de sus juegos en etapas más avanzadas como octavos, cuartos, semifinal y final en el caso que dicha selección las halla disputado. La visualización de los datos se hará mediante la interfaz de consola, la cual será capaz de mostrar los resultados de los equipos que el usuario indique. Los datos a utilizar están basados en las estadísticas que dejó el mundial de fútbol de Rusia 2018.
 
 <center>
 
@@ -27,20 +27,20 @@ sudo apt-get install openssl
 sudo apt-get install nlohmann-json3-dev
 ```
 
-### Compilación
+### Compilación y ejecución
 
-Para compilar el código se utiliza el siguiente comando:
+En el caso que se quiere compilar y ejecutar el servidor se utilizará el siguiente comando:
 ```
-make
+make server
 ```
-Este comando generará una carpeta ```bin``` en la cual se guardará el archivo ```WorldCup-DataMiner.o```
-### Ejecución
 
-Posterior a la compilación del código, para ejecutar el programa debe emplearse el siguiente comando:
 
+Si por el contrario se quiere compilar y ejecutar el cliente se se utilizará el siguiente comando:
 ```
-bin/WorldCup-DataMiner
+make client
 ```
+Ambos comandos generarán una carpeta ```bin``` en la cual se guardará el archivo ```WorldCup-DataMiner.o```
+
 ## Créditos
 
 Proyecto desarrollado por:

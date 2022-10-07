@@ -5,8 +5,8 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#ifndef _CLIENT_HPP_
-#define _CLIENT_HPP_
+#ifndef _CLIENT_
+#define _CLIENT_
 
 #include <stdio.h>
 #include <string.h>
@@ -21,6 +21,8 @@ class Client {
   std::string host;
   /// Number of the port
   int port;
+  /// Buffer
+  char buffer[512];
 
  public:
   /**
@@ -40,6 +42,28 @@ class Client {
    */
   void start();
 
+  /**
+   * @brief Method that reads the data entered by the user
+   */
+  void getInput(Socket*);
+
+  /**
+   * @brief Method that asks the user if he wants to obtain the route of a team 
+   *        in the world cup
+   */
+  void askAgain(Socket*);
+
+  /**
+   * @brief Metod that prints all country codes available
+   */
+  void printCountryCodes(Socket*);
+
+  /**
+   * @brief Method that converts a string to uppercase
+   * @param str String
+   * @return std::string 
+   */
+  std::string toUpperCase(std::string);
 };
 
-#endif // !_CLIENT_HPP_
+#endif // !_CLIENT_
