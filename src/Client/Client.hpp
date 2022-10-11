@@ -9,6 +9,7 @@
 #define _CLIENT_
 
 #include <stdio.h>
+#include <ctype.h>
 #include <string.h>
 
 #include <iostream>

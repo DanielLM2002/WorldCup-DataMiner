@@ -20,30 +20,42 @@ void Client::start() {
 }
 
 void Client::getInput() {
+  bool validInput = true;
   std::string input;
   std::cout << "Please enter the code of the country you wish to check (or type h to check country codes): ";
   getline(std::cin, input);
-  input = toUpperCase(input);
-  std::cout << std::endl;
-  if (input == "H") {
-    this->printCountryCodes();
-  } else {
-    Socket s('s'); // Crea un socket de IPv4, tipo "stream"
-    s.Connect(&(this->host)[0], this->port); // Same port as server
-  
-    std::string req = "GET /fifa/2018/"+input+" HTTP/1.1\r\nhost: grupoh.ecci \r\n\r\n";
-    //std::cout << "Sending get request: \n" << req << std::endl;
-    s.Write(&req[0]);
-    memset(this->buffer,0, 512);
-    s.Read( buffer, 512 );	// Read the answer sent back from server
-    std::string localBuffer(this->buffer);
-    if(localBuffer.find("404 (NOT FOUND)") != std::string::npos) {
-      std::cout << "Input error: 404 (NOT FOUND)" << std::endl;
-    } else { //todo check for empty message
-      // llamar a la clase output
-      ClientOutput output;
-      output.handleBuffer(this->buffer);
+  for (int index = 0; input[index]; ++index) {
+    if (!isalpha(input[index])) {
+      validInput = false;
+      break;
     }
+  }
+
+  if (validInput == true) {
+    input = toUpperCase(input);
+    std::cout << std::endl;
+    if (input == "H") {
+      this->printCountryCodes();
+    } else {
+      Socket s('s'); // Crea un socket de IPv4, tipo "stream"
+      s.Connect(&(this->host)[0], this->port); // Same port as server
+    
+      std::string req = "GET /fifa/2018/"+input+" HTTP/1.1\r\nhost: grupoh.ecci \r\n\r\n";
+      //std::cout << "Sending get request: \n" << req << std::endl;
+      s.Write(&req[0]);
+      memset(this->buffer,0, 512);
+      s.Read( buffer, 512 );	// Read the answer sent back from server
+      std::string localBuffer(this->buffer);
+      if(localBuffer.find("404 (NOT FOUND)") != std::string::npos) {
+        std::cout << "Input error: 404 (NOT FOUND)" << std::endl;
+      } else { //todo check for empty message
+        // llamar a la clase output
+        ClientOutput output;
+        output.handleBuffer(this->buffer);
+      }
+    }
+  } else {
+    std::cout << "Invalid argument" << std::endl;
   }
   this->askAgain();
 }
