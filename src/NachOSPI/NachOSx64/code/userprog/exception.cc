@@ -23,6 +23,7 @@
 
 #include "copyright.h"
 #include "system.h"
+#include "system.cc"
 #include "syscall.h"
 
 /*
@@ -75,6 +76,14 @@ void NachOS_Open() {		// System call 5
  *  System call interface: OpenFileId Write( char *, int, OpenFileId )
  */
 void NachOS_Write() {		// System call 6
+   int counter = 0;
+   int type = machine->ReadRegister(4);
+   char buffer[180];
+   while(machine->ReadMem(type + counter, 1, &bytes_read) && bytes_read != 0) {
+      buffer[counter] = (char) bytes_read;
+      ++counter;
+   }
+
 }
 
 

@@ -7,6 +7,7 @@
 
 #include "copyright.h"
 #include "system.h"
+#include "machine.h"
 #include "preemptive.h"
 
 // This defines *all* of the global data structures used by Nachos.
@@ -32,9 +33,9 @@ FileSystem  *fileSystem;
 SynchDisk   *synchDisk;
 #endif
 
-#ifdef USER_PROGRAM	// requires either FILESYS or FILESYS_STUB
+// #ifdef USER_PROGRAM	// requires either FILESYS or FILESYS_STUB
 Machine *machine;	// user program memory and registers
-#endif
+// #endif
 
 #ifdef NETWORK
 PostOffice *postOffice;
