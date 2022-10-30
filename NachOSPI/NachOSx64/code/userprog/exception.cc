@@ -25,6 +25,12 @@
 #include "system.h"
 #include "system.cc"
 #include "syscall.h"
+#include <netinet/in.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <unistd.h>
+
+#define Char_Size_Of_Array 180
 
 /*
  *  System call interface: Halt()
@@ -231,6 +237,15 @@ void NachOS_CondBroadcast() {		// System call 23
  *  System call interface: Socket_t Socket( int, int )
  */
 void NachOS_Socket() {			// System call 30
+   int domain = machine->ReadRegister(4);
+   int type = machine->ReadRegister(5);
+   int protocol = machine->ReadRegister(6);
+   int id = socket(domain, type, 0);
+   if (id < 0) {
+      printf("Socket::Create");
+      exit(2);
+   }
+   machine->WriteRegister(2, id);
 }
 
 
@@ -238,6 +253,27 @@ void NachOS_Socket() {			// System call 30
  *  System call interface: Socket_t Connect( char *, int )
  */
 void NachOS_Connect() {		// System call 31
+   int id = machine->ReadRegister(4);
+   int host_pointer = machine->ReadRegister(5);
+   int port = machine->ReadRegister(6);
+   int bytes_read = 0;
+   char hostIP[Char_Size_Of_Array];
+   int counter = 0;
+   while (bytes_read != 0 && machine->ReadMem(host_pointer + counter, 1, &bytes_read)) {
+      hostIP[counter] = (char) bytes_read;
+      counter++;
+   }
+   struct sockaddr_in server;
+   memset((char*) &server, 0, sizeof(server));
+   server.sin_family = AF_INET;
+   inet_pton(AF_INET, hostIP, &server.sin_addr);
+   server.sin_port = htons(port);
+   int return_value = connect(id, (struct sockaddr*) &server, sizeof(server));
+   if (return_value < 0) {
+      printf("Socket::Connect");
+      exit(2);
+   }
+   machine->WriteRegister(2, return_value);
 }
 
 
