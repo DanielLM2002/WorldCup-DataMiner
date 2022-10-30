@@ -281,6 +281,19 @@ void NachOS_Connect() {		// System call 31
  *  System call interface: int Bind( Socket_t, int )
  */
 void NachOS_Bind() {		// System call 32
+   int id = machine->ReadRegister(4);
+   int port = machine->ReadRegister(5);
+   struct sockaddr_in binder;
+   memset((char*) &binder, 0, sizeof(binder));
+   binder.sin_family = AF_INET;
+   binder.sin_addr.s_addr = htonl(INADDR_ANY);
+   binder.sin_port = htons(port);
+   int return_value = bind(id, (struct sockaddr*) &binder, sizeof(binder));
+   if (return_value < 0) {
+      printf("Socket::Bind");
+      exit(2);
+   }
+   machine->WriteRegister(2, return_value);
 }
 
 
@@ -288,6 +301,14 @@ void NachOS_Bind() {		// System call 32
  *  System call interface: int Listen( Socket_t, int )
  */
 void NachOS_Listen() {		// System call 33
+   int id = machine->ReadRegister(4);
+   int backlog = machine->ReadRegister(5);
+   int return_value = listen(id, backlog);
+   if (return_value < 0) {
+      printf("Socket::Listen");
+      exit(2);
+   }
+   machine->WriteRegister(2, return_value);
 }
 
 
@@ -295,6 +316,16 @@ void NachOS_Listen() {		// System call 33
  *  System call interface: int Accept( Socket_t )
  */
 void NachOS_Accept() {		// System call 34
+   int id = machine->readRegister(4);
+   struct sockaddr_in client;
+   memset((char*) &client, 0, sizeof(client));
+   socklen_t client_length = sizeof(client);
+   int return_value = accept(id, (struct sockaddr*) &client, &client_length);
+   if (return_value < 0) {
+      printf("Socket::Accept");
+      exit(2);
+   }
+   machine->WriteRegister(2, return_value);
 }
 
 
@@ -302,6 +333,14 @@ void NachOS_Accept() {		// System call 34
  *  System call interface: int Shutdown( Socket_t, int )
  */
 void NachOS_Shutdown() {	// System call 25
+   int id = machine->ReadRegister(4);
+   int how = machine->ReadRegister(5);
+   int return_value = shutdown(id, how);
+   if (return_value < 0) {
+      printf("Socket::Shutdown");
+      exit(2);
+   }
+   machine->WriteRegister(2, return_value);
 }
 
 
