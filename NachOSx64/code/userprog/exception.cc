@@ -92,13 +92,14 @@ void NachOS_Write() {		// System call 6
    int size = machine->ReadRegister(5);
    int socketId = machine->ReadRegister(6);
    int bytes_read = 0;
+   int count = 0;
    char char_buffer[Char_Size_Of_Array];
-   for (int count = 0; machine->ReadMem(bufferPointer, 1, &bytes_read); ++count) {
-      char_buffer[count] = bytes_read;
-      ++bufferPointer;
+   while (machine->ReadMem(bufferPointer + count, 1, &bytes_read) && bytes_read != 0) {
+      char_buffer[count] = (char) bytes_read;
+      count++;
    }
    int return_value = write(socketId, char_buffer, size);
-   machine->WriteRegister(2, return_value);
+   machine->WriteRegister(2,return_value);
 }
 
 
@@ -110,12 +111,13 @@ void NachOS_Read() {		// System call 7
    int size = machine->ReadRegister(5);
    int id = machine->ReadRegister(6);
    int bytes_read = 0;
+   int count = 0;
    char char_buffer[Char_Size_Of_Array];
-   for (int count = 0; machine->ReadMem(bufferPointer, 1, &bytes_read); ++count) {
-      machine->WriteMem(bufferPointer, 1, char_buffer[count]);
-      ++bufferPointer;
+   while (machine->ReadMem(bufferPointer + count, 1, &bytes_read) && bytes_read != 0) {
+      char_buffer[count] = (char) bytes_read;
+      ++count;
    }
-   int return_value = read(id,char_buffer, size);
+   int return_value = read(id, char_buffer, size);
    machine->WriteRegister(2, return_value);
 }
 
@@ -270,7 +272,7 @@ void NachOS_Connect() {		// System call 31
    server.sin_family = AF_INET;
    inet_pton(AF_INET, hostIP, &server.sin_addr);
    server.sin_port = htons(port);
-   int return_value = connect(id, (struct sockaddr*) &server, sizeof(server));
+   int return_value = connect(id, (sockaddr*) &server, sizeof(server));
    if (return_value < 0) {
       printf("Socket::Connect");
       exit(2);
@@ -290,7 +292,7 @@ void NachOS_Bind() {		// System call 32
    binder.sin_family = AF_INET;
    binder.sin_addr.s_addr = htonl(INADDR_ANY);
    binder.sin_port = htons(port);
-   int return_value = bind(id, (struct sockaddr*) &binder, sizeof(binder));
+   int return_value = bind(id, (sockaddr*) &binder, sizeof(binder));
    if (return_value < 0) {
       printf("Socket::Bind");
       exit(2);
