@@ -88,18 +88,17 @@ void NachOS_Open() {		// System call 5
  *  System call interface: OpenFileId Write( char *, int, OpenFileId )
  */
 void NachOS_Write() {		// System call 6
-   int buffer_pointer = machine->ReadRegister(4);
+   int bufferPointer = machine->ReadRegister(4);
    int size = machine->ReadRegister(5);
-   int id = machine->ReadRegister(6);
+   int socketId = machine->ReadRegister(6);
    int bytes_read = 0;
-   int counter = 0;
+   int count = 0;
    char char_buffer[Char_Size_Of_Array];
-   while (machine->ReadMem(buffer_pointer, 1, &bytes_read)) {
-      char_buffer[counter] = bytes_read;
-      counter++;
-      buffer_pointer++;
+   for (int count = 0; machine->ReadMem(bufferPointer, 1, &bytes_read); ++count) {
+      char_buffer[count] = bytes_read;
+      ++bufferPointer;
    }
-   int return_value = write(id, char_buffer, size);
+   int return_value = write(socketId, char_buffer, size);
    machine->WriteRegister(2, return_value);
 }
 
