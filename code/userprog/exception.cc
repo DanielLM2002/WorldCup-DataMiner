@@ -34,6 +34,18 @@
 
 #define Char_Size_Of_Array 180
 
+void returnFromSystemCall() {
+
+        int pc, npc;
+
+        pc = machine->ReadRegister( PCReg );
+        npc = machine->ReadRegister( NextPCReg );
+        machine->WriteRegister( PrevPCReg, pc );        // PrevPC <- PC
+        machine->WriteRegister( PCReg, npc );           // PC <- NextPC
+        machine->WriteRegister( NextPCReg, npc + 4 );   // NextPC <- NextPC + 4
+
+}       // returnFromSystemCall
+
 /*
  *  System call interface: Halt()
  */
@@ -238,12 +250,14 @@ void NachOS_Socket() {			// System call 30
    int domain = machine->ReadRegister(4);
    int type = machine->ReadRegister(5);
    int protocol = machine->ReadRegister(6);
-   int id = socket(domain, type, 0);
+   // int id = socket(domain, type, 0);
+   int id = socket(2, 1, 0);
    if (id < 0) {
       printf("Socket::Create");
       exit(2);
    }
    machine->WriteRegister(2, id);
+   printf("Picha (banda)");
 }
 
 
@@ -476,6 +490,7 @@ ExceptionHandler(ExceptionType which)
                 ASSERT( false );
                 break;
           }
+          returnFromSystemCall();
           break;
 
        case PageFaultException: {
