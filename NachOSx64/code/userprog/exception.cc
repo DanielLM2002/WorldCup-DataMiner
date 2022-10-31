@@ -22,14 +22,10 @@
 // of liability and disclaimer of warranty provisions.
 
 #include "copyright.h"
+#include "openFiles.h"
 #include "system.h"
-#include "system.cc"
 #include "syscall.h"
-#include "addrspace.h"
-#include "machine.h"
-#include "synch.h"
-#include "bitmap.h"
-#include "thread.h"
+
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
@@ -37,6 +33,18 @@
 #include <unistd.h>
 
 #define Char_Size_Of_Array 180
+
+void returnFromSystemCall() {
+
+        int pc, npc;
+
+        pc = machine->ReadRegister( PCReg );
+        npc = machine->ReadRegister( NextPCReg );
+        machine->WriteRegister( PrevPCReg, pc );        // PrevPC <- PC
+        machine->WriteRegister( PCReg, npc );           // PC <- NextPC
+        machine->WriteRegister( NextPCReg, npc + 4 );   // NextPC <- NextPC + 4
+
+}       // returnFromSystemCall
 
 /*
  *  System call interface: Halt()
@@ -92,14 +100,13 @@ void NachOS_Write() {		// System call 6
    int size = machine->ReadRegister(5);
    int socketId = machine->ReadRegister(6);
    int bytes_read = 0;
-   int count = 0;
    char char_buffer[Char_Size_Of_Array];
-   while (machine->ReadMem(bufferPointer + count, 1, &bytes_read) && bytes_read != 0) {
-      char_buffer[count] = (char) bytes_read;
-      count++;
+   for (int count = 0; machine->ReadMem(bufferPointer, 1, &bytes_read); ++count) {
+      char_buffer[count] = bytes_read;
+      ++bufferPointer;
    }
    int return_value = write(socketId, char_buffer, size);
-   machine->WriteRegister(2,return_value);
+   machine->WriteRegister(2, return_value);
 }
 
 
@@ -111,13 +118,12 @@ void NachOS_Read() {		// System call 7
    int size = machine->ReadRegister(5);
    int id = machine->ReadRegister(6);
    int bytes_read = 0;
-   int count = 0;
    char char_buffer[Char_Size_Of_Array];
-   while (machine->ReadMem(bufferPointer + count, 1, &bytes_read) && bytes_read != 0) {
-      char_buffer[count] = (char) bytes_read;
-      ++count;
+   for (int count = 0; machine->ReadMem(bufferPointer, 1, &bytes_read); ++count) {
+      machine->WriteMem(bufferPointer, 1, char_buffer[count]);
+      ++bufferPointer;
    }
-   int return_value = read(id, char_buffer, size);
+   int return_value = read(id,char_buffer, size);
    machine->WriteRegister(2, return_value);
 }
 
@@ -244,12 +250,14 @@ void NachOS_Socket() {			// System call 30
    int domain = machine->ReadRegister(4);
    int type = machine->ReadRegister(5);
    int protocol = machine->ReadRegister(6);
-   int id = socket(domain, type, 0);
+   // int id = socket(domain, type, 0);
+   int id = socket(2, 1, 0);
    if (id < 0) {
       printf("Socket::Create");
       exit(2);
    }
    machine->WriteRegister(2, id);
+   printf("Picha (banda)");
 }
 
 
@@ -272,7 +280,7 @@ void NachOS_Connect() {		// System call 31
    server.sin_family = AF_INET;
    inet_pton(AF_INET, hostIP, &server.sin_addr);
    server.sin_port = htons(port);
-   int return_value = connect(id, (sockaddr*) &server, sizeof(server));
+   int return_value = connect(id, (struct sockaddr*) &server, sizeof(server));
    if (return_value < 0) {
       printf("Socket::Connect");
       exit(2);
@@ -292,7 +300,7 @@ void NachOS_Bind() {		// System call 32
    binder.sin_family = AF_INET;
    binder.sin_addr.s_addr = htonl(INADDR_ANY);
    binder.sin_port = htons(port);
-   int return_value = bind(id, (sockaddr*) &binder, sizeof(binder));
+   int return_value = bind(id, (struct sockaddr*) &binder, sizeof(binder));
    if (return_value < 0) {
       printf("Socket::Bind");
       exit(2);
@@ -482,6 +490,7 @@ ExceptionHandler(ExceptionType which)
                 ASSERT( false );
                 break;
           }
+          returnFromSystemCall();
           break;
 
        case PageFaultException: {
