@@ -119,7 +119,7 @@ void NachOS_Read() {		// System call 7
    int id = machine->ReadRegister(6);
    int bytes_read = 0;
    char char_buffer[Char_Size_Of_Array];
-   for (int count = 0; machine->ReadMem(bufferPointer, 1, &bytes_read); ++count) {
+   for (int count = 0; machine->ReadMem(bufferPointe + count, 1, &bytes_read); ++count) {
       machine->WriteMem(bufferPointer, 1, char_buffer[count]);
       ++bufferPointer;
    }
@@ -280,7 +280,7 @@ void NachOS_Connect() {		// System call 31
    server.sin_family = AF_INET;
    inet_pton(AF_INET, hostIP, &server.sin_addr);
    server.sin_port = htons(port);
-   int return_value = connect(id, (struct sockaddr*) &server, sizeof(server));
+   int return_value = connect(id, (sockaddr*) &server, sizeof(server));
    if (return_value < 0) {
       printf("Socket::Connect");
       exit(2);
@@ -300,7 +300,7 @@ void NachOS_Bind() {		// System call 32
    binder.sin_family = AF_INET;
    binder.sin_addr.s_addr = htonl(INADDR_ANY);
    binder.sin_port = htons(port);
-   int return_value = bind(id, (struct sockaddr*) &binder, sizeof(binder));
+   int return_value = bind(id, (sockaddr*) &binder, sizeof(binder));
    if (return_value < 0) {
       printf("Socket::Bind");
       exit(2);
@@ -332,7 +332,7 @@ void NachOS_Accept() {		// System call 34
    struct sockaddr_in client;
    memset((char*) &client, 0, sizeof(client));
    socklen_t client_length = sizeof(client);
-   int return_value = accept(id, (struct sockaddr*) &client, &client_length);
+   int return_value = accept(id, (sockaddr*) &client, &client_length);
    if (return_value < 0) {
       printf("Socket::Accept");
       exit(2);
