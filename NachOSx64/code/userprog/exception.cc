@@ -110,10 +110,9 @@ void NachOS_Read() {		// System call 7
    int size = machine->ReadRegister(5);
    int id = machine->ReadRegister(6);
    int bytes_read = 0;
-   int counter = 0;
    char char_buffer[Char_Size_Of_Array];
    for (int count = 0; machine->ReadMem(bufferPointer, 1, &bytes_read); ++count) {
-      machine->WriteMem(bufferPointer, 1, char_buffer[counter]);
+      machine->WriteMem(bufferPointer, 1, char_buffer[count]);
       ++bufferPointer;
    }
    int return_value = read(id,char_buffer, size);
