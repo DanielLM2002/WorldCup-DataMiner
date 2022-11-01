@@ -33,9 +33,8 @@ int OpenFiles::Close(int handler) {
         if(isOpen(handler)) {
             removeThread();
             if(this->current_threads == 0) {
-                this->openFileMap->Clear(handler);
-                close_file = this->openFileCount[handler];
-                this->openFileCount[handler] = 0;
+                bool clearFiles = false;
+                
             }
         }
 }

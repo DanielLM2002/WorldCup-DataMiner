@@ -107,6 +107,7 @@ void NachOS_Write() {		// System call 6
    }
    int return_value = write(socketId, char_buffer, size);
    machine->WriteRegister(2, return_value);
+   returnFromSystemCall();
 }
 
 
@@ -119,12 +120,13 @@ void NachOS_Read() {		// System call 7
    int id = machine->ReadRegister(6);
    int bytes_read = 0;
    char char_buffer[Char_Size_Of_Array];
-   for (int count = 0; machine->ReadMem(bufferPointe + count, 1, &bytes_read); ++count) {
+   for (int count = 0; machine->ReadMem(bufferPointer + count, 1, &bytes_read); ++count) {
       machine->WriteMem(bufferPointer, 1, char_buffer[count]);
       ++bufferPointer;
    }
    int return_value = read(id,char_buffer, size);
    machine->WriteRegister(2, return_value);
+   returnFromSystemCall();
 }
 
 
@@ -135,6 +137,7 @@ void NachOS_Close() {		// System call 8
    int id = machine->ReadRegister(4);
    int return_value = close(id);
    machine->WriteRegister(2, return_value);
+   returnFromSystemCall();
 }
 
 
@@ -286,6 +289,7 @@ void NachOS_Connect() {		// System call 31
       exit(2);
    }
    machine->WriteRegister(2, return_value);
+   returnFromSystemCall();
 }
 
 
@@ -306,6 +310,7 @@ void NachOS_Bind() {		// System call 32
       exit(2);
    }
    machine->WriteRegister(2, return_value);
+   returnFromSystemCall();
 }
 
 
@@ -321,6 +326,7 @@ void NachOS_Listen() {		// System call 33
       exit(2);
    }
    machine->WriteRegister(2, return_value);
+   returnFromSystemCall();
 }
 
 
@@ -338,6 +344,7 @@ void NachOS_Accept() {		// System call 34
       exit(2);
    }
    machine->WriteRegister(2, return_value);
+   returnFromSystemCall();
 }
 
 
@@ -353,6 +360,7 @@ void NachOS_Shutdown() {	// System call 25
       exit(2);
    }
    machine->WriteRegister(2, return_value);
+   returnFromSystemCall();
 }
 
 
