@@ -21,11 +21,10 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // of liability and disclaimer of warranty provisions.
 // esteban no ha breteado en nada
-#include "copyright.h"
 #include "openFiles.h"
 #include "system.h"
 #include "syscall.h"
-
+#include "addrspace.h"
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
