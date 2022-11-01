@@ -25,12 +25,13 @@
 #include "openFiles.h"
 #include "system.h"
 #include "syscall.h"
+#include "unistd.h"
+
 
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
-#include <unistd.h>
 
 #define Char_Size_Of_Array 180
 
@@ -119,7 +120,7 @@ void NachOS_Read() {		// System call 7
    int id = machine->ReadRegister(6);
    int bytes_read = 0;
    char char_buffer[Char_Size_Of_Array];
-   for (int count = 0; machine->ReadMem(bufferPointe + count, 1, &bytes_read); ++count) {
+   for (int count = 0; machine->ReadMem(bufferPointer + count, 1, &bytes_read); ++count) {
       machine->WriteMem(bufferPointer, 1, char_buffer[count]);
       ++bufferPointer;
    }

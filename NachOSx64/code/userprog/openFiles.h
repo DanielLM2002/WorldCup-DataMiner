@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 
-#include "lock.h"
 #include "filesys.h"
 #include "bitmap.h"
 #include "synch.h"
