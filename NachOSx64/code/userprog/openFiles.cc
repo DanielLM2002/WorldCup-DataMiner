@@ -34,7 +34,12 @@ int OpenFiles::Close(int handler) {
             removeThread();
             if(this->current_threads == 0) {
                 bool clearFiles = false;
-                
+                for (int i = 0; i < amountOfFiles; i++) {
+                    if (this->openFileMap->Test(i)){
+                        this->openFileMap[i] = -2;
+                        this->openFileMap->Clear(i);
+                    }
+                }
             }
         }
 }
