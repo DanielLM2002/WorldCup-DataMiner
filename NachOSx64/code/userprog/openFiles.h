@@ -3,17 +3,16 @@
 #include <iostream>
 #include <string>
 
-#include "lock.h"
 #include "filesys.h"
 #include "bitmap.h"
 #include "synch.h"
 
 class OpenFiles {
     private:
-        int* openFileCount; 
-        BitMap *openFileMap;
+        int* openFileCount; // vector con los archivos del usuario que estan abiertos
+        BitMap *openFileMap;// bitmap para controlar los archivos abiertos
         Lock* openFileLock;
-        int current_threads;
+        int current_threads;// cantidad de threads que estan usando el sistema de archivos
     public:
         OpenFiles();
         ~OpenFiles();
