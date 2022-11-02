@@ -1,6 +1,7 @@
 #include "openFiles.h"
 
-#define amountOfFiles 128
+#define amountOfFiles 255
+
 OpenFiles::OpenFiles() {
     this->openFileCount = new int[amountOfFiles];
     this->openFileMap = new BitMap(amountOfFiles);
@@ -16,6 +17,7 @@ OpenFiles::~OpenFiles() {
     delete this->openFileCount;
     delete this->openFileMap;
     delete this->openFileLock;
+    delete this->current_threads;
 }
 
 int OpenFiles::Open(int getOpenCount) {
@@ -35,12 +37,12 @@ int OpenFiles::Close(int handler) {
             if(this->current_threads == 0) {
                 bool clearFiles = false;
                 for (int i = 0; i < amountOfFiles; i++) {
-                    if (this->openFileMap->Test(i)){
+                    if (this->openFileMap->Test(i)) {
                         this->openFileMap[i] = -2;
                         this->openFileMap->Clear(i);
                     }
                     if(this->openFileMap->NumClear() == amountOfFiles) {
-                        clearFiles = true;
+                       clearFiles = true;
                     }
                 }
             }

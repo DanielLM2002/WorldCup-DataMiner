@@ -60,6 +60,10 @@ void NachOS_Halt() {		// System call 0
  *  System call interface: void Exit( int )
  */
 void NachOS_Exit() {		// System call 1
+   int exitStatus = machine->ReadRegister(4);
+   DEBUG('a', "Exit, initiated by user program.\n");
+   currentThread->Finish(exitStatus);
+   returnFromSystemCall();
 }
 
 
@@ -67,6 +71,31 @@ void NachOS_Exit() {		// System call 1
  *  System call interface: SpaceId Exec( char * )
  */
 void NachOS_Exec() {		// System call 2
+   int name = machine->ReadRegister(4);
+   char *nameString = new char[Char_Size_Of_Array];
+   int i = 0;
+   int readChar = 0;
+   do {
+      machine->ReadMem(name + i, 1, &readChar);
+      nameString[i] = (char)readChar;
+      i++;
+   } while (readChar != 0);
+   DEBUG('a', "Exec, initiated by user program.\n");
+   OpenFile *executable = fileSystem->Open(nameString);
+   if (executable == NULL) {
+      DEBUG('a', "Unable to open file %s\n", nameString);
+      machine->WriteRegister(2, -1);
+      returnFromSystemCall();
+      return;
+   }
+   AddrSpace *space;
+   space = new AddrSpace(executable);
+   delete executable;			// close file
+   Thread *newThread = new Thread("new thread");
+   newThread->space = space;
+   newThread->Fork((VoidFunctionPtr)NachOS_UserThread, 0);
+   machine->WriteRegister(2, newThread->getThreadID());
+   returnFromSystemCall();
 }
 
 
@@ -74,6 +103,13 @@ void NachOS_Exec() {		// System call 2
  *  System call interface: int Join( SpaceId )
  */
 void NachOS_Join() {		// System call 3
+   int spaceID = machine->ReadRegister(4);
+   DEBUG('a', "Join, initiated by user program.\n");
+   Thread *thread = (Thread *)threadList->Search(spaceID);
+   if (thread == NULL) {
+      DEBUG('a', "Unable to find thread %d");
+      machine->WriteRegister(2, -1);
+   returnFromSystemCall();
 }
 
 
@@ -81,6 +117,20 @@ void NachOS_Join() {		// System call 3
  *  System call interface: void Create( char * )
  */
 void NachOS_Create() {		// System call 4
+   int name = machine->ReadRegister(4);
+   char *nameString = new char[Char_Size_Of_Array];
+   int i = 0;
+   int readChar = 0;
+   do {
+      machine->ReadMem(name + i, 1, &readChar);
+      nameString[i] = (char)readChar;
+      i++;
+   } while (readChar != 0);
+   DEBUG('a', "Create, initiated by user program.\n");
+   if (!fileSystem->Create(nameString, 0)) {
+      DEBUG('a', "Unable to create file %s");
+      machine->WriteRegister(2, -1);
+   returnFromSystemCall();
 }
 
 
@@ -88,6 +138,21 @@ void NachOS_Create() {		// System call 4
  *  System call interface: OpenFileId Open( char * )
  */
 void NachOS_Open() {		// System call 5
+   int name = machine->ReadRegister(4);
+   char *nameString = new char[Char_Size_Of_Array];
+   int i = 0;
+   int readChar = 0;
+   do {
+      machine->ReadMem(name + i, 1, &readChar);
+      nameString[i] = (char)readChar;
+      i++;
+   } while (readChar != 0);
+   DEBUG('a', "Open, initiated by user program.\n");
+   OpenFile *openFile = fileSystem->Open(nameString);
+   if (openFile == NULL) {
+      DEBUG('a', "Unable to open file %s");
+      machine->WriteRegister(2, -1);
+   returnFromSystemCall();
 }
 
 
@@ -144,6 +209,12 @@ void NachOS_Close() {		// System call 8
  *  System call interface: void Fork( void (*func)() )
  */
 void NachOS_Fork() {		// System call 9
+   int func = machine->ReadRegister(4);
+   DEBUG('a', "Fork, initiated by user program.\n");
+   Thread *newThread = new Thread("new thread");
+   newThread->Fork((VoidFunctionPtr)func, 0);
+   machine->WriteRegister(2, newThread->getThreadID());
+   returnFromSystemCall();
 }
 
 
@@ -151,6 +222,9 @@ void NachOS_Fork() {		// System call 9
  *  System call interface: void Yield()
  */
 void NachOS_Yield() {		// System call 10
+   DEBUG('a', "Yield, initiated by user program.\n");
+   currentThread->Yield();
+   returnFromSystemCall();
 }
 
 
@@ -158,6 +232,11 @@ void NachOS_Yield() {		// System call 10
  *  System call interface: Sem_t SemCreate( int )
  */
 void NachOS_SemCreate() {		// System call 11
+   int value = machine->ReadRegister(4);
+   DEBUG('a', "SemCreate, initiated by user program.\n");
+   Semaphore *semaphore = new Semaphore("semaphore", value);
+   machine->WriteRegister(2, (int)semaphore);
+   returnFromSystemCall();
 }
 
 
@@ -165,6 +244,10 @@ void NachOS_SemCreate() {		// System call 11
  *  System call interface: int SemDestroy( Sem_t )
  */
 void NachOS_SemDestroy() {		// System call 12
+   int semaphore = machine->ReadRegister(4);
+   DEBUG('a', "SemDestroy, initiated by user program.\n");
+   delete (Semaphore *)semaphore;
+   returnFromSystemCall();
 }
 
 
@@ -172,6 +255,10 @@ void NachOS_SemDestroy() {		// System call 12
  *  System call interface: int SemSignal( Sem_t )
  */
 void NachOS_SemSignal() {		// System call 13
+   int semaphore = machine->ReadRegister(4);
+   DEBUG('a', "SemSignal, initiated by user program.\n");
+   ((Semaphore *)semaphore)->V();
+   returnFromSystemCall();
 }
 
 
@@ -179,6 +266,10 @@ void NachOS_SemSignal() {		// System call 13
  *  System call interface: int SemWait( Sem_t )
  */
 void NachOS_SemWait() {		// System call 14
+   int semaphore = machine->ReadRegister(4);
+   DEBUG('a', "SemWait, initiated by user program.\n");
+   ((Semaphore *)semaphore)->P();
+   returnFromSystemCall();
 }
 
 
@@ -186,6 +277,11 @@ void NachOS_SemWait() {		// System call 14
  *  System call interface: Lock_t LockCreate( int )
  */
 void NachOS_LockCreate() {		// System call 15
+   int value = machine->ReadRegister(4);
+   DEBUG('a', "LockCreate, initiated by user program.\n");
+   Lock *lock = new Lock("lock");
+   machine->WriteRegister(2, (int)lock);
+   returnFromSystemCall();
 }
 
 
@@ -193,6 +289,10 @@ void NachOS_LockCreate() {		// System call 15
  *  System call interface: int LockDestroy( Lock_t )
  */
 void NachOS_LockDestroy() {		// System call 16
+   int lock = machine->ReadRegister(4);
+   DEBUG('a', "LockDestroy, initiated by user program.\n");
+   delete (Lock *)lock;
+   returnFromSystemCall();
 }
 
 
@@ -200,6 +300,10 @@ void NachOS_LockDestroy() {		// System call 16
  *  System call interface: int LockAcquire( Lock_t )
  */
 void NachOS_LockAcquire() {		// System call 17
+   int lock = machine->ReadRegister(4);
+   DEBUG('a', "LockAcquire, initiated by user program.\n");
+   ((Lock *)lock)->Acquire();
+   returnFromSystemCall();
 }
 
 
@@ -207,6 +311,10 @@ void NachOS_LockAcquire() {		// System call 17
  *  System call interface: int LockRelease( Lock_t )
  */
 void NachOS_LockRelease() {		// System call 18
+   int lock = machine->ReadRegister(4);
+   DEBUG('a', "LockRelease, initiated by user program.\n");
+   ((Lock *)lock)->Release();
+   returnFromSystemCall();
 }
 
 
@@ -214,6 +322,11 @@ void NachOS_LockRelease() {		// System call 18
  *  System call interface: Cond_t LockCreate( int )
  */
 void NachOS_CondCreate() {		// System call 19
+   int value = machine->ReadRegister(4);
+   DEBUG('a', "CondCreate, initiated by user program.\n");
+   Condition *condition = new Condition("condition");
+   machine->WriteRegister(2, (int)condition);
+   returnFromSystemCall();
 }
 
 
@@ -221,6 +334,10 @@ void NachOS_CondCreate() {		// System call 19
  *  System call interface: int CondDestroy( Cond_t )
  */
 void NachOS_CondDestroy() {		// System call 20
+   int condition = machine->ReadRegister(4);
+   DEBUG('a', "CondDestroy, initiated by user program.\n");
+   delete (Condition *)condition;
+   returnFromSystemCall();
 }
 
 
@@ -228,6 +345,10 @@ void NachOS_CondDestroy() {		// System call 20
  *  System call interface: int CondSignal( Cond_t )
  */
 void NachOS_CondSignal() {		// System call 21
+   int condition = machine->ReadRegister(4);
+   DEBUG('a', "CondSignal, initiated by user program.\n");
+   ((Condition *)condition)->Signal();
+   returnFromSystemCall();
 }
 
 
@@ -235,6 +356,10 @@ void NachOS_CondSignal() {		// System call 21
  *  System call interface: int CondWait( Cond_t )
  */
 void NachOS_CondWait() {		// System call 22
+   int condition = machine->ReadRegister(4);
+   DEBUG('a', "CondWait, initiated by user program.\n");
+   ((Condition *)condition)->Wait();
+   returnFromSystemCall();
 }
 
 
@@ -242,6 +367,10 @@ void NachOS_CondWait() {		// System call 22
  *  System call interface: int CondBroadcast( Cond_t )
  */
 void NachOS_CondBroadcast() {		// System call 23
+   int condition = machine->ReadRegister(4);
+   DEBUG('a', "CondBroadcast, initiated by user program.\n");
+   ((Condition *)condition)->Broadcast();
+   returnFromSystemCall();
 }
 
 
