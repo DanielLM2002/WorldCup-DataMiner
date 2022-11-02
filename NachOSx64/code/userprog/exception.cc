@@ -52,6 +52,7 @@ void NachOS_Halt() {		// System call 0
 
 	DEBUG('a', "Shutdown, initiated by user program.\n");
    	interrupt->Halt();
+   returnFromSystemCall();
 
 }
 
