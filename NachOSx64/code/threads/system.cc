@@ -25,13 +25,13 @@ Timer *timer;				// the hardware timer device,
 PreemptiveScheduler* preemptiveScheduler = NULL;
 const long long DEFAULT_TIME_SLICE = 50000;
 
-#ifdef FILESYS_NEEDED
+// #ifdef FILESYS_NEEDED
 FileSystem  *fileSystem;
-#endif
+// #endif
 
-#ifdef FILESYS
+// #ifdef FILESYS
 SynchDisk   *synchDisk;
-#endif
+// #endif
 
 // #ifdef USER_PROGRAM	// requires either FILESYS or FILESYS_STUB
 Machine *machine;	// user program memory and registers

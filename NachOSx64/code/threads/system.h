@@ -34,15 +34,15 @@ extern Timer *timer;				// the hardware alarm clock
 extern Machine* machine;	// user program memory and registers
 //#endif
 
-#ifdef FILESYS_NEEDED 		// FILESYS or FILESYS_STUB 
+// #ifdef FILESYS_NEEDED 		// FILESYS or FILESYS_STUB 
 #include "filesys.h"
 extern FileSystem  *fileSystem;
-#endif
+// #endif
 
-#ifdef FILESYS
+// #ifdef FILESYS
 #include "synchdisk.h"
 extern SynchDisk   *synchDisk;
-#endif
+// #endif
 
 #ifdef NETWORK
 #include "post.h"

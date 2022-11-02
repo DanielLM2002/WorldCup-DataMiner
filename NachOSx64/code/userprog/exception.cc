@@ -30,6 +30,8 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include "filesys.h"
+#include "thread.h"
 
 #define Char_Size_Of_Array 180
 
@@ -63,7 +65,7 @@ void NachOS_Halt() {		// System call 0
 void NachOS_Exit() {		// System call 1
    int exitStatus = machine->ReadRegister(4);
    DEBUG('a', "Exit, initiated by user program.\n");
-   currentThread->Finish(exitStatus);
+   currentThread->Finish();
    returnFromSystemCall();
 }
 
