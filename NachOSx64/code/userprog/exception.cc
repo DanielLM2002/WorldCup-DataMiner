@@ -121,13 +121,16 @@ void NachOS_Write()
    char* aux;
    int container = 0;
    syscall_lock.Acquire();
+   printf("after acquire \n");
    switch(socketId) {
       case 0:
          container = -1;
       break;
 
       case 1:
-         while (machine->ReadMem(bufferPointer + counter, 1, &bytes_read)) {
+      // TODO revisar si el < es estricto o igual que
+         while (machine->ReadMem(bufferPointer + counter, 1, &bytes_read) 
+               && counter < size ) {
             char_buffer[counter] = (char) bytes_read;
             counter++;
          }
@@ -136,9 +139,14 @@ void NachOS_Write()
          for (int i = 0; i < counter; i++) {
             aux[i] = char_buffer[i];
          }
+         printf("imprimiendo a salida standar\n");
          aux[counter_aux - 1] = 0;
+         printf("imprimiendo a salida standar2\n");
          char_buffer[size] = 0;
-         std::cout << aux;
+         printf("imprimiendo a salida standar3\n");
+         // std::cout << aux;
+         printf("stromg: %s .",char_buffer);
+         printf("imprimiendo a salida standar4\n");
          container = 1;
       break;
 
@@ -149,11 +157,13 @@ void NachOS_Write()
       default:
          if (currentThread->fileTable->isOpen(socketId)) {
             int openCount = currentThread->fileTable->getOpenCount(socketId);
-            while (machine->ReadMem(bufferPointer + counter, 1, &bytes_read)) {
-               char_buffer[counter] = (char) bytes_read;
-               counter++;
+            int count = 0;
+            while (count < size) {
+               machine->ReadMem(bufferPointer + count, 1, &bytes_read);
+               char_buffer[count] = (char) bytes_read;
+               count++;
             }
-            container = write(socketId, char_buffer, size);
+            container = write(openCount, char_buffer, size);
          } else {
             container = -1;
          }
@@ -187,7 +197,8 @@ void NachOS_Read() { // System call 7
       break;
 
       case 2:
-         while (machine->ReadMem(bufferPointer + counter, 1, &bytes_read)) {
+         while (machine->ReadMem(bufferPointer + counter, 1, &bytes_read) 
+                && counter < size) {
             char_buffer[counter] = (char) bytes_read;
             counter++;
          }
@@ -205,11 +216,13 @@ void NachOS_Read() { // System call 7
       default:
          if (currentThread->fileTable->isOpen(socketId)) {
             int openCount = currentThread->fileTable->getOpenCount(socketId);
-            while (machine->ReadMem(bufferPointer + counter, 1, &bytes_read)) {
+            
+            while (machine->ReadMem(bufferPointer + counter, 1, &bytes_read)
+                   && size < counter) {
                char_buffer[counter] = (char) bytes_read;
                counter++;
             }
-            container = read(socketId, char_buffer, size);
+            container = read(openCount, char_buffer, size);
          } else {
             container = -1;
          }
@@ -230,9 +243,9 @@ void NachOS_Close() { // System call 8
       int openCount = currentThread->fileTable->getOpenCount(socketId);
       if (openCount == 1) {
          container = close(socketId);
-         currentThread->fileTable->remove(socketId);
+         currentThread->fileTable->Close(socketId);
       } else {
-         currentThread->fileTable->decrementOpenCount(socketId);
+         currentThread->fileTable->removeThread();
          container = 1;
       }
    } else {
@@ -372,11 +385,12 @@ void NachOS_Socket(){ // System call 30
       exit(2);
    }
    int id = socket(domain, type, 0);
+   int new_id = 0;
    if (id < 0) {
       perror("No se pudo crear el socket");
       exit(2);
    } else {
-      int new_id = currentThread->fileTable->Open(id);
+      new_id = currentThread->fileTable->Open(id);
    }
    machine->WriteRegister(2, new_id);
 }
@@ -388,19 +402,22 @@ void NachOS_Socket(){ // System call 30
 void NachOS_Connect() {
    int nachos_handle = machine->ReadRegister(4);
    int bufferPointer = machine->ReadRegister(5);
-   int size = machine->ReadRegister(6);
+   int port = machine->ReadRegister(6);
    int bytes_read = 0;
    char char_buffer[Char_Size_Of_Array]; //hostip
    int container = 0;
    if (currentThread->fileTable->isOpen(nachos_handle)) {
-      int nachos_id = currentThread->fileTable->getNachosId(nachos_handle);
-      for (int count = 0; machine->ReadMem(bufferPointer + count, 1, &bytes_read); ++count) {
+      int nachos_id = currentThread->fileTable->getOpenCount(nachos_handle);
+      int count = 0;
+      while( machine->ReadMem(bufferPointer + count, 1, &bytes_read) && bytes_read != 0 ) {
+         machine->ReadMem(bufferPointer + count, 1, &bytes_read);
          char_buffer[count] = (char) bytes_read;
+         ++count;
       }
-      char_buffer[size] = 0;
+      char_buffer[count] = 0;
       struct sockaddr_in server;
       server.sin_family = AF_INET;
-      server.sin_port = htons(5000);
+      server.sin_port = htons(port);
       server.sin_addr.s_addr = inet_addr(char_buffer);
       bzero(&(server.sin_zero), 8);
       container = connect(nachos_id, (struct sockaddr *) &server, sizeof(struct sockaddr));
@@ -416,24 +433,24 @@ void NachOS_Connect() {
  *  System call interface: int Bind( Socket_t, int )
  */
 void NachOS_Bind() { // System call 32
-   int nachos_handle = machine->ReadRegister(4);
-   int bufferPointer = machine->ReadRegister(5);
-   int size = machine->ReadRegister(6);
-   int container = 0;
-   if(currentThread->fileTable->isOpen(nachos_handle)) {
-      struct sockaddr_in server;
-      memset((char*) &server, 0, sizeof(server));
-      server.sin_family = AF_INET;
-      server.sin_port = htons(bufferPointer);
-      server.sin_addr.s_addr = htonl(INADDR_ANY);
-      int unix_handle = currentThread->fileTable->getOpenCount(nachos_handle);
-      container = bind(unix_handle, (struct sockaddr *) &server, sizeof(server));
-      if (container == -1) {
-         perror("No se pudo hacer bind");
-         exit(2);
-      }
-   }
-   machine->WriteRegister(2, container);
+   // int nachos_handle = machine->ReadRegister(4);
+   // int bufferPointer = machine->ReadRegister(5);
+   // int size = machine->ReadRegister(6);
+   // int container = 0;
+   // if(currentThread->fileTable->isOpen(nachos_handle)) {
+   //    struct sockaddr_in server;
+   //    memset((char*) &server, 0, sizeof(server));
+   //    server.sin_family = AF_INET;
+   //    server.sin_port = htons(bufferPointer);
+   //    server.sin_addr.s_addr = htonl(INADDR_ANY);
+   //    int unix_handle = currentThread->fileTable->getOpenCount(nachos_handle);
+   //    container = bind(unix_handle, (struct sockaddr *) &server, sizeof(server));
+   //    if (container == -1) {
+   //       perror("No se pudo hacer bind");
+   //       exit(2);
+   //    }
+   // }
+   // machine->WriteRegister(2, container);
 }
 
 /*
