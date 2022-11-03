@@ -30,6 +30,7 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include "synch.h"
 
 #define Char_Size_Of_Array 180
 
@@ -38,6 +39,8 @@
 #define PARAM_2_REG 5
 #define PARAM_3_REG 6
 #define RETURN_REG 2
+
+Lock syscall_lock ("syscall_lock");
 
 void returnFromSystemCall()
 {
@@ -109,18 +112,56 @@ void NachOS_Open()
  */
 void NachOS_Write()
 { // System call 6
-   int bufferPointer = machine->ReadRegister(4);
+  int bufferPointer = machine->ReadRegister(4);
    int size = machine->ReadRegister(5);
    int socketId = machine->ReadRegister(6);
    int bytes_read = 0;
    char char_buffer[Char_Size_Of_Array];
-   for (int count = 0; machine->ReadMem(bufferPointer, 1, &bytes_read); ++count)
-   {
-      char_buffer[count] = bytes_read;
-      ++bufferPointer;
+   int counter = 0;
+   int counter_aux = 0;
+   char* aux;
+   int container = 0;
+   syscall_lock.Acquire();
+   switch(socketId) {
+      case 0:
+         container = -1;
+      break;
+
+      case 1:
+         while (machine->ReadMem(bufferPointer + counter, 1, &bytes_read)) {
+            char_buffer[counter] = (char) bytes_read;
+            counter++;
+         }
+         counter_aux = counter + 2;
+         aux = new char[counter_aux];
+         for (int i = 0; i < counter; i++) {
+            aux[i] = char_buffer[i];
+         }
+         aux[counter_aux - 1] = 0;
+         char_buffer[size] = 0;
+         std::cout << aux;
+         container = 1;
+      break;
+
+      case 2:
+         container = -1;
+      break;
+
+      default:
+         if (currentThread->fileTable->isOpen(socketId)) {
+            int openCount = currentThread->fileTable->getOpenCount(socketId);
+            while (machine->readMem(bufferPointer + counter, 1, &bytes_read)) {
+               char_buffer[counter] = (char) bytes_read;
+               counter++;
+            }
+            container = write(socketId, char_buffer, size);
+         } else {
+            container = -1;
+         }
+      break;
    }
-   int return_value = write(socketId, char_buffer, size);
-   machine->WriteRegister(2, return_value);
+   syscall_lock.Release();
+   machine->WriteRegister(2, container);
 }
 
 /*
@@ -304,11 +345,16 @@ void NachOS_Connect()
    }
    hostIP[counter] = 0;
    struct sockaddr_in server;
+   printf("trying to connect to: %s \n", hostIP);
    memset((char *)&server, 0, sizeof(server));
+   printf("obtuvo memoria \n");
    server.sin_family = AF_INET;
    inet_pton(AF_INET, hostIP, &server.sin_addr);
+   printf("inet pton done \n");
    server.sin_port = htons(port);
+   printf("htons done \n");
    int return_value = connect(id, (sockaddr *)&server, sizeof(server));
+   printf("Connected: %i \n", return_value);
    if (return_value < 0)
    {
       printf("Socket::Connect");

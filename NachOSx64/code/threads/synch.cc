@@ -119,33 +119,33 @@ Semaphore::Destroy()
 #endif
 
 
-// Dummy functions -- so we can compile our later assignments 
-// Note -- without a correct implementation of Condition::Wait(), 
-// the test case in the network assignment won't work!
 Lock::Lock(const char* debugName) {
-
+    this->name = (char*) debugName;
+    this->lock_sem = new Semaphore("lock_sem", 1);
 }
 
 
 Lock::~Lock() {
-
+    delete this->lock_sem;
 }
 
 
 void Lock::Acquire() {
-
+    this->my_thread = currentThread;
+    this->lock_sem->P();
 }
 
 
 void Lock::Release() {
-
+    if(isHeldByCurrentThread()) {
+        this->my_thread = NULL;
+        this->lock_sem->V();
+    }
 }
-
 
 bool Lock::isHeldByCurrentThread() {
-   return false;
+   return this->my_thread == currentThread;
 }
-
 
 Condition::Condition(const char* debugName) {
 
