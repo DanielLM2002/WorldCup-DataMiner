@@ -49,7 +49,7 @@ bool OpenFiles::isOpen(int NachosHandle) {
 }
 
 int OpenFiles::getOpenCount(int NachosHandle) {
-    int UnixHandle = -666;
+    int UnixHandle;
     if(isOpen(NachosHandle)) {
         UnixHandle = this->openFileCount[NachosHandle];
     }
@@ -62,16 +62,16 @@ void OpenFiles::addThread() {
 
 void OpenFiles::removeThread() {
     if(this->ThreadsInUse > 0) {
-        --this->ThreadsInUse;
+        this->ThreadsInUse--;
     } else {
-        std::cout << "\n\t ERROR: USAGE CAN'T BE NEGATIVE!!!\t\n" << std::endl;
+        std::cout << "No se puede eliminar el thread" << std::endl;
         exit(2);
     }
 }
 
 void OpenFiles::Print() {
-    std::cout << "\t[Index]\t[Unix_FD]\n";
-    for(int i = 0; i < amount_of_files; ++i) {
+    std::cout << "OpenFiles:" << std::endl;
+    for(int i = 0; i < amount_of_files; i++) {
         std::cout << "\ti\t" << this->openFileCount[i] << "\n";
     }
     std::cout << std::endl;
