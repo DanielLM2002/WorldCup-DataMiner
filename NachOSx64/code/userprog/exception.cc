@@ -20,11 +20,10 @@
 // Copyright (c) 1992-1993 The Regents of the University of California.
 // All rights reserved.  See copyright.h for copyright notice and limitation
 // of liability and disclaimer of warranty provisions.
-// esteban no ha breteado en nada
-#include "openFiles.h"
+
+#include "copyright.h"
 #include "system.h"
 #include "syscall.h"
-#include "addrspace.h"
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
@@ -150,7 +149,7 @@ void NachOS_Write()
       default:
          if (currentThread->fileTable->isOpen(socketId)) {
             int openCount = currentThread->fileTable->getOpenCount(socketId);
-            while (machine->readMem(bufferPointer + counter, 1, &bytes_read)) {
+            while (machine->ReadMem(bufferPointer + counter, 1, &bytes_read)) {
                char_buffer[counter] = (char) bytes_read;
                counter++;
             }

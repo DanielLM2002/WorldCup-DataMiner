@@ -4,8 +4,6 @@
 #include <iostream>
 
 #include "bitmap.h"
-#include "synch.h"
-
 
 class OpenFiles {
     private:

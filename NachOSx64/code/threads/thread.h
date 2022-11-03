@@ -39,7 +39,7 @@
 
 #include "copyright.h"
 #include "utility.h"
-// #include "openFiles.h"
+#include "openFiles.h"
 
 #ifdef USER_PROGRAM
 #include "machine.h"
@@ -99,7 +99,7 @@ class Thread {
     void setStatus(ThreadStatus st) { status = st; }
     const char* getName() { return (name); }
     void Print() { printf("%s, ", name); }
-    OpenFile * table();
+    OpenFiles * fileTable;
 
   private:
     // some of the private data for this class is listed above

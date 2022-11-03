@@ -19,6 +19,7 @@
 #include "switch.h"
 #include "synch.h"
 #include "system.h"
+#include "openFiles.h"
 
 // this is put at the top of the execution stack,
 // for detecting stack overflows
@@ -41,6 +42,7 @@ Thread::Thread(const char* threadName)
 #ifdef USER_PROGRAM
     space = NULL;
 #endif
+    fileTable = new OpenFiles();
 }
 
 //----------------------------------------------------------------------
@@ -57,6 +59,7 @@ Thread::Thread(const char* threadName)
 
 Thread::~Thread()
 {
+    delete this->fileTable;
     DEBUG('t', "Deleting thread \"%s\"\n", name);
 
     ASSERT(this != currentThread);
@@ -152,6 +155,7 @@ Thread::Finish ()
     DEBUG('t', "Finishing thread \"%s\"\n", getName());
     
     threadToBeDestroyed = currentThread;
+    delete this->fileTable;
     Sleep();					// invokes SWITCH
     // not reached
 }
