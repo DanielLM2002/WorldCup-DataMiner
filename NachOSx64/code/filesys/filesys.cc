@@ -237,7 +237,7 @@ FileSystem::Open(const char *name)
     if (sector >= 0) 		
 	openFile = new OpenFile(sector);	// name was found in directory 
     delete directory;
-    return openFile;				// return NULL if not found
+    return openFile;				// return NULL if (NOT FOUND)
 }
 
 //----------------------------------------------------------------------
@@ -267,7 +267,7 @@ FileSystem::Remove(const char *name)
     sector = directory->Find(name);
     if (sector == -1) {
        delete directory;
-       return false;			 // file not found 
+       return false;			 // file (NOT FOUND) 
     }
     fileHdr = new FileHeader;
     fileHdr->FetchFrom(sector);

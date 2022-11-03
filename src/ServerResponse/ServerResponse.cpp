@@ -5,12 +5,15 @@
 /// @author Jorge Loría López <jorge.lorialopez@ucr.ac.cr>
 /// This code is released under the GNU Public License version 3
 
-#include "ServerResponse.hpp"
+#include <ctype.h>
 
+#include "ServerResponse.hpp"
 #include "common/Util.hpp"
 
 ServerResponse::ServerResponse(std::string country) {
-  this->country = toUpperCase(Util::trim(country));
+  if (isalpha(country)) {
+    this->country = toUpperCase(Util::trim(country));
+  }
 }
 
 ServerResponse::~ServerResponse() {
@@ -24,14 +27,17 @@ void ServerResponse::handleCountry() {
     if (codes.countries.count(this->country) == 1) {
       this->country = codes.countries.find(this->country)->second;
       group = getGroup();
-      if (group == "")
-        this->stringBuffer << "404 (NOT FOUND)";
-      else 
+      if (group == "") {
+        this->stringBuffer << "HTTP/1.1 404 (NOT FOUND)\r\n";
+      } else { 
+        this->stringBuffer << "HTTP/1.1 200 (OK)\r\n";
         this->printGroup(group);
+      }
+    } else {
+      this->stringBuffer << "HTTP/1.1 404 (NOT FOUND)\r\n";
     }
-    else {
-      this->stringBuffer << "404 (NOT FOUND)";
-    }
+  } else {
+      this->stringBuffer << "HTTP/1.1 404 (NOT FOUND)\r\n";
   }
 }
 

@@ -46,7 +46,7 @@ void Client::getInput() {
       memset(this->buffer,0, 512);
       s.Read( buffer, 512 );	// Read the answer sent back from server
       std::string localBuffer(this->buffer);
-      if(localBuffer.find("404 (NOT FOUND)") != std::string::npos) {
+      if(localBuffer.find("HTTP/1.1 404 (NOT FOUND)\r\n") != std::string::npos) {
         std::cout << "Input error: 404 (NOT FOUND)" << std::endl;
       } else { //todo check for empty message
         // llamar a la clase output
