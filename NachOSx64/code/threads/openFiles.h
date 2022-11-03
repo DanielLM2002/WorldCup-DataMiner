@@ -1,30 +1,27 @@
 #ifndef openFiles_h
 #define openFiles_h
-#include <iostream>
-#include <string>
 
-#include "filesys.h"
+#include <iostream>
+
 #include "bitmap.h"
 #include "synch.h"
 
+
 class OpenFiles {
     private:
-        int* openFileCount; // vector con los archivos del usuario que estan abiertos
-        BitMap *openFileMap;// bitmap para controlar los archivos abiertos
-        Lock* openFileLock;
-        int current_threads;// cantidad de threads que estan usando el sistema de archivos
+        int* openFileCount; // Vector with user opened files
+        BitMap* openFilesMap; // A bitmap to control our vector
+        int ThreadsInUse; // How many threads are using the table
+        //Lock* tab_lock;
     public:
         OpenFiles();
         ~OpenFiles();
-        int Open(int file);
-        int Close(int file);
-        bool isOpen(int file);
-        int getOpenCount(int file);
-        void addThread();
-        void removeThread();
-        void Print();
+        int Open(int); // Register the file handle 
+        int Close(int); // Unregister the file handle
+        bool isOpen(int); 
+        int getOpenCount(int);
+        void addThread(); // If a usar thread is using this table, add it
+        void removeThread(); // If a user thread is using this table, delete it
+        void Print(); // Print contents
 };
-
-
-
-#endif // openFiles_h
+#endif 

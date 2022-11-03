@@ -1,84 +1,79 @@
 #include "openFiles.h"
+#define amount_of_files 128
 
-#define amountOfFiles 128
 OpenFiles::OpenFiles() {
-    this->openFileCount = new int[amountOfFiles];
-    this->openFileMap = new BitMap(amountOfFiles);
-    openFileLock = new Lock("openFileLock");
-    for (int i = 0; i < 3; i++) {
+    this->openFileCount = new int[amount_of_files];
+    this->openFilesMap = new BitMap(amount_of_files);
+    for(int i = 0; i < 3; ++i) {
         this->openFileCount[i] = i;
-        this->openFileMap->Mark(i);
+        this->openFilesMap->Mark(i);
     }
-    this->current_threads = 0;
+    this->ThreadsInUse = 0;
 }
 
-OpenFiles::~OpenFiles() {
+OpenFiles::~OpenFiles(){
     delete this->openFileCount;
-    delete this->openFileMap;
-    delete this->openFileLock;
+    delete this->openFilesMap;
 }
 
-int OpenFiles::Open(int getOpenCount) {
-    this->openFileLock->Acquire();
+int OpenFiles::Open(int unixHandle) {
         addThread();
-        int newID = this->openFileMap->Find();
-        this->openFileCount[newID] = getOpenCount;
-    this->openFileLock->Release();
-    return newID;
+        int new_fd = this->openFilesMap->Find();
+        this->openFileCount[new_fd] = unixHandle;
+    return new_fd;
 }
 
-int OpenFiles::Close(int handler) {
-    this->openFileLock->Acquire();
-        int close_file =  -1;
-        if(isOpen(handler)) {
+int OpenFiles::Close(int NachosHandle) {
+        int was_sucessful = -1;
+        if(isOpen(NachosHandle)) {
             removeThread();
-            if(this->current_threads == 0) {
-                bool clearFiles = false;
-                for (int i = 0; i < amountOfFiles; i++) {
-                    if (this->openFileMap->Test(i)){
-                        this->openFileMap[i] = -2;
-                        this->openFileMap->Clear(i);
+            if(this->ThreadsInUse == 0) {
+                bool allClear = false;
+                for(int i = 0; i < amount_of_files && !allClear; ++i) {
+                    if(this->openFilesMap->Test(i)) {
+                        this->openFileCount[i] = -2;
+                        this->openFilesMap->Clear(i);
                     }
-                    if(this->openFileMap->NumClear() == amountOfFiles) {
-                        clearFiles = true;
+                    if(this->openFilesMap->NumClear() == amount_of_files) {
+                        allClear = true;
                     }
                 }
             }
-            close_file = 1;
+            was_sucessful = 1;
         }
-    this->openFileLock->Release();
-    return close_file;
+    return was_sucessful;
 }
 
-bool OpenFiles::isOpen(int handler) {
-    return this->openFileMap->Test(handler);
+bool OpenFiles::isOpen(int NachosHandle) {
+    return this->openFilesMap->Test(NachosHandle);
 }
 
-int OpenFiles::getOpenCount(int handler) {
-    int osHandler = -666;
-    if(isOpen(handler)) {
-        osHandler = this->openFileCount[handler];
+int OpenFiles::getOpenCount(int NachosHandle) {
+    int UnixHandle = -666;
+    if(isOpen(NachosHandle)) {
+        UnixHandle = this->openFileCount[NachosHandle];
     }
+    return UnixHandle;
 }
 
 void OpenFiles::addThread() {
-    this->current_threads++;
+    ++this->ThreadsInUse;
 }
 
 void OpenFiles::removeThread() {
-    if(this->current_threads > 0) {
-        this->current_threads--;
+    if(this->ThreadsInUse > 0) {
+        --this->ThreadsInUse;
     } else {
-        std::cout << "The threads cant be negative" << std::endl;
+        std::cout << "\n\t ERROR: USAGE CAN'T BE NEGATIVE!!!\t\n" << std::endl;
         exit(2);
     }
 }
 
 void OpenFiles::Print() {
-    std::cout << "OpenFiles: " << std::endl;
-    for (int i = 0; i < amountOfFiles; i++) {
-        if (this->openFileMap->Test(i)) {
-            std::cout << "File: " << i << " is open" << std::endl;
-        }
+    std::cout << "\t[Index]\t[Unix_FD]\n";
+    for(int i = 0; i < amount_of_files; ++i) {
+        std::cout << "\ti\t" << this->openFileCount[i] << "\n";
     }
+    std::cout << std::endl;
 }
+
