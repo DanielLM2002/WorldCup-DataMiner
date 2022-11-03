@@ -166,30 +166,80 @@ void NachOS_Write()
 /*
  *  System call interface: OpenFileId Read( char *, int, OpenFileId )
  */
-void NachOS_Read()
-{ // System call 7
+void NachOS_Read() { // System call 7
    int bufferPointer = machine->ReadRegister(4);
    int size = machine->ReadRegister(5);
-   int id = machine->ReadRegister(6);
+   int socketId = machine->ReadRegister(6);
    int bytes_read = 0;
    char char_buffer[Char_Size_Of_Array];
-   for (int count = 0; machine->ReadMem(bufferPointer + count, 1, &bytes_read); ++count)
-   {
-      machine->WriteMem(bufferPointer, 1, char_buffer[count]);
-      ++bufferPointer;
+   int counter = 0;
+   int counter_aux = 0;
+   char* aux;
+   int container = 0;
+   syscall_lock.Acquire();
+   switch(socketId) {
+      case 0:
+         container = -1;
+      break;
+
+      case 1:
+         container = -1;
+      break;
+
+      case 2:
+         while (machine->ReadMem(bufferPointer + counter, 1, &bytes_read)) {
+            char_buffer[counter] = (char) bytes_read;
+            counter++;
+         }
+         counter_aux = counter + 2;
+         aux = new char[counter_aux];
+         for (int i = 0; i < counter; i++) {
+            aux[i] = char_buffer[i];
+         }
+         aux[counter_aux - 1] = 0;
+         char_buffer[size] = 0;
+         std::cin >> aux;
+         container = 1;
+      break;
+
+      default:
+         if (currentThread->fileTable->isOpen(socketId)) {
+            int openCount = currentThread->fileTable->getOpenCount(socketId);
+            while (machine->ReadMem(bufferPointer + counter, 1, &bytes_read)) {
+               char_buffer[counter] = (char) bytes_read;
+               counter++;
+            }
+            container = read(socketId, char_buffer, size);
+         } else {
+            container = -1;
+         }
+      break;
    }
-   int return_value = read(id, char_buffer, size);
-   machine->WriteRegister(2, return_value);
+   syscall_lock.Release();
+   machine->WriteRegister(2, container);
 }
 
 /*
  *  System call interface: void Close( OpenFileId )
  */
-void NachOS_Close()
-{ // System call 8
-   int id = machine->ReadRegister(4);
-   int return_value = close(id);
-   machine->WriteRegister(2, return_value);
+void NachOS_Close() { // System call 8
+   int socketId = machine->ReadRegister(4);
+   int container = 0;
+   syscall_lock.Acquire();
+   if (currentThread->fileTable->isOpen(socketId)) {
+      int openCount = currentThread->fileTable->getOpenCount(socketId);
+      if (openCount == 1) {
+         container = close(socketId);
+         currentThread->fileTable->remove(socketId);
+      } else {
+         currentThread->fileTable->decrementOpenCount(socketId);
+         container = 1;
+      }
+   } else {
+      container = -1;
+   }
+   syscall_lock.Release();
+   machine->WriteRegister(2, container);
 }
 
 /*
@@ -300,87 +350,90 @@ void NachOS_CondBroadcast()
 /*
  *  System call interface: Socket_t Socket( int, int )
  */
-void NachOS_Socket()
-{ // System call 30
-   printf("creating nachos socket\n");
-   int sockID;
-   int af = machine->ReadRegister(PARAM_1_REG);
-   if (af == 0)
-   {
-      af = AF_INET; // AF_INET = 1;
+void NachOS_Socket(){ // System call 30
+   int domain = machine->ReadRegister(4);
+   if (domain == AF_INET_NachOS) {
+      domain = AF_INET;
+   } else if (domain == AF_INET6_NachOS) {
+      domain = AF_INET6;
+   } else {
+      domain = -1;
+      perror("No se pudo crear el socket");
+      exit(2);
    }
-   printf("after reading param af   at register 4: %i\n", af); // 2
-   int sock = machine->ReadRegister(PARAM_2_REG);
-   if (sock == 0)
-   {
-      sock = SOCK_STREAM; // SOCK_STREAM = 1
+   int type = machine->ReadRegister(5);
+   if (type == SOCK_STREAM_NachOS) {
+      type = SOCK_STREAM;
+   } else if (type == SOCK_DGRAM_NachOS) {
+      type = SOCK_DGRAM;
+   } else {
+      type = -1;
+      perror("No se pudo crear el socket");
+      exit(2);
    }
-   printf("after reading param sock at register 5: %i\n", sock); // 1
-   sockID = socket(af, sock, 0);
-   printf("sockID value: %i .\n", sockID);
-   ASSERT(sockID >= 0);
-   // TODO store the id into the table
-
-   // todo implement this return storing the id in a register
-   // return sockID;
-   machine->WriteRegister(2, sockID);
+   int id = socket(domain, type, 0);
+   if (id < 0) {
+      perror("No se pudo crear el socket");
+      exit(2);
+   } else {
+      int new_id = currentThread->fileTable->Open(id);
+   }
+   machine->WriteRegister(2, new_id);
 }
+
 
 /*
  *  System call interface: Socket_t Connect( char *, int )
  */
-void NachOS_Connect()
-{ // System call 31
-   int id = machine->ReadRegister(PARAM_1_REG);
-   int host_pointer = machine->ReadRegister(PARAM_2_REG);
-   int port = machine->ReadRegister(PARAM_3_REG);
+void NachOS_Connect() {
+   int nachos_handle = machine->ReadRegister(4);
+   int bufferPointer = machine->ReadRegister(5);
+   int size = machine->ReadRegister(6);
    int bytes_read = 0;
-   char hostIP[Char_Size_Of_Array];
-   int counter = 0;
-   while (machine->ReadMem(host_pointer + counter, 1, &bytes_read) && bytes_read != 0)
-   {
-      hostIP[counter] = (char)bytes_read;
-      counter++;
+   char char_buffer[Char_Size_Of_Array]; //hostip
+   int container = 0;
+   if (currentThread->fileTable->isOpen(nachos_handle)) {
+      int nachos_id = currentThread->fileTable->getNachosId(nachos_handle);
+      for (int count = 0; machine->ReadMem(bufferPointer + count, 1, &bytes_read); ++count) {
+         char_buffer[count] = (char) bytes_read;
+      }
+      char_buffer[size] = 0;
+      struct sockaddr_in server;
+      server.sin_family = AF_INET;
+      server.sin_port = htons(5000);
+      server.sin_addr.s_addr = inet_addr(char_buffer);
+      bzero(&(server.sin_zero), 8);
+      container = connect(nachos_id, (struct sockaddr *) &server, sizeof(struct sockaddr));
+      if(container == -1) {
+         perror("No se pudo conectar");
+         exit(2);
+      }
    }
-   hostIP[counter] = 0;
-   struct sockaddr_in server;
-   printf("trying to connect to: %s \n", hostIP);
-   memset((char *)&server, 0, sizeof(server));
-   printf("obtuvo memoria \n");
-   server.sin_family = AF_INET;
-   inet_pton(AF_INET, hostIP, &server.sin_addr);
-   printf("inet pton done \n");
-   server.sin_port = htons(port);
-   printf("htons done \n");
-   int return_value = connect(id, (sockaddr *)&server, sizeof(server));
-   printf("Connected: %i \n", return_value);
-   if (return_value < 0)
-   {
-      printf("Socket::Connect");
-      exit(2);
-   }
-   machine->WriteRegister(2, return_value);
+   machine->WriteRegister(2, container);
 }
 
 /*
  *  System call interface: int Bind( Socket_t, int )
  */
-void NachOS_Bind()
-{ // System call 32
-   int id = machine->ReadRegister(4);
-   int port = machine->ReadRegister(5);
-   struct sockaddr_in binder;
-   memset((char *)&binder, 0, sizeof(binder));
-   binder.sin_family = AF_INET;
-   binder.sin_addr.s_addr = htonl(INADDR_ANY);
-   binder.sin_port = htons(port);
-   int return_value = bind(id, (sockaddr *)&binder, sizeof(binder));
-   if (return_value < 0)
-   {
-      printf("Socket::Bind");
-      exit(2);
+void NachOS_Bind() { // System call 32
+   int nachos_handle = machine->ReadRegister(4);
+   int bufferPointer = machine->ReadRegister(5);
+   int size = machine->ReadRegister(6);
+   int container = 0;
+   if(currentThread->fileTable->isOpen(nachos_handle)) {
+      struct sockaddr_in server;
+      memset((char*) &server, 0, sizeof(server));
+      server.sin_family = AF_INET;
+      server.sin_port = htons(bufferPointer);
+      server.sin_addr.s_addr = htonl(INADDR_ANY);
+      int unix_handle = currentThread->fileTable->getOpenCount(nachos_handle);
+      container = bind(unix_handle, (struct sockaddr *) &server, sizeof(server));
+      if (container == -1) {
+         perror("No se pudo hacer bind");
+         exit(2);
+      }
    }
-   machine->WriteRegister(2, return_value);
+   machine->WriteRegister(2, container);
 }
 
 /*
