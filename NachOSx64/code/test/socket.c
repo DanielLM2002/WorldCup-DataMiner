@@ -5,8 +5,8 @@ int main() {
    char a[ 512 ];
 
    id = Socket( AF_INET_NachOS, SOCK_STREAM_NachOS );
-   Connect( id, "163.178.104.187", 80 );
-   Write( "GET / HTTP/1.0\r\n\r\n", 32, id );
+   Connect( id, "127.0.0.1", 9876 );
+   Write( "GET /fifa/2018/CRC HTTP/1.1\r\nhost: grupoh.ecci \r\n\r\n", 32, id );
    Read( a, 512, id );
    Write( a, 512, 1 );
    Close( id );

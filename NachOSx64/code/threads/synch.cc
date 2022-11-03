@@ -123,156 +123,79 @@ Semaphore::Destroy()
 // Note -- without a correct implementation of Condition::Wait(), 
 // the test case in the network assignment won't work!
 Lock::Lock(const char* debugName) {
-    this -> name = (char *)debugName;
-    sem_lock = new Semaphore(debugName, 1);
-    lockOwner = NULL;
+
 }
 
 
 Lock::~Lock() {
-    delete sem_lock;
+
 }
 
 
 void Lock::Acquire() {
-    IntStatus oldLevel = interrupt->SetLevel(IntOff);
-    DEBUG('t', "Lock %s is acquired by thread %s", currentThread->getName());
-    sem_lock -> P();
-    lockOwner = currentThread;
-
 
 }
 
 
 void Lock::Release() {
-    IntStatus oldLevel = interrupt->SetLevel(IntOff);
-    DEBUG('t', "Lock %s is released by thread %s", currentThread->getName());
-    if(isHeldByCurrentThread()) { 
-        sem_lock -> V();
-        lockOwner = NULL;
-    }
-    (void) interrupt -> SetLevel(oldLevel);
+
 }
 
 
 bool Lock::isHeldByCurrentThread() {
-   return (lockOwner == currentThread);
-}
-
-Thread* Lock::getOwner(){
-    return lockOwner;
+   return false;
 }
 
 
 Condition::Condition(const char* debugName) {
-    name = (char *)debugName;
-    queue = new List<Thread*>;
 
 }
 
 
 Condition::~Condition() {
-    delete queue;
+
 }
 
 
 void Condition::Wait( Lock * conditionLock ) {
-    IntStatus oldLevel = interrupt->SetLevel(IntOff);
-    DEBUG('t', "Condition %s is waiting by thread %s", currentThread->getName(), name);
-    Thread* lockOwner = conditionLock -> getOwner();
-    if (lockOwner != NULL) {
-        ASSERT(lockOwner == currentThread);
-        queue -> Append(currentThread);
-        conditionLock -> Release();
-        DEBUG('t', "Condition %s is BLocked by the condition %s", currentThread->getName(), name);
-        currentThread -> Sleep();
-        DEBUG('t', "Condition %s is alive and about to get lock %s", currentThread->getName(), name);
-        conditionLock -> Acquire();
-    }
+
 }
 
 
 void Condition::Signal( Lock * conditionLock ) {
-    DEBUG('t', "Condition %s is being signalled and blocked on condition %s", currentThread->getName(), name);
-    Thread* thread;
-    IntStatus oldLevel = interrupt->SetLevel(IntOff);
-    if (queue->IsEmpty()==false) {
-        thread = (Thread*) queue->Remove();
-        DEBUG('t', " the thread woke up \"%s\"\n",thread->getName());
-        if (thread != NULL) scheduler->ReadyToRun(thread);
-    }
-    (void) interrupt->SetLevel(oldLevel);
+
 }
 
 
 void Condition::Broadcast( Lock * conditionLock ) {
-    Thread* thread;
-    IntStatus oldLevel = interrupt->SetLevel(IntOff);
-    while(queue->IsEmpty() == false) {
-        thread = (Thread*) queue->Remove();
-        if (thread != NULL) scheduler->ReadyToRun(thread);
-    }
-    (void) interrupt->SetLevel(oldLevel);
 }
 
 
 // Mutex class
 Mutex::Mutex( const char * debugName ) {
-    name = (char *)debugName;
-    sem_lock = new Semaphore(debugName, 1);
-    lockOwner = NULL;
+
 }
 
 Mutex::~Mutex() {
-    delete sem_lock;
+
 }
 
 void Mutex::Lock() {
-    IntStatus oldLevel = interrupt->SetLevel(IntOff);
-    DEBUG('t', "Lock %s is acquired by thread %s", currentThread->getName());
-    sem_lock -> P();
-    lockOwner = currentThread;
+
 }
 
 void Mutex::Unlock() {
-    IntStatus oldLevel = interrupt->SetLevel(IntOff);
-    DEBUG('t', "Lock %s is released by thread %s", currentThread->getName());
-    sem_lock -> V();
-    lockOwner = NULL;
-    (void) interrupt -> SetLevel(oldLevel);
+
 }
 
 
 // Barrier class
 Barrier::Barrier( const char * debugName, int count ) {
-    name = (char *)debugName;
-    sem_lock = new Semaphore(debugName, 1);
-    lockOwner = NULL;
-    barrierCount = count;
-    barrierCountCurrent = 0;
-
 }
 
 Barrier::~Barrier() {
-    delete sem_lock;
 }
 
 void Barrier::Wait() {
-    IntStatus oldLevel = interrupt->SetLevel(IntOff);
-    DEBUG('t', "Lock %s is acquired by thread %s", currentThread->getName());
-    sem_lock -> P();
-    lockOwner = currentThread;
-    barrierCountCurrent++;
-    if (barrierCountCurrent == barrierCount) {
-        sem_lock -> V();
-        lockOwner = NULL;
-        barrierCountCurrent = 0;
-    }
-    else {
-        sem_lock -> V();
-        lockOwner = NULL;
-        currentThread -> Sleep();
-    }
-    (void) interrupt -> SetLevel(oldLevel);
 }
 
