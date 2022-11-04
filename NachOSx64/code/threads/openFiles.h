@@ -7,18 +7,18 @@
 
 class OpenFiles {
     private:
-        int* openFileCount; // Vector with user opened files
-        BitMap* openFilesMap; // A bitmap to control our vector
-        int ThreadsInUse; // How many threads are using the table
+        int* openFileCount;
+        BitMap* openFilesMap;
+        int ThreadsInUse;
     public:
         OpenFiles();
         ~OpenFiles();
-        int Open(int); // Register the file handle 
-        int Close(int); // Unregister the file handle
+        int Open(int); 
+        int Close(int);
         bool isOpen(int); 
         int getOpenCount(int);
-        void addThread(); // If a usar thread is using this table, add it
-        void removeThread(); // If a user thread is using this table, delete it
-        void Print(); // Print contents
+        void addThread();
+        void removeThread();
+        void Print();
 };
 #endif

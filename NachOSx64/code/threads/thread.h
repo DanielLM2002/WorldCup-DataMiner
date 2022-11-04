@@ -37,6 +37,7 @@
 #ifndef THREAD_H
 #define THREAD_H
 
+#include "openFiles.h"
 #include "copyright.h"
 #include "utility.h"
 
@@ -98,6 +99,7 @@ class Thread {
     void setStatus(ThreadStatus st) { status = st; }
     const char* getName() { return (name); }
     void Print() { printf("%s, ", name); }
+    OpenFiles* fileTable;
 
   private:
     // some of the private data for this class is listed above

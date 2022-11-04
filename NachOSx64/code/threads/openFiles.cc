@@ -12,11 +12,11 @@ OpenFiles::~OpenFiles() {
     delete openFilesMap;
 }
 
-void addThread() {
+void OpenFiles::addThread() {
     this->ThreadsInUse++;
 }
 
-void removeThread() {
+void OpenFiles::removeThread() {
     this->ThreadsInUse--;
 }
 
