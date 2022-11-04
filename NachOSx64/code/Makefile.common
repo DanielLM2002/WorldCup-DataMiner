@@ -46,6 +46,7 @@ THREAD_H =../threads/copyright.h\
 	../threads/thread.h\
 	../threads/diningph.h\
 	../threads/utility.h\
+	../threads/openFiles.h\
 	../machine/interrupt.h\
 	../machine/sysdep.h\
 	../machine/stats.h\
@@ -60,6 +61,7 @@ THREAD_C =../threads/main.cc\
 	../threads/utility.cc\
 	../threads/threadtest.cc\
 	../threads/diningph.cc\
+	../threads/openFiles.cc\
 	../machine/interrupt.cc\
 	../machine/sysdep.cc\
 	../machine/stats.cc\
@@ -70,7 +72,7 @@ THREAD_S = ../threads/switch.s
 
 THREAD_O =main.o scheduler.o synch.o system.o thread.o \
 	utility.o threadtest.o interrupt.o stats.o sysdep.o timer.o \
-	preemptive.o diningph.o
+	preemptive.o diningph.o openFiles.o
 
 USERPROG_H = ../userprog/addrspace.h\
 	../userprog/bitmap.h\
