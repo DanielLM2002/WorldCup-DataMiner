@@ -38,6 +38,7 @@ Thread::Thread(const char* threadName)
     stackTop = NULL;
     stack = NULL;
     status = JUST_CREATED;
+    this->fileTable = new OpenFiles();
 #ifdef USER_PROGRAM
     space = NULL;
 #endif
