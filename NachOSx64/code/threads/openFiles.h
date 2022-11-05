@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+// #include "../userprog/bitmap.h"
 #include "bitmap.h"
 
 class OpenFiles {
@@ -20,5 +21,6 @@ class OpenFiles {
         void addThread();
         void removeThread();
         void Print();
+        void SetMemory();
 };
 #endif

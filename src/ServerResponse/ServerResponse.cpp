@@ -24,13 +24,15 @@ void ServerResponse::handleCountry() {
     if (codes.countries.count(this->country) == 1) {
       this->country = codes.countries.find(this->country)->second;
       group = getGroup();
-      if (group == "")
-        this->stringBuffer << "404 (NOT FOUND)";
-      else 
+      if (group == ""){
+        this->stringBuffer << "HTTP/1.1 404 Not Found";
+      }else{ 
+        this->stringBuffer << "HTTP/1.1 200 OK\r\n";
         this->printGroup(group);
+      }
     }
     else {
-      this->stringBuffer << "404 (NOT FOUND)";
+      this->stringBuffer << "HTTP/1.1 404 Not Found";
     }
   }
 }

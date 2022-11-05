@@ -17,6 +17,7 @@
 
 #include "copyright.h"
 #include "utility.h"
+// #include "../threads/openFiles.h"
 #include "openfile.h"
 
 // Definitions helpful for representing a bitmap as an array of integers

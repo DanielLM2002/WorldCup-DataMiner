@@ -117,8 +117,6 @@ void NachOS_Write()
    int bytes_read = 0;
    char * char_buffer = new char[size];
    int counter = 0;
-   int counter_aux = 0;
-   char* aux;
    int container = 0;
    syscall_lock.Acquire();
    switch(socketId) {
