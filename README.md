@@ -29,6 +29,11 @@ sudo apt-get install nlohmann-json3-dev
 
 ### Compilación y ejecución
 
+Para compilar el nachOS debe ejecutarse debe dirigirse a la carpeta ```test``` y ejecutar el siguiente comando:
+```
+make socket
+```
+
 En el caso que se quiere compilar y ejecutar el servidor se utilizará el siguiente comando:
 ```
 make server
