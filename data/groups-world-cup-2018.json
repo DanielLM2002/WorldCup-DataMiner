@@ -1,0 +1,76 @@
+{
+  "groups": {
+    "A": {
+      "name": "Group A",
+      "countries" : [
+        "RUS",
+        "KSA",
+        "EGY",
+        "URU"
+      ]
+    }, 
+    "B": {
+      "name": "Group B",
+      "countries" : [
+        "POR",
+        "ESP",
+        "MAR",
+        "IRN"
+      ]
+    },
+    "C": {
+      "name": "Group C",
+      "countries" : [
+        "FRA",
+        "AUS",
+        "PER",
+        "DEN"
+      ]
+    },
+    "D": {
+      "name": "Group D",
+      "countries" : [
+        "ARG",
+        "ISL",
+        "CRO",
+        "NGA"
+      ]
+    },
+    "E": {
+      "name": "Group E",
+      "countries" : [
+        "BRA",
+        "SUI",
+        "CRC",
+        "SRB"
+      ]
+    }, 
+    "F": {
+      "name": "Group F",
+      "countries" : [
+        "GER",
+        "MEX",
+        "SWE",
+        "KOR"
+      ]
+    },
+    "G": {
+      "name": "Group G",
+      "countries" : [
+        "BEL",
+        "PAN",
+        "TUN",
+        "ENG"
+      ]
+    },
+    "H": {
+      "name": "Group H",
+      "countries" : [
+        "POL",
+        "SEN",
+        "COL",
+        "JPN"
+      ]
+    }
+  }
+}
