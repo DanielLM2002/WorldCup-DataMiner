@@ -48,3 +48,15 @@ void Router::addServer(std::string address, char group) {
 void Router::removeServer(std::string address) {
   this->serverTable.erase(address);
 }
+
+void Router::listenForClients() {
+
+}
+
+void Router::listenForServers() {
+
+}
+
+void Router::sendWakeUpBroadcast() {
+  
+}
