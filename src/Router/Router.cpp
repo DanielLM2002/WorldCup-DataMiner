@@ -58,5 +58,13 @@ void Router::listenForServers() {
 }
 
 void Router::sendWakeUpBroadcast() {
-  
+
+}
+
+char Router::getGroupByServer(std::string address) {
+  char group;
+  auto item = this->serverTable.find(address);
+  if (item != this->serverTable.end())
+    group = item->second;
+  return group;
 }
