@@ -68,3 +68,15 @@ char Router::getGroupByServer(std::string address) {
     group = item->second;
   return group;
 }
+
+std::string Router::getServerByGroup(char group) {
+  std::string address;
+  group = toupper(group);
+  for (auto iter = this->serverTable.begin(); iter != this->serverTable.end(); ++iter) {
+    if (iter->second == group) {
+      address = iter->first;
+      break;
+    }
+  }
+  return address;
+}
