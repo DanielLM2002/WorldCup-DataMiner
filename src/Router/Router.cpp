@@ -39,3 +39,8 @@ void Router::fillGroupsTable(std::string fileName) {
   }
   file.close();
 }
+
+void Router::addServer(std::string address, char group) {
+  group = toupper(group);
+  this->serverTable[address] = group;
+}
