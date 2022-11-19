@@ -44,3 +44,7 @@ void Router::addServer(std::string address, char group) {
   group = toupper(group);
   this->serverTable[address] = group;
 }
+
+void Router::removeServer(std::string address) {
+  this->serverTable.erase(address);
+}
