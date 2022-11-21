@@ -10,9 +10,19 @@
 
 #include <map>
 #include <vector>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <nlohmann/json.hpp>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <threads.h>
 
 using json = nlohmann::json;
 
