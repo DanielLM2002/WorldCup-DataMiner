@@ -8,11 +8,14 @@
 #include "Router.hpp"
 
 Router::Router() {
+  this->router = new RouterTable();
+  this->router->addEntry("New table");
 
 }
 
 Router::~Router() {
-
+  delete this->router;
+  
 }
 
 void Router::fillGroupsTable(std::string fileName) {
