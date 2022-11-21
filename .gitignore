@@ -1,5 +1,6 @@
 build/
 doc/
+bin/
 .vscode/
 .DS_Store/
 src/.DS_Store
