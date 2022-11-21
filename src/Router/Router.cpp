@@ -121,6 +121,40 @@ void Router::listenForServers() {
 }
 
 void Router::sendWakeUpBroadcast() {
+  int socketDescriptor;
+  int portNumber;
+  int n;
+  struct sockaddr_in serverAddress;
+  struct hostent *server;
+  char buffer[256];
+
+  socketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
+  if (socketDescriptor < 0) {
+    perror("ERROR opening socket\n");
+    exit(1);
+  }
+  server = gethostbyname("localhost");
+  if (server == NULL) {
+    fprintf(stderr, "ERROR, no such host\n");
+    exit(0);
+  }
+  bzero((char *) &serverAddress, sizeof(serverAddress));
+  portNumber = 8081;
+  serverAddress.sin_family = AF_INET;
+  bcopy((char *) server->h_addr, (char *) &serverAddress.sin_addr.s_addr, server->h_length);
+  serverAddress.sin_port = htons(portNumber);
+  if (connect(socketDescriptor, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
+    perror("ERROR connecting\n");
+    exit(1);
+  }
+  bzero(buffer, 256);
+  strcpy(buffer, "WAKEUP");
+  n = write(socketDescriptor, buffer, strlen(buffer));
+  if (n < 0) {
+    perror("ERROR writing to socket\n");
+    exit(1);
+  }
+  close(socketDescriptor);
 
 }
 
