@@ -50,11 +50,42 @@ void Router::removeServer(std::string address) {
 }
 
 void Router::listenForClients() {
+  int socketDescriptor;
+  int clientSocketDescriptor;
+  int portNumber;
+  int clientLength;
+  struct sockaddr_in serverAddress;
+  struct sockaddr_in clientAddress;
+
+  socketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
+  if (socketDescriptor < 0) {
+    std::cout << "ERROR opening socket" << std::endl;
+    exit(1);
+  }
+  bzero((char *) &serverAddress, sizeof(serverAddress));
+  portNumber = 8080;
+  serverAddress.sin_family = AF_INET;
+  serverAddress.sin_addr.s_addr = INADDR_ANY;
+  serverAddress.sin_port = htons(portNumber);
+  if (bind(socketDescriptor, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
+    std::cout << "ERROR on binding" << std::endl;
+    exit(1);
+  }
+  listen(socketDescriptor, 5);
+  clientLength = sizeof(clientAddress);
+  while (1) {
+    clientSocketDescriptor = accept(socketDescriptor, (struct sockaddr *) &clientAddress, (socklen_t *) &clientLength);
+    if (clientSocketDescriptor < 0) {
+      std::cout << "ERROR on accept" << std::endl;
+      exit(1);
+    }
+    std::thread(&Router::handleClient, this, clientSocketDescriptor).detach();
+  }
+  close(socketDescriptor);
 
 }
 
 void Router::listenForServers() {
-
 }
 
 void Router::sendWakeUpBroadcast() {
