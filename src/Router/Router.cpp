@@ -7,6 +7,10 @@
 
 #include "Router.hpp"
 
+#define SERVER_PORT   2020
+#define ROUTER_PORT   2022
+#define MAXLINE       1024 
+
 Router::Router() {
 
 }
@@ -57,105 +61,91 @@ void Router::listenForClients() {
   struct sockaddr_in serverAddress;
   struct sockaddr_in clientAddress;
 
-  socketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
-  if (socketDescriptor < 0) {
-    perror("ERROR opening socket\n");
-    exit(1);
-  }
-  bzero((char *) &serverAddress, sizeof(serverAddress));
-  portNumber = 8080;
-  serverAddress.sin_family = AF_INET;
-  serverAddress.sin_addr.s_addr = INADDR_ANY;
-  serverAddress.sin_port = htons(portNumber);
-  if (bind(socketDescriptor, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
-    perror("ERROR on binding\n");
-    exit(1);
-  }
-  listen(socketDescriptor, 5);
-  clientLength = sizeof(clientAddress);
-  while (1) {
-    clientSocketDescriptor = accept(socketDescriptor, (struct sockaddr *) &clientAddress, (socklen_t *) &clientLength);
-    if (clientSocketDescriptor < 0) {
-      perror("ERROR on accept\n");
-      exit(1);
-    }
-    std::thread(&Router::handleClient, this, clientSocketDescriptor).detach();
-  }
-  close(socketDescriptor);
+  // socketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
+  // if (socketDescriptor < 0) {
+  //   perror("ERROR opening socket\n");
+  //   exit(1);
+  // }
+  // bzero((char *) &serverAddress, sizeof(serverAddress));
+  // portNumber = 8080;
+  // serverAddress.sin_family = AF_INET;
+  // serverAddress.sin_addr.s_addr = INADDR_ANY;
+  // serverAddress.sin_port = htons(portNumber);
+  // if (bind(socketDescriptor, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
+  //   perror("ERROR on binding\n");
+  //   exit(1);
+  // }
+  // listen(socketDescriptor, 5);
+  // clientLength = sizeof(clientAddress);
+  // while (1) {
+  //   clientSocketDescriptor = accept(socketDescriptor, (struct sockaddr *) &clientAddress, (socklen_t *) &clientLength);
+  //   if (clientSocketDescriptor < 0) {
+  //     perror("ERROR on accept\n");
+  //     exit(1);
+  //   }
+  //   std::thread(&Router::handleClient, this, clientSocketDescriptor).detach();
+  // }
+  // close(socketDescriptor);
 
 }
 
 void Router::listenForServers() {
-  int socketDescriptor;
-  int clientSocketDescriptor;
-  int portNumber;
-  int clientLength;
-  struct sockaddr_in serverAddress;
-  struct sockaddr_in clientAddress;
+  // int socketDescriptor;
+  // int clientSocketDescriptor;
+  // int portNumber;
+  // int clientLength;
+  // struct sockaddr_in serverAddress;
+  // struct sockaddr_in clientAddress;
 
-  socketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
-  if (socketDescriptor < 0) {
-    perror("ERROR opening socket\n");
-    exit(1);
-  }
-  bzero((char *) &serverAddress, sizeof(serverAddress));
-  portNumber = 8081;
-  serverAddress.sin_family = AF_INET;
-  serverAddress.sin_addr.s_addr = INADDR_ANY;
-  serverAddress.sin_port = htons(portNumber);
-  if (bind(socketDescriptor, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
-    perror("ERROR on Binding\n");
-    exit(1);
-  }
-  listen(socketDescriptor, 5);
-  clientLength = sizeof(clientAddress);
-  while (1) {
-    clientSocketDescriptor = accept(socketDescriptor, (struct sockaddr *) &clientAddress, (socklen_t *) &clientLength);
-    if (clientSocketDescriptor < 0) {
-      perror("ERROR on accept\n");
-      exit(1);
-    }
-    std::thread(&Router::handleServer, this, clientSocketDescriptor).detach();
-  }
-  close(socketDescriptor);
+  // socketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
+  // if (socketDescriptor < 0) {
+  //   perror("ERROR opening socket\n");
+  //   exit(1);
+  // }
+  // bzero((char *) &serverAddress, sizeof(serverAddress));
+  // portNumber = 8081;
+  // serverAddress.sin_family = AF_INET;
+  // serverAddress.sin_addr.s_addr = INADDR_ANY;
+  // serverAddress.sin_port = htons(portNumber);
+  // if (bind(socketDescriptor, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
+  //   perror("ERROR on Binding\n");
+  //   exit(1);
+  // }
+  // listen(socketDescriptor, 5);
+  // clientLength = sizeof(clientAddress);
+  // while (1) {
+  //   clientSocketDescriptor = accept(socketDescriptor, (struct sockaddr *) &clientAddress, (socklen_t *) &clientLength);
+  //   if (clientSocketDescriptor < 0) {
+  //     perror("ERROR on accept\n");
+  //     exit(1);
+  //   }
+  //   std::thread(&Router::handleServer, this, clientSocketDescriptor).detach();
+  // }
+  // close(socketDescriptor);
 }
 
 void Router::sendWakeUpBroadcast() {
-  int socketDescriptor;
-  int portNumber;
-  int n;
-  struct sockaddr_in serverAddress;
-  struct hostent *server;
-  char buffer[256];
+  Socket * server;
+  int sockfd; 
+  int n, len; 
+  char buffer[MAXLINE]; 
+  char *hello = (char *) "127.0.0.1"; 
+  struct sockaddr_in other;
+  std::vector<std::string> hosts = {"127.0.0.1"};
 
-  socketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
-  if (socketDescriptor < 0) {
-    perror("ERROR opening socket\n");
-    exit(1);
-  }
-  server = gethostbyname("localhost");
-  if (server == NULL) {
-    fprintf(stderr, "ERROR, no such host\n");
-    exit(0);
-  }
-  bzero((char *) &serverAddress, sizeof(serverAddress));
-  portNumber = 8081;
-  serverAddress.sin_family = AF_INET;
-  bcopy((char *) server->h_addr, (char *) &serverAddress.sin_addr.s_addr, server->h_length);
-  serverAddress.sin_port = htons(portNumber);
-  if (connect(socketDescriptor, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
-    perror("ERROR connecting\n");
-    exit(1);
-  }
-  bzero(buffer, 256);
-  strcpy(buffer, "WAKEUP");
-  n = write(socketDescriptor, buffer, strlen(buffer));
-  if (n < 0) {
-    perror("ERROR writing to socket\n");
-    exit(1);
-  }
-  close(socketDescriptor);
+  server = new Socket( 'd' );	// Creates an UDP socket: datagram
 
+  memset( &other, 0, sizeof( other ) ); 
+  
+  other.sin_family = AF_INET; 
+  other.sin_port = htons(SERVER_PORT); 
+  for (std::string host : hosts) {
+    // convertir las ips pasarlas en la linea siguiente
+    other.sin_addr.s_addr = INADDR_ANY;
+    n = server->sendTo( (void *) hello, strlen( hello ), (void *) & other ); 
+    std::cout << "Broadcast sent "<< n <<" bytes to: " << host << std::endl; 
+  }
+  server->Close();
 }
 
 char Router::getGroupByServer(std::string address) {

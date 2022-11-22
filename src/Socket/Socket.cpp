@@ -209,3 +209,22 @@ int Socket::Shutdown( int mode ) {
 void Socket::SetId(int id){
   this->id = id;
 }
+
+int Socket::sendTo( const void * msg, int len, void * addr) {;
+  int st = sendto(this->id, msg , len, 0, (const sockaddr *) addr, sizeof(sockaddr));
+  if (st == -1) {
+    perror( "Socket::sendTo" );
+    exit( 2 );
+  }
+  return st;
+}
+
+int Socket::recvFrom( void * buffer, int len, void * addr) {
+  socklen_t addr_len = sizeof(addr);
+  int st = recvfrom(this->id, buffer, len, 0, ( sockaddr *) addr, &addr_len);
+  if (st == -1) {
+    perror("Socket::recvFrom");
+    exit(2);
+  }
+  return st;
+}

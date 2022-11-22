@@ -24,6 +24,8 @@
 #include <netinet/in.h>
 #include <threads.h>
 
+#include "Socket.hpp"
+
 using json = nlohmann::json;
 
 class Router {

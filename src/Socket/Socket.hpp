@@ -185,6 +185,22 @@ class Socket {
    * @return int 
    */
   int SSLWrite(const void*, int);
+
+  /**
+   * @brief Method that sends to a socket using UDP protocol
+   * @param msg Data to write
+   * @param len length of data
+   * @param addr address to write
+   */
+  int sendTo( const void *, int, void * );
+  
+  /**
+   * @brief Method that receives from a socket using UDP protocol
+   * @param buffer where to write
+   * @param len length of data
+   * @param addr address to receive
+   */
+  int recvFrom( void *, int, void * );
 };
 
 #endif  // !_SOCKET_

@@ -36,6 +36,11 @@ class Server {
    * @brief Method that starts the server
    */
   void serve();
+
+    /**
+   * @brief Method that starts the server
+   */
+  void respondToWakeUp();
 };
 
 #endif  // !_SERVER_

@@ -8,6 +8,10 @@
 #include "Server.hpp"
 #include "HttpParser.hpp"
 
+#define SERVER_PORT   2020
+#define ROUTER_PORT   2022
+#define MAXLINE       1024 
+
 Server::Server(int nPort): port(nPort) {
 
 }
@@ -50,4 +54,28 @@ void Server::serve(){
     }
     s2->Close();		// Close socket in parent
   }
+}
+
+void Server::respondToWakeUp() {
+  Socket * server;
+  int sockfd; 
+  int n, len; 
+  char buffer[MAXLINE]; 
+  char *hello = (char *) "127.0.0.1\tE"; //ip y grupo 
+  struct sockaddr_in other;
+  server = new Socket( 'd' );	// Creates an UDP socket: datagram
+  memset( &other, 0, sizeof( other ) ); 
+  other.sin_family = AF_INET; 
+  other.sin_port = htons(SERVER_PORT); 
+  other.sin_addr.s_addr = INADDR_ANY;
+  std::cout << "wating for a wake up" << std::endl;
+  n = server->recvFrom( (void *) buffer, MAXLINE, (void *) & other );
+  buffer[n] = '\0';
+  std::cout<< buffer << std::endl;
+
+  other.sin_port = htons(ROUTER_PORT); 
+  // convertir el buffer para pasarlo abajo
+  other.sin_addr.s_addr = INADDR_ANY;
+  n = server->sendTo( (void *) hello, strlen( hello ), (void *) & other );   
+  server->Close();
 }
