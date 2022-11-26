@@ -111,6 +111,9 @@ ifneq ($(INPUTFX),)
 	cpplint --filter=$(LINTX) $(INPUTFX)
 endif
 
+router: $(EXEFILE)
+	$(EXEARGS) router
+
 server: $(EXEFILE)
 	$(EXEARGS) server
 
