@@ -25,6 +25,7 @@
 #include <threads.h>
 
 #include "Socket.hpp"
+#include "Util.hpp"
 
 using json = nlohmann::json;
 

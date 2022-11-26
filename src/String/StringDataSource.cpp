@@ -16,6 +16,7 @@ StringDataSource::~StringDataSource() {
 }
 
 void StringDataSource::parse(char* buffer) {
+  std::cout << "buffer:" << buffer << "."<< std::endl;
   std::vector<std::string> lines = Util::split(buffer,"\n");
   std::vector<std::string> temp;
   for (int i = 0; i < (int) lines.size(); i++){

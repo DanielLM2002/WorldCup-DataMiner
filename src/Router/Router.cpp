@@ -90,38 +90,35 @@ void Router::listenForClients() {
 }
 
 void Router::listenForServers() {
-  // int socketDescriptor;
-  // int clientSocketDescriptor;
-  // int portNumber;
-  // int clientLength;
-  // struct sockaddr_in serverAddress;
-  // struct sockaddr_in clientAddress;
+  int sockfd; 
+  int n, len; 
+  char buffer[MAXLINE]; 
+  char *hello = (char *) "127.0.0.1\tE"; //ip y grupo 
+  struct sockaddr other;
+  Socket server( 'd' ), *s2;	// Creates an UDP socket: datagram
+  server.Bind( ROUTER_PORT );
+  memset( &other, 0, sizeof( other ) ); 
+  int childpid;
 
-  // socketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
-  // if (socketDescriptor < 0) {
-  //   perror("ERROR opening socket\n");
-  //   exit(1);
-  // }
-  // bzero((char *) &serverAddress, sizeof(serverAddress));
-  // portNumber = 8081;
-  // serverAddress.sin_family = AF_INET;
-  // serverAddress.sin_addr.s_addr = INADDR_ANY;
-  // serverAddress.sin_port = htons(portNumber);
-  // if (bind(socketDescriptor, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
-  //   perror("ERROR on Binding\n");
-  //   exit(1);
-  // }
-  // listen(socketDescriptor, 5);
-  // clientLength = sizeof(clientAddress);
-  // while (1) {
-  //   clientSocketDescriptor = accept(socketDescriptor, (struct sockaddr *) &clientAddress, (socklen_t *) &clientLength);
-  //   if (clientSocketDescriptor < 0) {
-  //     perror("ERROR on accept\n");
-  //     exit(1);
-  //   }
-  //   std::thread(&Router::handleServer, this, clientSocketDescriptor).detach();
-  // }
-  // close(socketDescriptor);
+  for( ; ; ) {
+    std::cout << "waiting for a server" << std::endl;
+    n = server.recvFrom( (void *) buffer, MAXLINE, (void *) & other );	 	// Wait for a conection
+    childpid = fork();	// Create a child to serve the request
+    if (childpid < 0)
+      perror("server: fork error");
+    else if (0 == childpid) {  // child code
+      buffer[n] = '\0';
+      std::cout << "server up from: " << buffer << std::endl;
+      std::vector<std::string> message = Util::split(buffer, "\t");
+      this->addServer(message[0],message[1][0]);
+      //server.sendTo( (const void *) hello, strlen( hello ), (void *) &other );
+      std::map<std::string, char>::iterator it;
+      for(it = this->serverTable.begin(); it != this->serverTable.end(); ++it){
+        std::cout << it->first << ":" << it->second << std::endl;
+      }
+    }
+  }
+  server.Close();
 }
 
 void Router::sendWakeUpBroadcast() {

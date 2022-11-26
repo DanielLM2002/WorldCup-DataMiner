@@ -57,25 +57,41 @@ void Server::serve(){
 }
 
 void Server::respondToWakeUp() {
-  Socket * server;
   int sockfd; 
   int n, len; 
   char buffer[MAXLINE]; 
   char *hello = (char *) "127.0.0.1\tE"; //ip y grupo 
-  struct sockaddr_in other;
-  server = new Socket( 'd' );	// Creates an UDP socket: datagram
-  memset( &other, 0, sizeof( other ) ); 
-  other.sin_family = AF_INET; 
-  other.sin_port = htons(SERVER_PORT); 
-  other.sin_addr.s_addr = INADDR_ANY;
-  std::cout << "wating for a wake up" << std::endl;
-  n = server->recvFrom( (void *) buffer, MAXLINE, (void *) & other );
-  buffer[n] = '\0';
-  std::cout<< buffer << std::endl;
+  struct sockaddr other;
+  Socket server( 'd' ), *s2;	// Creates an UDP socket: datagram
+  server.Bind( SERVER_PORT );
+  memset( &other, 0, sizeof( other ) );
+  int childpid;
 
-  other.sin_port = htons(ROUTER_PORT); 
-  // convertir el buffer para pasarlo abajo
-  other.sin_addr.s_addr = INADDR_ANY;
-  n = server->sendTo( (void *) hello, strlen( hello ), (void *) & other );   
-  server->Close();
+  for( ; ; ) {
+    std::cout << "waiting for a wakeup" << std::endl;
+    n = server.recvFrom( (void *) buffer, MAXLINE, (void *) & other );	 	// Wait for a conection
+    childpid = fork();	// Create a child to serve the request
+    if (childpid < 0)
+      perror("server: fork error");
+    else if (0 == childpid) {  // child code
+      buffer[n] = '\0';
+      std::cout << "a router waked up from: " << buffer << std::endl;
+      
+      Socket * responseTo = new Socket( 'd' );	// Creates an UDP socket: datagram
+      struct sockaddr_in other2;
+      std::vector<std::string> hosts = {"127.0.0.1"};
+      memset( &other, 0, sizeof( other2 ) ); 
+      
+      other2.sin_family = AF_INET; 
+      other2.sin_port = htons(ROUTER_PORT);
+      for (std::string host : hosts) {
+        // convertir las ips pasarlas en la linea siguiente
+        other2.sin_addr.s_addr = INADDR_ANY;
+        n = responseTo->sendTo( (void *) hello, strlen( hello ), (void *) & other2 ); 
+        std::cout << "Broadcast sent "<< n <<" bytes to: " << host << std::endl; 
+      }
+      
+    }
+  }
+  server.Close();
 }
