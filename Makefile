@@ -10,7 +10,7 @@ FLAG=
 FLAGS=$(strip -Wall -Wextra $(FLAG) $(DEFS))
 FLAGC=$(FLAGS) $(CSTD)
 FLAGX=$(FLAGS) $(XSTD)
-LIBS= -lssl -lcrypto
+LIBS= -lssl -lcrypto -lpthread
 LINTF=-build/header_guard,-build/include_subdir
 LINTC=$(LINTF),-readability/casting
 LINTX=$(LINTF),-build/c++17,-runtime/references
@@ -110,6 +110,9 @@ endif
 ifneq ($(INPUTFX),)
 	cpplint --filter=$(LINTX) $(INPUTFX)
 endif
+
+router: $(EXEFILE)
+	$(EXEARGS) router
 
 server: $(EXEFILE)
 	$(EXEARGS) server
