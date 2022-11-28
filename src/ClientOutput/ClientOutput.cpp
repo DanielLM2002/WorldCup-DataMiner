@@ -19,8 +19,10 @@ ClientOutput::~ClientOutput() {}
 void ClientOutput::handleBuffer(char* buffer) {
   StringDataSource string;
   string.parse(buffer);
-  this->printGroup(string.getGroup());
-  this->printMatches(string.getRounds());
+  if (string.getHeader() != "HTTP/1.1 404 Not Found") {
+    this->printGroup(string.getGroup());
+    this->printMatches(string.getRounds());
+  }
 }
 
 void ClientOutput::printGroup(std::vector<std::vector<std::string>> group) {
