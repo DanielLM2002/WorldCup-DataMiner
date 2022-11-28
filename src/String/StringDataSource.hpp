@@ -22,6 +22,8 @@ class StringDataSource {
   std::vector<std::vector<std::string>> group;
   /// Value of the round
   std::vector<std::vector<std::string>> round;
+  /// Http header
+  std::string header;
   
  public:
   /**
@@ -56,6 +58,12 @@ class StringDataSource {
    * @return std::vector<std::vector<std::string>> 
    */
   std::vector<std::vector<std::string>> getRounds();
+
+    /**
+   * @brief Method that gets the http header
+   * @return std::string 
+   */
+  std::string getHeader();
 };
 
 #endif // !_STRING_DATA_SOURCE_
