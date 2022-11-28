@@ -10,7 +10,10 @@
 
 #define SERVER_PORT   2020
 #define ROUTER_PORT   2022
-#define MAXLINE       1024 
+#define MAXLINE       1024
+#define HOST_IP       "192.168.100.57"
+#define SEPARATOR     "\t"
+#define GROUPS        "E"
 
 Server::Server(int nPort): port(nPort) {
 
@@ -56,7 +59,7 @@ void Server::serve(){
   }
 }
 
-void Server::respondToWakeUp() {
+void Server::listenForWakeUps() {
   int sockfd; 
   int n, len; 
   char buffer[MAXLINE]; 
@@ -94,4 +97,44 @@ void Server::respondToWakeUp() {
     }
   }
   server.Close();
+}
+
+std::string Server::getServerGroups(){
+  //TODO change to get it from config file:
+  //std::vector<std::string> config = ConfigFileFactory::getConfigurations();
+  //std::string serverGroups = config[NAME_OF_CONFIGURATION_INDEX];
+  //return serverGroups;
+  return std::string(GROUPS);
+}
+
+void Server::sendWakeUpBroadcast() {
+  Socket * server;
+  int sockfd; 
+  int n, len; 
+  char buffer[MAXLINE];
+  char *hello = (char *) HOST_IP;
+  // here should be the gateway/broadcast ips
+  std::vector<std::string> hosts = {"127.0.0.1","192.168.100.34"};
+  std::stringstream messageBuilder;
+  messageBuilder << HOST_IP << SEPARATOR << this->getServerGroups();
+  std::string broadcastMessage = messageBuilder.str();
+
+  server = new Socket( 'd' );	// Creates an UDP socket: datagram
+  //TODO CREATE A SOCKET METHOD to send a UDP broadcast message
+  //server->SendUdpBroadcast()
+
+  
+  struct sockaddr_in other;
+  memset( &other, 0, sizeof( other ) );
+
+  
+  other.sin_family = AF_INET; 
+  other.sin_port = htons(ROUTER_PORT); 
+  for (std::string host : hosts) {
+    // convertir la host ip 
+    inet_aton(host.c_str(),&(other.sin_addr));
+    n = server->sendTo( (void *) broadcastMessage.c_str(), broadcastMessage.size(), (void *) & other ); 
+    std::cout << "Broadcast sent "<< n <<" bytes to: " << host << std::endl; 
+  }
+  server->Close();
 }

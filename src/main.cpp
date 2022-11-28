@@ -16,9 +16,11 @@
 int server() {
   Server ser(9876);
   std::thread serv(&Server::serve, ser);
-  std::thread responseToWakeUp(&Server::respondToWakeUp, ser);
+  std::thread responseToWakeUps(&Server::listenForWakeUps, ser);
+  
+  ser.sendWakeUpBroadcast();
 
-  responseToWakeUp.join();
+  responseToWakeUps.join();
   serv.join();
   // ser.respondToWakeUp();
   return EXIT_SUCCESS;
@@ -28,7 +30,10 @@ int router() {
   Router router;
   router.sendWakeUpBroadcast();
   std::thread listenServers(&Router::listenForServers, router);
+  //TODO implement listen for clients
+  std::thread listenClients(&Router::listenForClients, router);
   listenServers.join();
+  listenClients.join();
   return EXIT_SUCCESS;
 }
 

@@ -9,7 +9,10 @@
 
 #define SERVER_PORT   2020
 #define ROUTER_PORT   2022
-#define MAXLINE       1024 
+#define MAXLINE       1024
+#define PROTOCOL_INDEX_IP 0
+#define PROTOCOL_INDEX_GROUP 1
+#define ROUTER_HOST_IP "" // IP OF THE COMPUTER WHERE THE ROUTER IS RUNNING
 
 Router::Router() {
 
@@ -90,10 +93,8 @@ void Router::listenForClients() {
 }
 
 void Router::listenForServers() {
-  int sockfd; 
-  int n, len; 
+  int n;
   char buffer[MAXLINE]; 
-  char *hello = (char *) "127.0.0.1\tE"; //ip y grupo 
   struct sockaddr other;
   Socket server( 'd' ), *s2;	// Creates an UDP socket: datagram
   server.Bind( ROUTER_PORT );
@@ -110,8 +111,13 @@ void Router::listenForServers() {
       buffer[n] = '\0';
       std::cout << "server up from: " << buffer << std::endl;
       std::vector<std::string> message = Util::split(buffer, "\t");
-      this->addServer(message[0],message[1][0]);
-      //server.sendTo( (const void *) hello, strlen( hello ), (void *) &other );
+      // TODO(?) validate if its null
+      if(!message.empty()){
+        this->addServer(message[PROTOCOL_INDEX_IP],
+                        message[PROTOCOL_INDEX_GROUP][0]);
+      }
+
+      std::cout << "Available Servers:" << std::endl;
       std::map<std::string, char>::iterator it;
       for(it = this->serverTable.begin(); it != this->serverTable.end(); ++it){
         std::cout << it->first << ":" << it->second << std::endl;
@@ -126,9 +132,9 @@ void Router::sendWakeUpBroadcast() {
   int sockfd; 
   int n, len; 
   char buffer[MAXLINE]; 
-  char *hello = (char *) "127.0.0.1"; 
+  char *hello = (char *) "192.168.100.57"; // QUE MENSAJE DEBE ENVIAR EL ROUTER CUANDO HACE UN BROADCAST, SU IP? CIERTO
   struct sockaddr_in other;
-  std::vector<std::string> hosts = {"127.0.0.1"};
+  std::vector<std::string> hosts = {"127.0.0.1","192.168.100.34"};
 
   server = new Socket( 'd' );	// Creates an UDP socket: datagram
 
@@ -137,8 +143,8 @@ void Router::sendWakeUpBroadcast() {
   other.sin_family = AF_INET; 
   other.sin_port = htons(SERVER_PORT); 
   for (std::string host : hosts) {
-    // convertir las ips pasarlas en la linea siguiente
-    other.sin_addr.s_addr = INADDR_ANY;
+    // convertir la host ip 
+    inet_aton(host.c_str(),&(other.sin_addr));
     n = server->sendTo( (void *) hello, strlen( hello ), (void *) & other ); 
     std::cout << "Broadcast sent "<< n <<" bytes to: " << host << std::endl; 
   }

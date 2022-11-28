@@ -20,6 +20,8 @@ class Server {
   /// Number of the port
   int port;
 
+  std::string getServerGroups();
+
  public:
   /**
    * @brief Constructor
@@ -37,10 +39,18 @@ class Server {
    */
   void serve();
 
-    /**
-   * @brief Method that starts the server
+  /**
+   * @brief Method to start listening to 
+   * UDP messages from Routers (maybe add the port is a good option)
    */
-  void respondToWakeUp();
+  void listenForWakeUps();
+
+  /**
+   * @brief Method that starts the server to start listening to 
+   * UDP messages from Routers
+   */
+  void sendWakeUpBroadcast();
+
 };
 
 #endif  // !_SERVER_
