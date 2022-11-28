@@ -16,12 +16,13 @@ StringDataSource::~StringDataSource() {
 }
 
 void StringDataSource::parse(char* buffer) {
-  std::cout << "buffer:" << buffer << "."<< std::endl;
   std::vector<std::string> lines = Util::split(buffer,"\n");
+  this->header = lines[0];
+  std::cout << "buffer:" << this->header << std::endl;
   std::vector<std::string> temp;
-  for (int i = 0; i < (int) lines.size(); i++){
+  for (int i = 1; i < (int) lines.size(); i++){
     temp = Util::split(lines[i],"\t");
-    if (i < 4) {
+    if (i < 5) {
       this->group.push_back(temp);
     } else {
       this->round.push_back(temp);
@@ -36,6 +37,10 @@ std::vector<std::vector<std::string>> StringDataSource::getGroup() {
 
 std::vector<std::vector<std::string>> StringDataSource::getRounds() {
   return this->round;
+}
+
+std::string StringDataSource::getHeader() {
+  return this->header;
 }
 
 void StringDataSource::orderGroupByPosition() {
