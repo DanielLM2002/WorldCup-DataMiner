@@ -52,3 +52,12 @@ std::string Util::rtrim(const std::string &s)
 std::string Util::trim(const std::string &s) {
     return rtrim(ltrim(s));
 }
+
+// std::hex Util::convertToHex(const std::string &s){
+//   std::stringstream ss;
+//   for(int i = 0; i < s.size(); ++i){
+//     ss << std::hex << (int) s[i];
+//   }
+
+
+// }

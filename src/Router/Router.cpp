@@ -7,16 +7,16 @@
 
 #include "Router.hpp"
 
-#define SERVER_PORT   2020
-#define ROUTER_PORT   2022
-#define MAXLINE       1024 
-
 Router::Router() {
 
 }
 
 Router::~Router() {
   
+}
+
+char Router::findGroupByCountry(std::string countryCode){
+  return 'E';
 }
 
 void Router::fillGroupsTable(std::string fileName) {
@@ -33,6 +33,7 @@ void Router::fillGroupsTable(std::string fileName) {
   // remove http headers
   firstChar = data.find("{",0);
   data = data.erase(0, firstChar);
+  // std::cout << "New data after delete it the 0,0 position char: " << data << std::endl;
   jsonData = json::parse(data);
   groups = jsonData["groups"];
   for (json::iterator it = groups.begin(); it != groups.end(); ++it) {
@@ -54,46 +55,59 @@ void Router::removeServer(std::string address) {
 }
 
 void Router::listenForClients() {
-  int socketDescriptor;
-  int clientSocketDescriptor;
-  int portNumber;
-  int clientLength;
-  struct sockaddr_in serverAddress;
-  struct sockaddr_in clientAddress;
+  int childpid;
+  char a[512];
+  Socket s1('s'), *s2;
 
-  // socketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
-  // if (socketDescriptor < 0) {
-  //   perror("ERROR opening socket\n");
-  //   exit(1);
-  // }
-  // bzero((char *) &serverAddress, sizeof(serverAddress));
-  // portNumber = 8080;
-  // serverAddress.sin_family = AF_INET;
-  // serverAddress.sin_addr.s_addr = INADDR_ANY;
-  // serverAddress.sin_port = htons(portNumber);
-  // if (bind(socketDescriptor, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
-  //   perror("ERROR on binding\n");
-  //   exit(1);
-  // }
-  // listen(socketDescriptor, 5);
-  // clientLength = sizeof(clientAddress);
-  // while (1) {
-  //   clientSocketDescriptor = accept(socketDescriptor, (struct sockaddr *) &clientAddress, (socklen_t *) &clientLength);
-  //   if (clientSocketDescriptor < 0) {
-  //     perror("ERROR on accept\n");
-  //     exit(1);
-  //   }
-  //   std::thread(&Router::handleClient, this, clientSocketDescriptor).detach();
-  // }
-  // close(socketDescriptor);
+  s1.Bind( ROUTER_HTTP_PORT );		// Port to access this mirror server
+  s1.Listen( 5 );		// Set backlog queue to 5 conections
+  std::cout << "listening on 9877" << std::endl;
+  for( ; ; ) {
+    std::cout << "ROUTER: waiting for a request" << std::endl;
+    s2 = s1.Accept();	 	// Wait for a conection
+    childpid = fork();	// Create a child to serve the request
+    if (childpid < 0)
+      perror("router: fork error");
+    else if (0 == childpid) {  // child code
+      s1.Close();	// Close original socket in child
+      s2->Read( a, 512 );
+      std::cout<< "Received: \n" << a << std::endl; // Read a string from client
+      
+      HttpParser parser(a);
+
+      std::string country = parser.getCountry();
+      std::cout << "Country code: " << country << "." << std::endl;
+
+      // TODO server host ip should be get from GroupTable[country] = IP value
+      std::string serverHostIp = "127.0.0.1";
+      Socket toDataServer('s');
+
+      //code to connect to server
+      // Socket s('s'); // Crea un socket de IPv4, tipo "stream"
+      toDataServer.Connect(serverHostIp.c_str(), SERVER_HTTP_PORT); // Same port as server
+    
+      // std::string req = "GET /fifa/2018/"+input+" HTTP/1.1\r\nhost: grupoh.ecci \r\n\r\n";
+      std::cout << "Sending get request to data server: \n" << a << std::endl;
+      toDataServer.Write(a);
+      char buffer[512];
+      memset(buffer,0, 512);
+      toDataServer.Read(buffer, 512 );	// Read the answer sent back from server
+      std::string localBuffer(buffer);
+      
+      //write back to the client
+      std::cout << "ROUTER: Writing back to client ";
+      s2->Write(buffer);
+
+      exit( 0 );	// Exit
+    }
+    s2->Close();		// Close socket in parent
+  }
 
 }
 
 void Router::listenForServers() {
-  int sockfd; 
-  int n, len; 
+  int n;
   char buffer[MAXLINE]; 
-  char *hello = (char *) "127.0.0.1\tE"; //ip y grupo 
   struct sockaddr other;
   Socket server( 'd' ), *s2;	// Creates an UDP socket: datagram
   server.Bind( ROUTER_PORT );
@@ -110,8 +124,13 @@ void Router::listenForServers() {
       buffer[n] = '\0';
       std::cout << "server up from: " << buffer << std::endl;
       std::vector<std::string> message = Util::split(buffer, "\t");
-      this->addServer(message[0],message[1][0]);
-      //server.sendTo( (const void *) hello, strlen( hello ), (void *) &other );
+      // TODO(?) validate if its null
+      if(!message.empty()){
+        this->addServer(message[PROTOCOL_INDEX_IP],
+                        message[PROTOCOL_INDEX_GROUP][0]);
+      }
+
+      std::cout << "Available Servers:" << std::endl;
       std::map<std::string, char>::iterator it;
       for(it = this->serverTable.begin(); it != this->serverTable.end(); ++it){
         std::cout << it->first << ":" << it->second << std::endl;
@@ -126,9 +145,9 @@ void Router::sendWakeUpBroadcast() {
   int sockfd; 
   int n, len; 
   char buffer[MAXLINE]; 
-  char *hello = (char *) "127.0.0.1"; 
+  char *hello = (char *) "192.168.100.57"; // QUE MENSAJE DEBE ENVIAR EL ROUTER CUANDO HACE UN BROADCAST, SU IP? CIERTO
   struct sockaddr_in other;
-  std::vector<std::string> hosts = {"127.0.0.1"};
+  std::vector<std::string> hosts = {"127.0.0.1","192.168.100.34"};
 
   server = new Socket( 'd' );	// Creates an UDP socket: datagram
 
@@ -137,8 +156,8 @@ void Router::sendWakeUpBroadcast() {
   other.sin_family = AF_INET; 
   other.sin_port = htons(SERVER_PORT); 
   for (std::string host : hosts) {
-    // convertir las ips pasarlas en la linea siguiente
-    other.sin_addr.s_addr = INADDR_ANY;
+    // convertir la host ip 
+    inet_aton(host.c_str(),&(other.sin_addr));
     n = server->sendTo( (void *) hello, strlen( hello ), (void *) & other ); 
     std::cout << "Broadcast sent "<< n <<" bytes to: " << host << std::endl; 
   }
