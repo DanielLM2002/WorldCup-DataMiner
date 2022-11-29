@@ -28,6 +28,8 @@ int server() {
 
 int router() {
   Router router;
+  // TODO to check this method
+  // router.fillGroupsTable("data/world-cup-2018.json");
   router.sendWakeUpBroadcast();
   std::thread listenServers(&Router::listenForServers, router);
   //TODO implement listen for clients
@@ -38,7 +40,7 @@ int router() {
 }
 
 int client() {
-  Client client("127.0.0.1",9876);
+  Client client("127.0.0.1", ROUTER_HTTP_PORT);
   client.start();
   return EXIT_SUCCESS;
 }

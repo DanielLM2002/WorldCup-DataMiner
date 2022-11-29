@@ -26,15 +26,26 @@
 
 #include "Socket.hpp"
 #include "Util.hpp"
+#include "HttpParser.hpp"
 
 using json = nlohmann::json;
+
+
+#define SERVER_PORT   2020
+#define SERVER_HTTP_PORT 9876
+#define ROUTER_PORT   2022
+#define ROUTER_HTTP_PORT 9877
+#define MAXLINE       1024
+#define PROTOCOL_INDEX_IP 0
+#define PROTOCOL_INDEX_GROUP 1
+#define ROUTER_HOST_IP "127.0.0.1" // IP OF THE COMPUTER WHERE THE ROUTER IS RUNNING
 
 class Router {
  private:
   /// Table that associates a server to a group
   std::map<std::string, char> serverTable;
   /// Table that associates a group to an array of countries
-  std::map<std::string, std::vector<std::string>> groupsTable;
+  std::map<std::string, std::vector<std::string>> groupsTable;///2018 / 2022
 
  public:
   /**
@@ -99,6 +110,14 @@ class Router {
    * @return std::string 
    */
   std::string getServerByGroup(char);
+
+  /**
+   * @brief Method that gets the country's group in the world cup
+   * @param countryCode 3 letters code for country(FIFA OFFICIAL) 
+   * @return char group letter
+   */
+  char findGroupByCountry(std::string);
+   
 };
 
 #endif // !_ROUTER_
