@@ -32,8 +32,6 @@
 
 using json = nlohmann::json;
 
-
-
 class Router {
  private:
   /// Table that associates a server to a group
@@ -82,20 +80,17 @@ class Router {
   void removeServer(std::string);
 
   /**
-   * @brief 
-   * 
+   * @brief Method that listens for client requests
    */
   void listenForClients();
 
   /**
-   * @brief 
-   * 
+   * @brief Method that listens for server requests
    */
   void listenForServers();
 
   /**
-   * @brief 
-   * 
+   * @brief Method that does the broadcast
    */
   void sendWakeUpBroadcast();
 
