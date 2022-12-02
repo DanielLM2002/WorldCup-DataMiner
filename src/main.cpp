@@ -64,6 +64,7 @@ int main(int argc, char** argv) {
     std::cout << "Invalid argument" << std::endl;
   }
 
+  signal(SIGINT, signalHandler);
   if (type.compare("server") == 0) {
     server();
   } else if (type.compare("client") == 0) {
