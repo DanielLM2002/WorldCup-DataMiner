@@ -15,8 +15,20 @@ Router::~Router() {
   
 }
 
-char Router::findGroupByCountry(std::string countryCode){
-  return 'E';
+char Router::findGroupByCountry(std::string country){
+  char group = 'X';
+  bool found = false;
+  auto pp = this->groupsTable.begin();
+  for(;  pp != this->groupsTable.end() && !found ; ++pp){
+    for(std::string countryCode : pp->second){
+      if(countryCode == country){
+        group = pp->first[0];//first char of the string because groups
+                            // are single letters
+        found = true;
+      }
+    }
+  }
+  return group;
 }
 
 void Router::fillGroupsTable(std::string fileName) {
@@ -78,24 +90,30 @@ void Router::listenForClients() {
       std::string country = parser.getCountry();
       std::cout << "Country code: " << country << "." << std::endl;
 
-      // TODO server host ip should be get from GroupTable[country] = IP value
-      std::string serverHostIp = "127.0.0.1";
-      Socket toDataServer('s');
+      char group = this->findGroupByCountry(country);
+      std::string serverHostIp = this->getServerByGroup(group);
 
-      //code to connect to server
-      // Socket s('s'); // Crea un socket de IPv4, tipo "stream"
-      toDataServer.Connect(serverHostIp.c_str(), SERVER_HTTP_PORT); // Same port as server
-    
-      // std::string req = "GET /fifa/2018/"+input+" HTTP/1.1\r\nhost: grupoh.ecci \r\n\r\n";
-      std::cout << "Sending get request to data server: \n" << a << std::endl;
-      toDataServer.Write(a);
       char buffer[512];
-      memset(buffer,0, 512);
-      toDataServer.Read(buffer, 512 );	// Read the answer sent back from server
-      std::string localBuffer(buffer);
+      if(!serverHostIp.empty()){
+        Socket toDataServer('s');
+        //code to connect to server
+        // Socket s('s'); // Crea un socket de IPv4, tipo "stream"
+        toDataServer.Connect(serverHostIp.c_str(), SERVER_HTTP_PORT); // Same port as server
       
-      //write back to the client
-      std::cout << "ROUTER: Writing back to client ";
+        // std::string req = "GET /fifa/2018/"+input+" HTTP/1.1\r\nhost: grupoh.ecci \r\n\r\n";
+        std::cout << "Sending get request to data server: \n" << a << std::endl;
+        toDataServer.Write(a);
+        memset(buffer,0, 512);
+        toDataServer.Read(buffer, 512 );	// Read the answer sent back from server
+        std::string localBuffer(buffer);
+        
+        //write back to the client
+        std::cout << "ROUTER: Writing back to client ";
+      } else {
+        const char * errMessage = "HTTP/1.1 404 Not Found";
+        memcpy(buffer, errMessage, sizeof(&errMessage));
+      }
+      
       s2->Write(buffer);
 
       exit( 0 );	// Exit
@@ -109,7 +127,7 @@ void Router::listenForServers() {
   int n;
   char buffer[MAXLINE]; 
   struct sockaddr other;
-  Socket server( 'd' ), *s2;	// Creates an UDP socket: datagram
+  Socket server( 'd' );	// Creates an UDP socket: datagram
   server.Bind( ROUTER_PORT );
   memset( &other, 0, sizeof( other ) ); 
   int childpid;
@@ -122,6 +140,7 @@ void Router::listenForServers() {
       perror("server: fork error");
     else if (0 == childpid) {  // child code
       buffer[n] = '\0';
+      //TODO ADD VALIDATION TO CHECK IF THE MESSAGE CONTAINS `DEAD` WORD
       std::cout << "server up from: " << buffer << std::endl;
       std::vector<std::string> message = Util::split(buffer, "\t");
       // TODO(?) validate if its null

@@ -7,11 +7,11 @@
 
 #include "Server.hpp"
 #include "HttpParser.hpp"
-
+//TODO guardar estas variables en un solo archivo
 #define SERVER_PORT   2020
 #define ROUTER_PORT   2022
 #define MAXLINE       1024
-#define HOST_IP       "192.168.100.57"
+#define SERVER_HOST_IP       "192.168.100.57"
 #define SEPARATOR     "\t"
 #define GROUPS        "E"
 
@@ -112,11 +112,11 @@ void Server::sendWakeUpBroadcast() {
   int sockfd; 
   int n, len; 
   char buffer[MAXLINE];
-  char *hello = (char *) HOST_IP;
+  char *hello = (char *) SERVER_HOST_IP;
   // here should be the gateway/broadcast ips
   std::vector<std::string> hosts = {"127.0.0.1","192.168.100.34"};
   std::stringstream messageBuilder;
-  messageBuilder << HOST_IP << SEPARATOR << this->getServerGroups();
+  messageBuilder << SERVER_HOST_IP << SEPARATOR << this->getServerGroups();
   std::string broadcastMessage = messageBuilder.str();
 
   server = new Socket( 'd' );	// Creates an UDP socket: datagram
