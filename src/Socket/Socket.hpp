@@ -79,6 +79,10 @@ class Socket {
    */
   int ConnectIPV6(const char*, int);
 
+  int getId(){
+    return this->id;
+  };
+
   /**
    * @brief Method that connects with an ip address using a service for IPV6
    * @param host Ip address

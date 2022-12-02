@@ -178,6 +178,8 @@ void Router::sendWakeUpBroadcast() {
   std::vector<std::string> hosts = {"127.0.0.1"};
 
   server = new Socket( 'd' );	// Creates an UDP socket: datagram
+  int broadcastEnable=1;
+  int ret=setsockopt(server->getId(), SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable));
 
   memset( &other, 0, sizeof( other ) ); 
   

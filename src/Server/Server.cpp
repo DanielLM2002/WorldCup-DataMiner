@@ -115,8 +115,8 @@ void Server::sendWakeUpBroadcast() {
   std::string broadcastMessage = messageBuilder.str();
 
   server = new Socket( 'd' );	// Creates an UDP socket: datagram
-  //TODO CREATE A SOCKET METHOD to send a UDP broadcast message
-  //server->SendUdpBroadcast()
+  int broadcastEnable=1;
+  int ret=setsockopt(server->getId(), SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable));
 
   
   struct sockaddr_in other;
@@ -147,8 +147,9 @@ void Server::sendDeadBroadcast() {
   std::string broadcastMessage = messageBuilder.str();
 
   server = new Socket( 'd' );	// Creates an UDP socket: datagram
-  //TODO CREATE A SOCKET METHOD to send a UDP broadcast message
-  //server->SendUdpBroadcast()
+  
+  int broadcastEnable=1;
+  int ret=setsockopt(server->getId(), SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable));
 
   
   struct sockaddr_in other;
