@@ -39,6 +39,10 @@ En el caso que se quiere compilar y ejecutar el servidor se utilizará el siguie
 make server
 ```
 
+Por otro lado, para compilar y ejecutar el servidor se utilizará el siguiente comando:
+```
+make router
+```
 
 Si por el contrario se quiere compilar y ejecutar el cliente se se utilizará el siguiente comando:
 ```
