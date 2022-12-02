@@ -23,6 +23,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <threads.h>
+#include <thread>
 
 #include "common.hpp"
 #include "Socket.hpp"
@@ -40,7 +41,15 @@ class Router {
   /// Table that associates a group to an array of countries
   std::map<std::string, std::vector<std::string>> groupsTable;///2018 / 2022
 
+  /**
+   * @brief handles server request to join routers table
+   * @param serverMessage
+   */
+  void handleServer(const char * serverMessage);
+
+
  public:
+
   /**
    * @brief Constructor
    */

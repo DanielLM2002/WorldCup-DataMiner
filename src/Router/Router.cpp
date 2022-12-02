@@ -13,7 +13,7 @@ Router::Router() {
 }
 
 Router::~Router() {
-  
+  // delete this->serverTable;
 }
 
 char Router::findGroupByCountry(std::string country){
@@ -132,45 +132,40 @@ void Router::listenForClients() {
 
 }
 
+void Router::handleServer(const char * buffer) {
+    std::cout << "server up from: " << buffer << std::endl;
+    std::vector<std::string> message = Util::split(buffer, "\t");
+    if(!message.empty() && message[PROTOCOL_INDEX_IP] != "DEAD" ){
+      std::cout << "Adding a server: " << message[PROTOCOL_INDEX_IP] 
+                << std::endl;
+      this->addServer(message[PROTOCOL_INDEX_IP],
+                      message[PROTOCOL_INDEX_GROUP][0]);
+      std::cout << "Server table list after adding: " << this->serverTable->size();
+    } else {
+      std::cout << "Removing server from list: " 
+                << message[PROTOCOL_INDEX_GROUP] << std::endl;
+      this->removeServer(message[PROTOCOL_INDEX_GROUP]);
+    }
+    std::cout << "Available Servers:" << std::endl;
+    std::map<std::string, char>::iterator it;
+    for(it = this->serverTable->begin(); it != this->serverTable->end(); ++it){
+      std::cout << it->first << ":" << it->second << std::endl;
+    }
+}
+
 void Router::listenForServers() {
   int n;
   char buffer[MAXLINE]; 
   struct sockaddr other;
   Socket server( 'd' );	// Creates an UDP socket: datagram
   server.Bind( ROUTER_PORT );
-  memset( &other, 0, sizeof( other ) ); 
-  int childpid;
+  memset( &other, 0, sizeof( other ) );
 
   for( ; ; ) {
     std::cout << "waiting for a server" << std::endl;
     n = server.recvFrom( (void *) buffer, MAXLINE, (void *) & other );	 	// Wait for a conection
-    childpid = fork();	// Create a child to serve the request
-    if (childpid < 0)
-      perror("server: fork error");
-    else if (0 == childpid) {  // child code
-      buffer[n] = '\0';
-      //TODO ADD VALIDATION TO CHECK IF THE MESSAGE CONTAINS `DEAD` WORD
-      std::cout << "server up from: " << buffer << std::endl;
-      std::vector<std::string> message = Util::split(buffer, "\t");
-      // TODO(?) validate if its null and if it contains `dead` word
-      if(!message.empty() && message[PROTOCOL_INDEX_IP] != "DEAD" ){
-        std::cout << "Adding a server: " << message[PROTOCOL_INDEX_IP] 
-                  << std::endl;
-        this->addServer(message[PROTOCOL_INDEX_IP],
-                        message[PROTOCOL_INDEX_GROUP][0]);
-        std::cout << "Server table list after adding: " << this->serverTable->size();
-      } else {
-        std::cout << "Removing server from list: " 
-                  << message[PROTOCOL_INDEX_GROUP] << std::endl;
-        this->removeServer(message[PROTOCOL_INDEX_GROUP]);
-      }
-
-      std::cout << "Available Servers:" << std::endl;
-      std::map<std::string, char>::iterator it;
-      for(it = this->serverTable->begin(); it != this->serverTable->end(); ++it){
-        std::cout << it->first << ":" << it->second << std::endl;
-      }
-    }
+    buffer[n] = '\0';
+    this->handleServer(buffer);
   }
   server.Close();
 }
