@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <thread>         // std::thread
+#include <csignal>
 
 #include "Server/Server.hpp"
 #include "Client/Client.hpp"
@@ -45,6 +46,13 @@ int client() {
   Client client("127.0.0.1", ROUTER_HTTP_PORT);
   client.start();
   return EXIT_SUCCESS;
+}
+
+void signalHandler(int signum) {
+  std::cout << "\n" << "Exited by user.\n";
+  // Kill main process and thread stack
+  kill(getpid(), SIGTERM);
+  exit(signum);
 }
 
 int main(int argc, char** argv) {
