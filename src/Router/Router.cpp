@@ -8,7 +8,8 @@
 #include "Router.hpp"
 
 Router::Router() {
-
+  // std::cout << "server table size:" << this->serverTable.size() << std::endl;
+  this->serverTable = new std::map<std::string, char>;
 }
 
 Router::~Router() {
@@ -50,7 +51,13 @@ void Router::fillGroupsTable(std::string fileName) {
   groups = jsonData["groups"];
   for (json::iterator it = groups.begin(); it != groups.end(); ++it) {
     std::string group = it.key();
-    std::vector<std::string> countries = it.value()["countries"]; 
+    // std::cout << "Grupo: " << group << std::endl;
+    std::vector<std::string> countries = it.value()["countries"];
+    // std::cout << "Countries: " << std::endl;
+    // for(std::string country : countries){
+    //   std::cout << " -> " << country << std::endl;
+    // }
+
     // Save the data in the table
     this->groupsTable[group] = countries;
   }
@@ -59,11 +66,11 @@ void Router::fillGroupsTable(std::string fileName) {
 
 void Router::addServer(std::string address, char group) {
   group = toupper(group);
-  this->serverTable[address] = group;
+  this->serverTable->emplace(address,group);// = group;
 }
 
 void Router::removeServer(std::string address) {
-  this->serverTable.erase(address);
+  this->serverTable->erase(address);
 }
 
 void Router::listenForClients() {
@@ -91,7 +98,9 @@ void Router::listenForClients() {
       std::cout << "Country code: " << country << "." << std::endl;
 
       char group = this->findGroupByCountry(country);
+      std::cout << "Group: " << group << std::endl;
       std::string serverHostIp = this->getServerByGroup(group);
+      std::cout << "To server host ip: " << serverHostIp << std::endl;
 
       char buffer[512];
       if(!serverHostIp.empty()){
@@ -145,8 +154,11 @@ void Router::listenForServers() {
       std::vector<std::string> message = Util::split(buffer, "\t");
       // TODO(?) validate if its null and if it contains `dead` word
       if(!message.empty() && message[PROTOCOL_INDEX_IP] != "DEAD" ){
+        std::cout << "Adding a server: " << message[PROTOCOL_INDEX_IP] 
+                  << std::endl;
         this->addServer(message[PROTOCOL_INDEX_IP],
                         message[PROTOCOL_INDEX_GROUP][0]);
+        std::cout << "Server table list after adding: " << this->serverTable->size();
       } else {
         std::cout << "Removing server from list: " 
                   << message[PROTOCOL_INDEX_GROUP] << std::endl;
@@ -155,7 +167,7 @@ void Router::listenForServers() {
 
       std::cout << "Available Servers:" << std::endl;
       std::map<std::string, char>::iterator it;
-      for(it = this->serverTable.begin(); it != this->serverTable.end(); ++it){
+      for(it = this->serverTable->begin(); it != this->serverTable->end(); ++it){
         std::cout << it->first << ":" << it->second << std::endl;
       }
     }
@@ -164,13 +176,11 @@ void Router::listenForServers() {
 }
 
 void Router::sendWakeUpBroadcast() {
-  Socket * server;
-  int sockfd; 
-  int n, len; 
-  char buffer[MAXLINE]; 
-  char *hello = (char *) "127.0.0.1"; // QUE MENSAJE DEBE ENVIAR EL ROUTER CUANDO HACE UN BROADCAST, SU IP? CIERTO
+  Socket * server; 
+  int n; 
+  char *hello = (char *) ROUTER_HOST_IP; // QUE MENSAJE DEBE ENVIAR EL ROUTER CUANDO HACE UN BROADCAST, SU IP? CIERTO
   struct sockaddr_in other;
-  std::vector<std::string> hosts = {"127.0.0.1","192.168.100.34"};
+  std::vector<std::string> hosts = {"127.0.0.1"};
 
   server = new Socket( 'd' );	// Creates an UDP socket: datagram
 
@@ -189,8 +199,8 @@ void Router::sendWakeUpBroadcast() {
 
 char Router::getGroupByServer(std::string address) {
   char group;
-  auto item = this->serverTable.find(address);
-  if (item != this->serverTable.end())
+  auto item = this->serverTable->find(address);
+  if (item != this->serverTable->end())
     group = item->second;
   return group;
 }
@@ -198,7 +208,10 @@ char Router::getGroupByServer(std::string address) {
 std::string Router::getServerByGroup(char group) {
   std::string address;
   group = toupper(group);
-  for (auto iter = this->serverTable.begin(); iter != this->serverTable.end(); ++iter) {
+  std::cout << "INITIAL GROUP: " << group << std::endl;
+  std::cout << "server table size: " << this->serverTable->size() << std::endl;
+  for (auto iter = this->serverTable->begin(); iter != this->serverTable->end(); ++iter) {
+    std::cout << "serching in group: " << iter->second << std::endl;
     if (iter->second == group) {
       address = iter->first;
       break;

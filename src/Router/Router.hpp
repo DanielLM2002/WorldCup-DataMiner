@@ -36,7 +36,7 @@ using json = nlohmann::json;
 class Router {
  private:
   /// Table that associates a server to a group
-  std::map<std::string, char> serverTable;
+  std::map<std::string, char> * serverTable;
   /// Table that associates a group to an array of countries
   std::map<std::string, std::vector<std::string>> groupsTable;///2018 / 2022
 

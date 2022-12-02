@@ -29,7 +29,8 @@ int server() {
 int router() {
   Router router;
   // TODO to check this method
-  // router.fillGroupsTable("data/world-cup-2018.json");
+  // /home/jorge/Documents/ucr/CI-0123-PI-SO-REDES/WorldCup-DataMiner/data/groups-world-cup-2018.json
+  router.fillGroupsTable("/home/jorge/Documents/ucr/CI-0123-PI-SO-REDES/WorldCup-DataMiner/data/groups-world-cup-2018.json");
   std::thread listenServers(&Router::listenForServers, router);
   std::thread listenClients(&Router::listenForClients, router);
 
