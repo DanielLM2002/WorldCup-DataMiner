@@ -7,13 +7,6 @@
 
 #include "Server.hpp"
 #include "HttpParser.hpp"
-//TODO guardar estas variables en un solo archivo
-#define SERVER_PORT   2020
-#define ROUTER_PORT   2022
-#define MAXLINE       1024
-#define SERVER_HOST_IP       "192.168.100.57"
-#define SEPARATOR     "\t"
-#define GROUPS        "E"
 
 Server::Server(int nPort): port(nPort) {
 
@@ -82,14 +75,16 @@ void Server::listenForWakeUps() {
       
       Socket * responseTo = new Socket( 'd' );	// Creates an UDP socket: datagram
       struct sockaddr_in other2;
-      std::vector<std::string> hosts = {"127.0.0.1"};
-      memset( &other, 0, sizeof( other2 ) ); 
+      std::vector<std::string> hosts;
+      hosts.push_back(buffer);
+      memset( &other2, 0, sizeof( other2 ) ); 
       
       other2.sin_family = AF_INET; 
       other2.sin_port = htons(ROUTER_PORT);
       for (std::string host : hosts) {
         // convertir las ips pasarlas en la linea siguiente
-        other2.sin_addr.s_addr = INADDR_ANY;
+        // other2.sin_addr.s_addr = INADDR_ANY;
+        inet_aton(host.c_str(),&(other2.sin_addr));
         n = responseTo->sendTo( (void *) hello, strlen( hello ), (void *) & other2 ); 
         std::cout << "Broadcast sent "<< n <<" bytes to: " << host << std::endl; 
       }

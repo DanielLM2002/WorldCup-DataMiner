@@ -22,7 +22,7 @@ int server() {
 
   responseToWakeUps.join();
   serv.join();
-  // ser.respondToWakeUp();
+
   return EXIT_SUCCESS;
 }
 
@@ -30,10 +30,11 @@ int router() {
   Router router;
   // TODO to check this method
   // router.fillGroupsTable("data/world-cup-2018.json");
-  router.sendWakeUpBroadcast();
   std::thread listenServers(&Router::listenForServers, router);
-  //TODO implement listen for clients
   std::thread listenClients(&Router::listenForClients, router);
+
+  router.sendWakeUpBroadcast();
+
   listenServers.join();
   listenClients.join();
   return EXIT_SUCCESS;

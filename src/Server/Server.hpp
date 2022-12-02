@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "common/Util.hpp"
+#include "common/common.hpp"
 #include "../Socket/Socket.hpp"
 #include "../ServerResponse/ServerResponse.hpp"
 

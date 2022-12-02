@@ -111,7 +111,7 @@ void Router::listenForClients() {
         std::cout << "ROUTER: Writing back to client ";
       } else {
         const char * errMessage = "HTTP/1.1 404 Not Found";
-        memcpy(buffer, errMessage, sizeof(&errMessage));
+        memcpy(buffer, errMessage, 52);
       }
       
       s2->Write(buffer);
@@ -143,10 +143,14 @@ void Router::listenForServers() {
       //TODO ADD VALIDATION TO CHECK IF THE MESSAGE CONTAINS `DEAD` WORD
       std::cout << "server up from: " << buffer << std::endl;
       std::vector<std::string> message = Util::split(buffer, "\t");
-      // TODO(?) validate if its null
-      if(!message.empty()){
+      // TODO(?) validate if its null and if it contains `dead` word
+      if(!message.empty() && message[PROTOCOL_INDEX_IP] != "DEAD" ){
         this->addServer(message[PROTOCOL_INDEX_IP],
                         message[PROTOCOL_INDEX_GROUP][0]);
+      } else {
+        std::cout << "Removing server from list: " 
+                  << message[PROTOCOL_INDEX_GROUP] << std::endl;
+        this->removeServer(message[PROTOCOL_INDEX_GROUP]);
       }
 
       std::cout << "Available Servers:" << std::endl;
@@ -164,7 +168,7 @@ void Router::sendWakeUpBroadcast() {
   int sockfd; 
   int n, len; 
   char buffer[MAXLINE]; 
-  char *hello = (char *) "192.168.100.57"; // QUE MENSAJE DEBE ENVIAR EL ROUTER CUANDO HACE UN BROADCAST, SU IP? CIERTO
+  char *hello = (char *) "127.0.0.1"; // QUE MENSAJE DEBE ENVIAR EL ROUTER CUANDO HACE UN BROADCAST, SU IP? CIERTO
   struct sockaddr_in other;
   std::vector<std::string> hosts = {"127.0.0.1","192.168.100.34"};
 
