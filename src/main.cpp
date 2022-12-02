@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <thread>         // std::thread
+#include <csignal>
 
 #include "Server/Server.hpp"
 #include "Client/Client.hpp"
@@ -48,6 +49,13 @@ int client() {
   return EXIT_SUCCESS;
 }
 
+void signalHandler(int signum) {
+  std::cout << "\n" << "Exited by user.\n";
+  // Kill main process and thread stack
+  kill(getpid(), SIGTERM);
+  exit(signum);
+}
+
 int main(int argc, char** argv) {
   std::string type = "";
 
@@ -57,6 +65,7 @@ int main(int argc, char** argv) {
     std::cout << "Invalid argument" << std::endl;
   }
 
+  signal(SIGINT, signalHandler);
   if (type.compare("server") == 0) {
     server();
   } else if (type.compare("client") == 0) {
