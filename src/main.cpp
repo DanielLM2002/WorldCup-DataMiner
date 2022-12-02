@@ -14,12 +14,15 @@
 #include "Client/Client.hpp"
 #include "Router/Router.hpp"
 
+Server * ser;
+
 int server() {
-  Server ser(9876);
+  // Server ser(9876);
+  ser = new Server(9876);
   std::thread serv(&Server::serve, ser);
   std::thread responseToWakeUps(&Server::listenForWakeUps, ser);
   
-  ser.sendWakeUpBroadcast();
+  ser->sendWakeUpBroadcast();
 
   responseToWakeUps.join();
   serv.join();
@@ -31,7 +34,7 @@ int router() {
   Router router;
   // TODO to check this method
   // /home/jorge/Documents/ucr/CI-0123-PI-SO-REDES/WorldCup-DataMiner/data/groups-world-cup-2018.json
-  router.fillGroupsTable("/home/jorge/Documents/ucr/CI-0123-PI-SO-REDES/WorldCup-DataMiner/data/groups-world-cup-2018.json");
+  router.fillGroupsTable("data/groups-world-cup-2018.json");
   router.addServer("127.0.0.0",'X');
   std::thread listenServers(&Router::listenForServers, router);
   std::thread listenClients(&Router::listenForClients, router);
@@ -51,6 +54,8 @@ int client() {
 
 void signalHandler(int signum) {
   std::cout << "\n" << "Exited by user.\n";
+  if(ser != nullptr)
+    ser->sendDeadBroadcast();
   // Kill main process and thread stack
   kill(getpid(), SIGTERM);
   exit(signum);

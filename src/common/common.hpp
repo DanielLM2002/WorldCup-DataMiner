@@ -28,6 +28,7 @@ typedef unsigned char byte;
 #define SERVER_PORT   2020
 #define SERVER_HOST_IP "127.0.0.1"
 #define SERVER_HTTP_PORT 9876
+#define SERVERD_DEAD_WORD "DEAD"
 
 #define ROUTER_PORT   2022
 #define ROUTER_HTTP_PORT 9877

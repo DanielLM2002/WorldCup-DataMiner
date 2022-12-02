@@ -52,6 +52,11 @@ class Server {
    */
   void sendWakeUpBroadcast();
 
+  /**
+   * @brief send the dead broadcast to routers
+   * 
+   */
+  void sendDeadBroadcast();
 };
 
 #endif  // !_SERVER_

@@ -133,3 +133,35 @@ void Server::sendWakeUpBroadcast() {
   }
   server->Close();
 }
+
+void Server::sendDeadBroadcast() {
+  Socket * server;
+  int sockfd; 
+  int n, len; 
+  char buffer[MAXLINE];
+  char *hello = (char *) SERVER_HOST_IP;
+  // here should be the gateway/broadcast ips
+  std::vector<std::string> hosts = {"127.0.0.1"};//THIS SHOULD BE a broadcast ip
+  std::stringstream messageBuilder;
+  messageBuilder << SERVERD_DEAD_WORD << SEPARATOR << SERVER_HOST_IP;
+  std::string broadcastMessage = messageBuilder.str();
+
+  server = new Socket( 'd' );	// Creates an UDP socket: datagram
+  //TODO CREATE A SOCKET METHOD to send a UDP broadcast message
+  //server->SendUdpBroadcast()
+
+  
+  struct sockaddr_in other;
+  memset( &other, 0, sizeof( other ) );
+
+  
+  other.sin_family = AF_INET; 
+  other.sin_port = htons(ROUTER_PORT); 
+  for (std::string host : hosts) {
+    // convertir la host ip 
+    inet_aton(host.c_str(),&(other.sin_addr));
+    n = server->sendTo( (void *) broadcastMessage.c_str(), broadcastMessage.size(), (void *) & other ); 
+    std::cout << "Broadcast sent "<< n <<" bytes to: " << host << std::endl; 
+  }
+  server->Close();
+}
